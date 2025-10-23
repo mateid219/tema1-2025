@@ -96,7 +96,6 @@ public class TestRunner {
         }
 
     }
-
     @Test
     public void testCheckstyle() throws CheckstyleException, IOException {
         File configFile = new File("src/test/resources/checkstyle/checkstyle.xml");
@@ -139,7 +138,6 @@ public class TestRunner {
             throw new CheckstyleException(checkstyleAuditListener.toString());
         }
     }
-
     @Test
     public void testGitCommits() throws GitAPIException, IOException {
         File repoDirectory = new File("./");
