@@ -3,7 +3,6 @@ package main;
 import com.fasterxml.jackson.databind.ObjectMapper;
 import com.fasterxml.jackson.databind.ObjectWriter;
 import com.fasterxml.jackson.databind.node.ArrayNode;
-import com.fasterxml.jackson.databind.node.ObjectNode;
 import fileio.InputLoader;
 
 import java.io.File;
@@ -49,12 +48,6 @@ public final class Main {
          * output.add(objectNode);
          *
          */
-        ObjectNode objectNode = MAPPER.createObjectNode();
-        objectNode.put("field_name", "field_value");
-        ArrayNode arrayNode = MAPPER.createArrayNode();
-        arrayNode.add(objectNode);
-        output.add(arrayNode);
-        output.add(objectNode);
         File outputFile = new File(outputPath);
         outputFile.getParentFile().mkdirs();
         WRITER.writeValue(outputFile, output);
