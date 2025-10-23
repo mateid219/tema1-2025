@@ -1,0 +1,41 @@
+[ {
+  "command" : "moveRobot",
+  "timestamp" : 1
+}, {
+  "command" : "startSimulation",
+  "message" : "Simulation has started.",
+  "timestamp" : 2
+}, {
+  "command" : "moveRobot",
+  "timestamp" : 3
+}, {
+  "command" : "moveRobot",
+  "timestamp" : 4
+}, {
+  "command" : "moveRobot",
+  "timestamp" : 5
+}, {
+  "command" : "moveRobot",
+  "timestamp" : 6
+}, {
+  "command" : "moveRobot",
+  "timestamp" : 7
+}, {
+  "command" : "moveRobot",
+  "timestamp" : 8
+}, {
+  "command" : "moveRobot",
+  "timestamp" : 9
+}, {
+  "command" : "moveRobot",
+  "timestamp" : 10
+}, {
+  "command" : "moveRobot",
+  "timestamp" : 11
+}, {
+  "command" : "endSimulation",
+  "timestamp" : 12
+}, {
+  "command" : "moveRobot",
+  "timestamp" : 13
+} ]

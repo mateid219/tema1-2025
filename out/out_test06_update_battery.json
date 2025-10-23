@@ -1,0 +1,38 @@
+[ {
+  "command" : "startSimulation",
+  "message" : "Simulation has started.",
+  "timestamp" : 1
+}, {
+  "command" : "moveRobot",
+  "timestamp" : 2
+}, {
+  "command" : "getEnergyStatus",
+  "timestamp" : 3
+}, {
+  "command" : "moveRobot",
+  "timestamp" : 4
+}, {
+  "command" : "printEnvConditions",
+  "timestamp" : 5
+}, {
+  "command" : "rechargeBattery",
+  "timestamp" : 6
+}, {
+  "command" : "getEnergyStatus",
+  "timestamp" : 16
+}, {
+  "command" : "moveRobot",
+  "timestamp" : 17
+}, {
+  "command" : "rechargeBattery",
+  "timestamp" : 18
+}, {
+  "command" : "getEnergyStatus",
+  "timestamp" : 24
+}, {
+  "command" : "printEnvConditions",
+  "timestamp" : 25
+}, {
+  "command" : "endSimulation",
+  "timestamp" : 26
+} ]

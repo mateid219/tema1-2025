@@ -16,5 +16,57 @@ public class SoilInput {
     private double rootDensity;
     private double salinity;
     private List<PairInput> sections;
+
+    public final String getType() {
+        return type;
+    }
+
+    public final String getName() {
+        return name;
+    }
+
+    public final double getMass() {
+        return mass;
+    }
+
+    public final double getNitrogen() {
+        return nitrogen;
+    }
+
+    public final double getWaterRetention() {
+        return waterRetention;
+    }
+
+    public final double getSoilpH() {
+        return soilpH;
+    }
+
+    public final double getLeafLitter() {
+        return leafLitter;
+    }
+
+    public final double getOrganicMatter() {
+        return organicMatter;
+    }
+
+    public final double getPermafrostDepth() {
+        return permafrostDepth;
+    }
+
+    public final double getRootDensity() {
+        return rootDensity;
+    }
+
+    public final double getSalinity() {
+        return salinity;
+    }
+
+    public final double getWaterLogging() {
+        return waterLogging;
+    }
+
+    public final List<PairInput> getSections() {
+        return sections;
+    }
 }
 

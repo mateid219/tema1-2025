@@ -1,0 +1,14 @@
+[ {
+  "command" : "startSimulation",
+  "message" : "Simulation has started.",
+  "timestamp" : 1
+}, {
+  "command" : "moveRobot",
+  "timestamp" : 2
+}, {
+  "command" : "moveRobot",
+  "timestamp" : 3
+}, {
+  "command" : "endSimulation",
+  "timestamp" : 4
+} ]

@@ -3,6 +3,8 @@ package main;
 import com.fasterxml.jackson.databind.ObjectMapper;
 import com.fasterxml.jackson.databind.ObjectWriter;
 import com.fasterxml.jackson.databind.node.ArrayNode;
+import com.fasterxml.jackson.databind.node.ObjectNode;
+import fileio.CommandInput;
 import fileio.InputLoader;
 
 import java.io.File;
@@ -30,7 +32,6 @@ public final class Main {
 
         InputLoader inputLoader = new InputLoader(inputPath);
         ArrayNode output = MAPPER.createArrayNode();
-
         /*
          * TODO Implement your function here
          *
@@ -48,6 +49,20 @@ public final class Main {
          * output.add(objectNode);
          *
          */
+        // int timeStamp = 0;
+        for (CommandInput command : inputLoader.getCommands()) {
+            // Process each command
+            ObjectNode commandResult = MAPPER.createObjectNode();
+            String commandName = command.getCommand();
+            commandResult.put("command", commandName);
+            if (commandName.equals("startSimulation")) {
+                commandResult.put("message", "Simulation has started.");
+            }
+            commandResult.put("timestamp", command.getTimestamp());
+            output.add(commandResult);
+            // ++ timeStamp;
+        }
+
         File outputFile = new File(outputPath);
         outputFile.getParentFile().mkdirs();
         WRITER.writeValue(outputFile, output);

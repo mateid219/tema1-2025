@@ -1,0 +1,26 @@
+[ {
+  "command" : "printMap",
+  "timestamp" : 1
+}, {
+  "command" : "printEnvConditions",
+  "timestamp" : 2
+}, {
+  "command" : "startSimulation",
+  "message" : "Simulation has started.",
+  "timestamp" : 3
+}, {
+  "command" : "printEnvConditions",
+  "timestamp" : 4
+}, {
+  "command" : "printMap",
+  "timestamp" : 5
+}, {
+  "command" : "endSimulation",
+  "timestamp" : 6
+}, {
+  "command" : "printEnvConditions",
+  "timestamp" : 7
+}, {
+  "command" : "printMap",
+  "timestamp" : 8
+} ]

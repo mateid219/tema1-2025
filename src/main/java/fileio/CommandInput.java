@@ -18,5 +18,61 @@ public class CommandInput {
     private int numberOfHikers;
     private String improvementType;
     private String name;
+
+    public final String getName() {
+        return name;
+    }
+
+    public final String getType() {
+        return type;
+    }
+
+    public final double getRainfall() {
+        return rainfall;
+    }
+
+    public final double getWindSpeed() {
+        return windSpeed;
+    }
+
+    public final int getNumberOfHikers() {
+        return numberOfHikers;
+    }
+
+    public final int getTimestamp() {
+        return timestamp;
+    }
+
+    public final int getTimeToCharge() {
+        return timeToCharge;
+    }
+
+    public final String getColor() {
+        return color;
+    }
+
+    public final String getCommand() {
+        return command;
+    }
+
+    public final String getComponents() {
+        return components;
+    }
+
+    public final String getDirection() {
+        return direction;
+    }
+
+    public final String getImprovementType() {
+        return improvementType;
+    }
+
+    public final String getSeason() {
+        return season;
+    }
+
+    public final String getSmell() {
+        return smell;
+    }
 }
 
