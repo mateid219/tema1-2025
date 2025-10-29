@@ -39,6 +39,11 @@
       "type" : "Omnivores",
       "name" : "Bear",
       "mass" : 300.0
+    },
+    "plants" : {
+      "type" : "FloweringPlants",
+      "name" : "Tulip",
+      "mass" : 0.5
     }
   },
   "timestamp" : 5
@@ -85,6 +90,11 @@
       "type" : "Omnivores",
       "name" : "Bear",
       "mass" : 300.0
+    },
+    "plants" : {
+      "type" : "FloweringPlants",
+      "name" : "Tulip",
+      "mass" : 0.5
     }
   },
   "timestamp" : 25

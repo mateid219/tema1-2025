@@ -30,6 +30,11 @@
       "type" : "Carnivores",
       "name" : "SnowLeopard",
       "mass" : 70.0
+    },
+    "plants" : {
+      "type" : "Algae",
+      "name" : "EmeraldAlgae",
+      "mass" : 0.4
     }
   },
   "timestamp" : 2
