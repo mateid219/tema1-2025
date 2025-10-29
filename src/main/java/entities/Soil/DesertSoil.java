@@ -23,8 +23,8 @@ public final class DesertSoil extends Soil {
      * @return score
      */
     public double calculateScore() {
-        double nitrogenScore = getNitrogen() * NITROGEN_COEF;
-        double waterRetentionScore = getWaterRetention() * RETENTION_COEF;
+        double nitrogenScore = nitrogen * NITROGEN_COEF;
+        double waterRetentionScore = waterRetention * RETENTION_COEF;
         double salinityScore = salinity * SALINITY_COEF;
         return nitrogenScore + waterRetentionScore - salinityScore;
     }

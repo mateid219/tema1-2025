@@ -7,13 +7,11 @@ import lombok.Setter;
 import java.util.ArrayList;
 
 public class SoilArrayList {
-    @Getter @Setter ArrayList<Soil> soilArrayList;
+    @Getter @Setter private ArrayList<Soil> soilArrayList;
 
-    public SoilArrayList() {
+    public SoilArrayList() { }
+    public SoilArrayList(final ArrayList<SoilInput> soilInputArrayList) {
         soilArrayList = new ArrayList<Soil>();
-    }
-    public SoilArrayList(ArrayList<SoilInput> soilInputArrayList) {
-        this();
         for (SoilInput soilInput : soilInputArrayList) {
             Soil soil = null;
             switch (soilInput.getType()) {

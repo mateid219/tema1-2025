@@ -3,6 +3,7 @@
   "message" : "ERROR: Simulation not started. Cannot perform action",
   "output" : {
     "soil" : {
+      "type" : "ForestSoil",
       "name" : "DarkHumus",
       "mass" : 1200.0,
       "nitrogen" : 3.0,
@@ -11,6 +12,16 @@
       "organicMatter" : 0.35,
       "soilQuality" : 5.59,
       "leafLitter" : 0.3
+    },
+    "air" : {
+      "type" : "MountainAir",
+      "name" : "Highland Breeze",
+      "mass" : 880000.0,
+      "humidity" : 45.0,
+      "temperature" : 10.0,
+      "oxygenLevel" : 22.0,
+      "airQuality" : 68.4,
+      "altitude" : 2600.0
     }
   },
   "timestamp" : 1
@@ -22,6 +33,7 @@
   "command" : "printEnvConditions",
   "output" : {
     "soil" : {
+      "type" : "ForestSoil",
       "name" : "DarkHumus",
       "mass" : 1200.0,
       "nitrogen" : 3.0,
@@ -30,6 +42,16 @@
       "organicMatter" : 0.35,
       "soilQuality" : 5.59,
       "leafLitter" : 0.3
+    },
+    "air" : {
+      "type" : "MountainAir",
+      "name" : "Highland Breeze",
+      "mass" : 880000.0,
+      "humidity" : 45.0,
+      "temperature" : 10.0,
+      "oxygenLevel" : 22.0,
+      "airQuality" : 68.4,
+      "altitude" : 2600.0
     }
   },
   "timestamp" : 3
@@ -49,6 +71,7 @@
   "command" : "printEnvConditions",
   "output" : {
     "soil" : {
+      "type" : "ForestSoil",
       "name" : "DarkHumus",
       "mass" : 1200.0,
       "nitrogen" : 3.0,
@@ -57,6 +80,16 @@
       "organicMatter" : 0.35,
       "soilQuality" : 5.59,
       "leafLitter" : 0.3
+    },
+    "air" : {
+      "type" : "MountainAir",
+      "name" : "Highland Breeze",
+      "mass" : 880000.0,
+      "humidity" : 45.0,
+      "temperature" : 10.0,
+      "oxygenLevel" : 22.0,
+      "airQuality" : 68.4,
+      "altitude" : 2600.0
     }
   },
   "timestamp" : 8

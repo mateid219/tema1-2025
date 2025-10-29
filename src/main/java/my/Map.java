@@ -1,5 +1,9 @@
 package my;
 
+import entities.Air.Air;
+import entities.Air.AirArrayList;
+import entities.Animals.Animal;
+import entities.Animals.AnimalArrayList;
 import entities.Soil.Soil;
 import entities.Soil.SoilArrayList;
 import fileio.PairInput;
@@ -35,6 +39,25 @@ public final class Map {
                 int x = section.getX();
                 int y = section.getY();
                 map[x][y].setSoil(soil);
+            }
+        }
+        AirArrayList airArrayList = territorySectionParams.getAir();
+        for (Air air : airArrayList.getAirArrayList()) {
+            ArrayList<PairInput> sections = air.getSections();
+            for (PairInput section : sections) {
+                int x = section.getX();
+                int y = section.getY();
+                map[x][y].setAir(air);
+            }
+        }
+
+        AnimalArrayList animalArrayList = territorySectionParams.getAnimals();
+        for (Animal animal : animalArrayList.getAnimalArrayList()) {
+            ArrayList<PairInput> sections = animal.getSections();
+            for (PairInput section : sections) {
+                int x = section.getX();
+                int y = section.getY();
+                map[x][y].setAnimal(animal);
             }
         }
     }

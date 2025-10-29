@@ -25,9 +25,9 @@ public final class ForestSoil extends Soil {
      * @return score
      */
     public double calculateScore() {
-        double nitrogenScore = getNitrogen() * NITROGEN_COEF;
-        double waterRetentionScore = getWaterRetention() * RETENTION_COEF;
-        double organicMatterScore = getOrganicMatter() * MATTER_COEF;
+        double nitrogenScore = nitrogen * NITROGEN_COEF;
+        double waterRetentionScore = waterRetention * RETENTION_COEF;
+        double organicMatterScore = organicMatter * MATTER_COEF;
         double leafLitterScore = leafLitter * LITTER_COEF;
         return nitrogenScore + organicMatterScore + waterRetentionScore + leafLitterScore;
     }

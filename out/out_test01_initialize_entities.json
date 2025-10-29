@@ -6,6 +6,7 @@
   "command" : "printEnvConditions",
   "output" : {
     "soil" : {
+      "type" : "SwampSoil",
       "name" : "WetPeat",
       "mass" : 1050.0,
       "nitrogen" : 1.6,
@@ -14,6 +15,21 @@
       "organicMatter" : 1.6,
       "soilQuality" : 4.78,
       "waterLogging" : 0.1
+    },
+    "air" : {
+      "type" : "MountainAir",
+      "name" : "High Altitude Breeze",
+      "mass" : 820000.0,
+      "humidity" : 40.0,
+      "temperature" : 5.0,
+      "oxygenLevel" : 17.0,
+      "airQuality" : 54.0,
+      "altitude" : 4000.0
+    },
+    "animals" : {
+      "type" : "Carnivores",
+      "name" : "SnowLeopard",
+      "mass" : 70.0
     }
   },
   "timestamp" : 2

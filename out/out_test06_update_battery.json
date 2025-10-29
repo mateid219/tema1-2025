@@ -15,6 +15,7 @@
   "command" : "printEnvConditions",
   "output" : {
     "soil" : {
+      "type" : "TundraSoil",
       "name" : "ArcticTundraSoil",
       "mass" : 800.0,
       "nitrogen" : 0.9,
@@ -23,6 +24,21 @@
       "organicMatter" : 0.05,
       "soilQuality" : 0.0,
       "permafrostDepth" : 6.0
+    },
+    "air" : {
+      "type" : "TemperateAir",
+      "name" : "Spring Air",
+      "mass" : 900000.0,
+      "humidity" : 60.0,
+      "temperature" : 15.0,
+      "oxygenLevel" : 20.0,
+      "airQuality" : 80.9,
+      "pollenLevel" : 11.0
+    },
+    "animals" : {
+      "type" : "Omnivores",
+      "name" : "Bear",
+      "mass" : 300.0
     }
   },
   "timestamp" : 5
@@ -45,6 +61,7 @@
   "command" : "printEnvConditions",
   "output" : {
     "soil" : {
+      "type" : "TundraSoil",
       "name" : "ArcticTundraSoil",
       "mass" : 800.0,
       "nitrogen" : 0.9,
@@ -53,6 +70,21 @@
       "organicMatter" : 0.05,
       "soilQuality" : 0.0,
       "permafrostDepth" : 6.0
+    },
+    "air" : {
+      "type" : "TemperateAir",
+      "name" : "Spring Air",
+      "mass" : 900000.0,
+      "humidity" : 60.0,
+      "temperature" : 15.0,
+      "oxygenLevel" : 20.0,
+      "airQuality" : 80.9,
+      "pollenLevel" : 11.0
+    },
+    "animals" : {
+      "type" : "Omnivores",
+      "name" : "Bear",
+      "mass" : 300.0
     }
   },
   "timestamp" : 25

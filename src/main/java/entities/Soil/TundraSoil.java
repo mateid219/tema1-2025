@@ -23,8 +23,8 @@ public final class TundraSoil extends Soil {
      * @return score
      */
     public double calculateScore() {
-        double nitrogenScore = getNitrogen() * NITROGEN_COEF;
-        double organicMatterScore = getOrganicMatter() * MATTER_COEF;
+        double nitrogenScore = nitrogen * NITROGEN_COEF;
+        double organicMatterScore = organicMatter * MATTER_COEF;
         double permafrostDepthScore = permafrostDepth * PERMAFROST_COEF;
         return nitrogenScore + organicMatterScore - permafrostDepthScore;
     }

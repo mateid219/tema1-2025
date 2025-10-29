@@ -9,6 +9,7 @@
   "command" : "printEnvConditions",
   "output" : {
     "soil" : {
+      "type" : "TundraSoil",
       "name" : "ArcticTundraSoil",
       "mass" : 800.0,
       "nitrogen" : 0.9,
@@ -17,6 +18,21 @@
       "organicMatter" : 0.05,
       "soilQuality" : 0.0,
       "permafrostDepth" : 6.0
+    },
+    "air" : {
+      "type" : "TropicalAir",
+      "name" : "Humid Tropical Air",
+      "mass" : 950000.0,
+      "humidity" : 85.0,
+      "temperature" : 30.0,
+      "oxygenLevel" : 21.0,
+      "airQuality" : 84.5,
+      "co2Level" : 0.04
+    },
+    "animals" : {
+      "type" : "Omnivores",
+      "name" : "Bear",
+      "mass" : 300.0
     }
   },
   "timestamp" : 3
@@ -33,6 +49,7 @@
   "command" : "printEnvConditions",
   "output" : {
     "soil" : {
+      "type" : "TundraSoil",
       "name" : "ArcticTundraSoil",
       "mass" : 800.0,
       "nitrogen" : 0.9,
@@ -41,6 +58,21 @@
       "organicMatter" : 0.05,
       "soilQuality" : 0.0,
       "permafrostDepth" : 6.0
+    },
+    "air" : {
+      "type" : "TropicalAir",
+      "name" : "Humid Tropical Air",
+      "mass" : 950000.0,
+      "humidity" : 85.0,
+      "temperature" : 30.0,
+      "oxygenLevel" : 21.0,
+      "airQuality" : 84.5,
+      "co2Level" : 0.04
+    },
+    "animals" : {
+      "type" : "Omnivores",
+      "name" : "Bear",
+      "mass" : 300.0
     }
   },
   "timestamp" : 7
@@ -63,6 +95,7 @@
   "command" : "printEnvConditions",
   "output" : {
     "soil" : {
+      "type" : "TundraSoil",
       "name" : "ArcticTundraSoil",
       "mass" : 800.0,
       "nitrogen" : 0.9,
@@ -71,6 +104,21 @@
       "organicMatter" : 0.05,
       "soilQuality" : 0.0,
       "permafrostDepth" : 6.0
+    },
+    "air" : {
+      "type" : "TropicalAir",
+      "name" : "Humid Tropical Air",
+      "mass" : 950000.0,
+      "humidity" : 85.0,
+      "temperature" : 30.0,
+      "oxygenLevel" : 21.0,
+      "airQuality" : 84.5,
+      "co2Level" : 0.04
+    },
+    "animals" : {
+      "type" : "Omnivores",
+      "name" : "Bear",
+      "mass" : 300.0
     }
   },
   "timestamp" : 13

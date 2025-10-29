@@ -20,7 +20,7 @@ public final class DebugCommand extends Command {
     public DebugCommand(final CommandInput commandInput) {
         super(commandInput);
     }
-    public void execute(Simulation simulation) {
+    public void execute(final Simulation simulation) {
         if (!simulation.isStarted()) {
             super.setMessage("ERROR: Simulation not started. Cannot perform action");
         }

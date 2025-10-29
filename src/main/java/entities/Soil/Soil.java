@@ -1,7 +1,7 @@
 package entities.Soil;
 
 import com.fasterxml.jackson.databind.node.ObjectNode;
-import entities.Entity;
+import entities.QualitativeEntity;
 import fileio.PairInput;
 import fileio.SoilInput;
 import lombok.Getter;
@@ -16,47 +16,25 @@ import java.util.List;
  * <p>This class is designed for extension. Subclasses should ensure they
  * properly handle the entity output building process when overriding methods.
  */
-public abstract class Soil extends Entity {
-    @Getter @Setter private String type;
-    @Getter @Setter private double nitrogen;
-    @Getter @Setter private double waterRetention;
-    @Getter @Setter private double soilpH;
-    @Getter @Setter private double organicMatter;
-    @Getter @Setter private ArrayList<PairInput> sections;
+public abstract class Soil extends QualitativeEntity {
+    @Getter @Setter protected double nitrogen;
+    @Getter @Setter protected double waterRetention;
+    @Getter @Setter protected double soilpH;
+    @Getter @Setter protected double organicMatter;
 
-
-    private static final double MAX_PERCENTAGE = 100.0;
-    private static final double GOOD_THRESHOLD = 70.0;
-    private static final double MODERATE_THRESHOLD = 40.0;
 
     public Soil() { }
     public Soil(final SoilInput soilInput) {
-        super.setName(soilInput.getName());
-        super.setMass(soilInput.getMass());
+        name = soilInput.getName();
         type = soilInput.getType();
+        mass = soilInput.getMass();
+        List<PairInput> sectionsList = soilInput.getSections();
+        sections = new ArrayList<>(sectionsList);
+
         nitrogen = soilInput.getNitrogen();
         waterRetention = soilInput.getWaterRetention();
         soilpH = soilInput.getSoilpH();
         organicMatter = soilInput.getOrganicMatter();
-        List<PairInput> sectionsList = soilInput.getSections();
-        sections = new ArrayList<>(sectionsList);
-    }
-    abstract double calculateScore();
-
-    public final double calculateFinalScore() {
-        double score = calculateScore();
-        double normalizeScore = Math.max(0, Math.min(MAX_PERCENTAGE, score));
-        return Math.round(normalizeScore * MAX_PERCENTAGE) / MAX_PERCENTAGE;
-    }
-    public final String interpretSoilQuality() {
-        double finalScore = calculateFinalScore();
-        if (finalScore >= GOOD_THRESHOLD) {
-            return "good";
-        }
-        if (finalScore >= MODERATE_THRESHOLD) {
-            return "moderate";
-        }
-        return "poor";
     }
     /**
      * Builds the entity output representation.
