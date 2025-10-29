@@ -1,4 +1,65 @@
 [ {
-  "width" : 5,
-  "height" : "field2"
+  "command" : "printMap",
+  "message" : "ERROR: Simulation not started. Cannot perform action",
+  "timestamp" : 1
+}, {
+  "command" : "printEnvConditions",
+  "message" : "ERROR: Simulation not started. Cannot perform action",
+  "output" : {
+    "soil" : {
+      "name" : "LightForestSoil",
+      "mass" : 900.0,
+      "nitrogen" : 2.6,
+      "waterRetention" : 0.8,
+      "soilpH" : 5.3,
+      "organicMatter" : 0.4,
+      "soilQuality" : 5.58,
+      "leafLitter" : 0.2
+    }
+  },
+  "timestamp" : 2
+}, {
+  "command" : "startSimulation",
+  "message" : "Simulation has started.",
+  "timestamp" : 3
+}, {
+  "command" : "printEnvConditions",
+  "output" : {
+    "soil" : {
+      "name" : "LightForestSoil",
+      "mass" : 900.0,
+      "nitrogen" : 2.6,
+      "waterRetention" : 0.8,
+      "soilpH" : 5.3,
+      "organicMatter" : 0.4,
+      "soilQuality" : 5.58,
+      "leafLitter" : 0.2
+    }
+  },
+  "timestamp" : 4
+}, {
+  "command" : "printMap",
+  "timestamp" : 5
+}, {
+  "command" : "endSimulation",
+  "message" : "Simulation has ended.",
+  "timestamp" : 6
+}, {
+  "command" : "printEnvConditions",
+  "output" : {
+    "soil" : {
+      "name" : "LightForestSoil",
+      "mass" : 900.0,
+      "nitrogen" : 2.6,
+      "waterRetention" : 0.8,
+      "soilpH" : 5.3,
+      "organicMatter" : 0.4,
+      "soilQuality" : 5.58,
+      "leafLitter" : 0.2
+    }
+  },
+  "timestamp" : 7
+}, {
+  "command" : "printMap",
+  "timestamp" : 8
 } ]

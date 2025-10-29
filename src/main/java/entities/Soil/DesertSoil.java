@@ -14,7 +14,7 @@ public final class DesertSoil extends Soil {
 
     public DesertSoil() { }
     public DesertSoil(final SoilInput soilInput) {
-        super();
+        super(soilInput);
         salinity = soilInput.getSalinity();
     }
 

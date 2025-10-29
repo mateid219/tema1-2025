@@ -1,4 +1,27 @@
 [ {
-  "width" : 5,
-  "height" : "field2"
+  "command" : "startSimulation",
+  "message" : "Simulation has started.",
+  "timestamp" : 1
+}, {
+  "command" : "printEnvConditions",
+  "output" : {
+    "soil" : {
+      "name" : "WetPeat",
+      "mass" : 1050.0,
+      "nitrogen" : 1.6,
+      "waterRetention" : 0.8,
+      "soilpH" : 6.2,
+      "organicMatter" : 1.6,
+      "soilQuality" : 4.78,
+      "waterLogging" : 0.1
+    }
+  },
+  "timestamp" : 2
+}, {
+  "command" : "printMap",
+  "timestamp" : 3
+}, {
+  "command" : "endSimulation",
+  "message" : "Simulation has ended.",
+  "timestamp" : 4
 } ]

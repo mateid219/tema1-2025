@@ -1,4 +1,4 @@
-package my_classes;
+package my;
 
 import fileio.SimulationInput;
 import lombok.Getter;
@@ -6,13 +6,13 @@ import lombok.Setter;
 
 import java.util.ArrayList;
 
-public class Simulations {
+public class SimulationArrayList {
     @Getter @Setter private ArrayList<Simulation> simulations;
 
-    public Simulations() {
+    public SimulationArrayList() {
         simulations = new ArrayList<Simulation>();
     }
-    public Simulations(ArrayList<SimulationInput> simulationInputs) {
+    public SimulationArrayList(final ArrayList<SimulationInput> simulationInputs) {
         this();
         for (SimulationInput simulationInput : simulationInputs) {
             Simulation simulation = new Simulation(simulationInput);

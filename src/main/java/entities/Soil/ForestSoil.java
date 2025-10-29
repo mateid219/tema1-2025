@@ -16,7 +16,7 @@ public final class ForestSoil extends Soil {
 
     public ForestSoil() { }
     public ForestSoil(final SoilInput soilInput) {
-        super();
+        super(soilInput);
         leafLitter = soilInput.getLeafLitter();
     }
 

@@ -14,7 +14,7 @@ public final class SwampSoil extends Soil {
 
     public SwampSoil() { }
     public SwampSoil(final SoilInput soilInput) {
-        super();
+        super(soilInput);
         waterLogging = soilInput.getWaterLogging();
     }
 

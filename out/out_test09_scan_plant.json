@@ -1,4 +1,81 @@
 [ {
-  "width" : 5,
-  "height" : "field2"
+  "command" : "startSimulation",
+  "message" : "Simulation has started.",
+  "timestamp" : 1
+}, {
+  "command" : "scanObject",
+  "timestamp" : 2
+}, {
+  "command" : "printEnvConditions",
+  "output" : {
+    "soil" : {
+      "name" : "ArcticTundraSoil",
+      "mass" : 800.0,
+      "nitrogen" : 0.9,
+      "waterRetention" : 0.3,
+      "soilpH" : 7.5,
+      "organicMatter" : 0.05,
+      "soilQuality" : 0.0,
+      "permafrostDepth" : 6.0
+    }
+  },
+  "timestamp" : 3
+}, {
+  "command" : "moveRobot",
+  "timestamp" : 4
+}, {
+  "command" : "getEnergyStatus",
+  "timestamp" : 5
+}, {
+  "command" : "moveRobot",
+  "timestamp" : 6
+}, {
+  "command" : "printEnvConditions",
+  "output" : {
+    "soil" : {
+      "name" : "ArcticTundraSoil",
+      "mass" : 800.0,
+      "nitrogen" : 0.9,
+      "waterRetention" : 0.3,
+      "soilpH" : 7.5,
+      "organicMatter" : 0.05,
+      "soilQuality" : 0.0,
+      "permafrostDepth" : 6.0
+    }
+  },
+  "timestamp" : 7
+}, {
+  "command" : "moveRobot",
+  "timestamp" : 8
+}, {
+  "command" : "moveRobot",
+  "timestamp" : 9
+}, {
+  "command" : "getEnergyStatus",
+  "timestamp" : 10
+}, {
+  "command" : "moveRobot",
+  "timestamp" : 11
+}, {
+  "command" : "moveRobot",
+  "timestamp" : 12
+}, {
+  "command" : "printEnvConditions",
+  "output" : {
+    "soil" : {
+      "name" : "ArcticTundraSoil",
+      "mass" : 800.0,
+      "nitrogen" : 0.9,
+      "waterRetention" : 0.3,
+      "soilpH" : 7.5,
+      "organicMatter" : 0.05,
+      "soilQuality" : 0.0,
+      "permafrostDepth" : 6.0
+    }
+  },
+  "timestamp" : 13
+}, {
+  "command" : "endSimulation",
+  "message" : "Simulation has ended.",
+  "timestamp" : 14
 } ]

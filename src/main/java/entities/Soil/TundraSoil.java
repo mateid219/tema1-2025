@@ -14,7 +14,7 @@ public final class TundraSoil extends Soil {
 
     public TundraSoil() { }
     public TundraSoil(final SoilInput soilInput) {
-        super();
+        super(soilInput);
         permafrostDepth = soilInput.getPermafrostDepth();
     }
 

@@ -7,6 +7,7 @@ import fileio.SoilInput;
 import lombok.Getter;
 import lombok.Setter;
 
+import java.util.ArrayList;
 import java.util.List;
 
 /**
@@ -21,7 +22,7 @@ public abstract class Soil extends Entity {
     @Getter @Setter private double waterRetention;
     @Getter @Setter private double soilpH;
     @Getter @Setter private double organicMatter;
-    @Getter @Setter private List<PairInput> sections;
+    @Getter @Setter private ArrayList<PairInput> sections;
 
 
     private static final double MAX_PERCENTAGE = 100.0;
@@ -30,12 +31,15 @@ public abstract class Soil extends Entity {
 
     public Soil() { }
     public Soil(final SoilInput soilInput) {
+        super.setName(soilInput.getName());
+        super.setMass(soilInput.getMass());
         type = soilInput.getType();
         nitrogen = soilInput.getNitrogen();
         waterRetention = soilInput.getWaterRetention();
         soilpH = soilInput.getSoilpH();
         organicMatter = soilInput.getOrganicMatter();
-        sections = soilInput.getSections();
+        List<PairInput> sectionsList = soilInput.getSections();
+        sections = new ArrayList<>(sectionsList);
     }
     abstract double calculateScore();
 

@@ -15,7 +15,7 @@ public final class GrasslandSoil extends Soil {
 
     public GrasslandSoil() { }
     public GrasslandSoil(final SoilInput soilInput) {
-        super();
+        super(soilInput);
         rootDensity = soilInput.getRootDensity();
     }
 

@@ -1,4 +1,76 @@
 [ {
-  "width" : 5,
-  "height" : "field2"
+  "command" : "getEnergyStatus",
+  "message" : "ERROR: Simulation not started. Cannot perform action",
+  "timestamp" : 1
+}, {
+  "command" : "startSimulation",
+  "message" : "Simulation has started.",
+  "timestamp" : 2
+}, {
+  "command" : "moveRobot",
+  "timestamp" : 3
+}, {
+  "command" : "moveRobot",
+  "timestamp" : 4
+}, {
+  "command" : "moveRobot",
+  "timestamp" : 5
+}, {
+  "command" : "getEnergyStatus",
+  "timestamp" : 6
+}, {
+  "command" : "rechargeBattery",
+  "timestamp" : 7
+}, {
+  "command" : "getEnergyStatus",
+  "timestamp" : 8
+}, {
+  "command" : "printEnvConditions",
+  "output" : {
+    "soil" : {
+      "name" : "LightForestSoil",
+      "mass" : 1000.0,
+      "nitrogen" : 2.5,
+      "waterRetention" : 0.5,
+      "soilpH" : 6.7,
+      "organicMatter" : 0.3,
+      "soilQuality" : 4.66,
+      "leafLitter" : 0.2
+    }
+  },
+  "timestamp" : 9
+}, {
+  "command" : "moveRobot",
+  "timestamp" : 10
+}, {
+  "command" : "getEnergyStatus",
+  "timestamp" : 17
+}, {
+  "command" : "moveRobot",
+  "timestamp" : 18
+}, {
+  "command" : "rechargeBattery",
+  "timestamp" : 19
+}, {
+  "command" : "rechargeBattery",
+  "timestamp" : 20
+}, {
+  "command" : "printEnvConditions",
+  "output" : {
+    "soil" : {
+      "name" : "LightForestSoil",
+      "mass" : 1000.0,
+      "nitrogen" : 2.5,
+      "waterRetention" : 0.5,
+      "soilpH" : 6.7,
+      "organicMatter" : 0.3,
+      "soilQuality" : 4.66,
+      "leafLitter" : 0.2
+    }
+  },
+  "timestamp" : 21
+}, {
+  "command" : "endSimulation",
+  "message" : "Simulation has ended.",
+  "timestamp" : 22
 } ]

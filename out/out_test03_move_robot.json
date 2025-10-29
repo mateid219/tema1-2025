@@ -1,4 +1,15 @@
 [ {
-  "width" : 3,
-  "height" : "field2"
+  "command" : "startSimulation",
+  "message" : "Simulation has started.",
+  "timestamp" : 1
+}, {
+  "command" : "moveRobot",
+  "timestamp" : 2
+}, {
+  "command" : "moveRobot",
+  "timestamp" : 3
+}, {
+  "command" : "endSimulation",
+  "message" : "Simulation has ended.",
+  "timestamp" : 4
 } ]

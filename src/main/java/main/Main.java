@@ -4,12 +4,16 @@ import com.fasterxml.jackson.databind.ObjectMapper;
 import com.fasterxml.jackson.databind.ObjectWriter;
 import com.fasterxml.jackson.databind.node.ArrayNode;
 import com.fasterxml.jackson.databind.node.ObjectNode;
+import commands.Command;
+import commands.CommandArrayList;
 import fileio.InputLoader;
-import my_classes.Simulation;
-import my_classes.Simulations;
+import fileio.SimulationInput;
+import my.Simulation;
+import my.SimulationArrayList;
 
 import java.io.File;
 import java.io.IOException;
+import java.util.ArrayList;
 
 /**
  * The entry point to this homework. It runs the checker that tests your implementation.
@@ -51,16 +55,24 @@ public final class Main {
          *
          */
         // int timeStamp = 0;
-        Simulations simulations = new Simulations(inputLoader.getSimulations());
-        ObjectNode objectNode = MAPPER.createObjectNode();
-        Simulation sim = simulations.getSimulations().getFirst();
-        int height = sim.getHeight();
-        int width = sim.getWidth();
-        objectNode.put("width", width);
-        objectNode.put("height", "field2");
-        ArrayNode arrayNode = MAPPER.createArrayNode();
-        arrayNode.add(objectNode);
-        output.add(objectNode);
+        ArrayList<SimulationInput> simulationInputArrayList = inputLoader.getSimulations();
+        SimulationArrayList simulationArrayList = new SimulationArrayList(simulationInputArrayList);
+        CommandArrayList commandArrayList = new CommandArrayList(inputLoader.getCommands());
+        ArrayList<Command> commands = commandArrayList.getCommands();
+        Simulation simulation = simulationArrayList.getSimulations().getFirst();
+
+        ObjectNode debugNode = MAPPER.createObjectNode();
+        int simulationIndex = 0;
+        for (Command command : commands) {
+            simulation = simulationArrayList.getSimulations().get(simulationIndex);
+            command.execute(simulation);
+            if (simulation.isEnded()) {
+                ++simulationIndex;
+            }
+            ObjectNode objectNode = command.buildCommandOutput();
+            output.add(objectNode);
+        }
+       // output.add(debugNode);
 
         File outputFile = new File(outputPath);
         outputFile.getParentFile().mkdirs();

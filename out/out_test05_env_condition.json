@@ -1,4 +1,67 @@
 [ {
-  "width" : 4,
-  "height" : "field2"
+  "command" : "printEnvConditions",
+  "message" : "ERROR: Simulation not started. Cannot perform action",
+  "output" : {
+    "soil" : {
+      "name" : "DarkHumus",
+      "mass" : 1200.0,
+      "nitrogen" : 3.0,
+      "waterRetention" : 0.6,
+      "soilpH" : 6.2,
+      "organicMatter" : 0.35,
+      "soilQuality" : 5.59,
+      "leafLitter" : 0.3
+    }
+  },
+  "timestamp" : 1
+}, {
+  "command" : "startSimulation",
+  "message" : "Simulation has started.",
+  "timestamp" : 2
+}, {
+  "command" : "printEnvConditions",
+  "output" : {
+    "soil" : {
+      "name" : "DarkHumus",
+      "mass" : 1200.0,
+      "nitrogen" : 3.0,
+      "waterRetention" : 0.6,
+      "soilpH" : 6.2,
+      "organicMatter" : 0.35,
+      "soilQuality" : 5.59,
+      "leafLitter" : 0.3
+    }
+  },
+  "timestamp" : 3
+}, {
+  "command" : "moveRobot",
+  "timestamp" : 4
+}, {
+  "command" : "moveRobot",
+  "timestamp" : 5
+}, {
+  "command" : "moveRobot",
+  "timestamp" : 6
+}, {
+  "command" : "moveRobot",
+  "timestamp" : 7
+}, {
+  "command" : "printEnvConditions",
+  "output" : {
+    "soil" : {
+      "name" : "DarkHumus",
+      "mass" : 1200.0,
+      "nitrogen" : 3.0,
+      "waterRetention" : 0.6,
+      "soilpH" : 6.2,
+      "organicMatter" : 0.35,
+      "soilQuality" : 5.59,
+      "leafLitter" : 0.3
+    }
+  },
+  "timestamp" : 8
+}, {
+  "command" : "endSimulation",
+  "message" : "Simulation has ended.",
+  "timestamp" : 9
 } ]
