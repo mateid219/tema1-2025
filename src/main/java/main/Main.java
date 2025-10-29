@@ -4,8 +4,9 @@ import com.fasterxml.jackson.databind.ObjectMapper;
 import com.fasterxml.jackson.databind.ObjectWriter;
 import com.fasterxml.jackson.databind.node.ArrayNode;
 import com.fasterxml.jackson.databind.node.ObjectNode;
-import fileio.CommandInput;
 import fileio.InputLoader;
+import my_classes.Simulation;
+import my_classes.Simulations;
 
 import java.io.File;
 import java.io.IOException;
@@ -50,18 +51,16 @@ public final class Main {
          *
          */
         // int timeStamp = 0;
-        for (CommandInput command : inputLoader.getCommands()) {
-            // Process each command
-            ObjectNode commandResult = MAPPER.createObjectNode();
-            String commandName = command.getCommand();
-            commandResult.put("command", commandName);
-            if (commandName.equals("startSimulation")) {
-                commandResult.put("message", "Simulation has started.");
-            }
-            commandResult.put("timestamp", command.getTimestamp());
-            output.add(commandResult);
-            // ++ timeStamp;
-        }
+        Simulations simulations = new Simulations(inputLoader.getSimulations());
+        ObjectNode objectNode = MAPPER.createObjectNode();
+        Simulation sim = simulations.getSimulations().getFirst();
+        int height = sim.getHeight();
+        int width = sim.getWidth();
+        objectNode.put("width", width);
+        objectNode.put("height", "field2");
+        ArrayNode arrayNode = MAPPER.createArrayNode();
+        arrayNode.add(objectNode);
+        output.add(objectNode);
 
         File outputFile = new File(outputPath);
         outputFile.getParentFile().mkdirs();

@@ -1,29 +1,4 @@
 [ {
-  "command" : "printEnvConditions",
-  "timestamp" : 1
-}, {
-  "command" : "startSimulation",
-  "message" : "Simulation has started.",
-  "timestamp" : 2
-}, {
-  "command" : "printEnvConditions",
-  "timestamp" : 3
-}, {
-  "command" : "moveRobot",
-  "timestamp" : 4
-}, {
-  "command" : "moveRobot",
-  "timestamp" : 5
-}, {
-  "command" : "moveRobot",
-  "timestamp" : 6
-}, {
-  "command" : "moveRobot",
-  "timestamp" : 7
-}, {
-  "command" : "printEnvConditions",
-  "timestamp" : 8
-}, {
-  "command" : "endSimulation",
-  "timestamp" : 9
+  "width" : 4,
+  "height" : "field2"
 } ]

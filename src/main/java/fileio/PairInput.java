@@ -1,14 +1,8 @@
 package fileio;
 
+import lombok.Getter;
+
 public class PairInput {
-    private int x;
-    private int y;
-
-    public final int getX() {
-        return x;
-    }
-
-    public final int getY() {
-        return y;
-    }
+    @Getter private int x;
+    @Getter private int y;
 }

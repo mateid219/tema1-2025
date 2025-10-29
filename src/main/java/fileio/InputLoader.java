@@ -1,6 +1,8 @@
 package fileio;
 
 import com.fasterxml.jackson.databind.ObjectMapper;
+import lombok.Getter;
+
 import java.io.File;
 import java.io.IOException;
 import java.util.ArrayList;
@@ -11,8 +13,8 @@ import java.util.List;
  * Students should implement deeper parsing themselves.
  */
 public class InputLoader {
-    private ArrayList<SimulationInput> simulations;
-    private ArrayList<CommandInput> commands;
+    @Getter private ArrayList<SimulationInput> simulations;
+    @Getter private ArrayList<CommandInput> commands;
 
     public InputLoader(String filePath) throws IOException {
         ObjectMapper mapper = new ObjectMapper();
@@ -20,15 +22,6 @@ public class InputLoader {
         this.simulations = new ArrayList<>(root.simulationParams);
         this.commands = new ArrayList<>(root.commands);
     }
-
-    public ArrayList<SimulationInput> getSimulations() {
-        return simulations;
-    }
-
-    public ArrayList<CommandInput> getCommands() {
-        return commands;
-    }
-
     // Helper class for root deserialization
     public static class InputRoot {
         public List<SimulationInput> simulationParams;

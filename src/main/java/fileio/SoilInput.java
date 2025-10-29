@@ -1,72 +1,22 @@
 package fileio;
 
+import lombok.Getter;
+
 import java.util.List;
 
 public class SoilInput {
-    private String type;
-    private String name;
-    private double mass;
-    private double nitrogen;
-    private double waterRetention;
-    private double soilpH;
-    private double organicMatter;
-    private double leafLitter;
-    private double waterLogging;
-    private double permafrostDepth;
-    private double rootDensity;
-    private double salinity;
-    private List<PairInput> sections;
-
-    public final String getType() {
-        return type;
-    }
-
-    public final String getName() {
-        return name;
-    }
-
-    public final double getMass() {
-        return mass;
-    }
-
-    public final double getNitrogen() {
-        return nitrogen;
-    }
-
-    public final double getWaterRetention() {
-        return waterRetention;
-    }
-
-    public final double getSoilpH() {
-        return soilpH;
-    }
-
-    public final double getLeafLitter() {
-        return leafLitter;
-    }
-
-    public final double getOrganicMatter() {
-        return organicMatter;
-    }
-
-    public final double getPermafrostDepth() {
-        return permafrostDepth;
-    }
-
-    public final double getRootDensity() {
-        return rootDensity;
-    }
-
-    public final double getSalinity() {
-        return salinity;
-    }
-
-    public final double getWaterLogging() {
-        return waterLogging;
-    }
-
-    public final List<PairInput> getSections() {
-        return sections;
-    }
+    @Getter private String type;
+    @Getter private String name;
+    @Getter private double mass;
+    @Getter private double nitrogen;
+    @Getter private double waterRetention;
+    @Getter private double soilpH;
+    @Getter private double organicMatter;
+    @Getter private double leafLitter;
+    @Getter private double waterLogging;
+    @Getter private double permafrostDepth;
+    @Getter private double rootDensity;
+    @Getter private double salinity;
+    @Getter private List<PairInput> sections;
 }
 

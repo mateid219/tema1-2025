@@ -1,19 +1,9 @@
 package fileio;
 
+import lombok.Getter;
+
 public class SimulationInput {
-    private String territoryDim;
-    private int energyPoints;
-    private TerritorySectionParamsInput territorySectionParams;
-
-    public final String getTerritoryDim() {
-        return territoryDim;
-    }
-
-    public final int getEnergyPoints() {
-        return energyPoints;
-    }
-
-    public final TerritorySectionParamsInput getTerritorySectionParams() {
-        return territorySectionParams;
-    }
+    @Getter private String territoryDim;
+    @Getter private int energyPoints;
+    @Getter private TerritorySectionParamsInput territorySectionParams;
 }
