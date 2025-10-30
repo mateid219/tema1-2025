@@ -18,5 +18,6 @@ public class SimulationArrayList {
             Simulation simulation = new Simulation(simulationInput);
             simulations.add(simulation);
         }
+        simulations.add(new Simulation());
     }
 }

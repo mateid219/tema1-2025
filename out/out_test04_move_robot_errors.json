@@ -39,5 +39,6 @@
   "timestamp" : 12
 }, {
   "command" : "moveRobot",
+  "message" : "ERROR: Simulation not started. Cannot perform action",
   "timestamp" : 13
 } ]

@@ -2,7 +2,7 @@ package fileio;
 
 import java.util.List;
 
-public class WaterInput {
+public class WaterInput implements InputEntity {
     private String type;
     private String name;
     private double mass;

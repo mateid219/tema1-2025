@@ -11,10 +11,6 @@ public class Plant extends Entity {
     private String state;
     public Plant() { }
     public Plant(final PlantInput plantInput) {
-        name = plantInput.getName();
-        mass = plantInput.getMass();
-        type = plantInput.getType();
-        List<PairInput> sectionsList = plantInput.getSections();
-        sections = new ArrayList<>(sectionsList);
+        super(plantInput);
     }
 }

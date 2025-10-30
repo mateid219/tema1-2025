@@ -9,7 +9,7 @@ public final class ForestSoil extends Soil {
     @Getter @Setter private double leafLitter;
 
     private static final double NITROGEN_COEF = 1.2;
-    private static final double RETENTION_COEF = 2.0;
+    private static final double RETENTION_COEF = 1.5;
     private static final double MATTER_COEF = 2.0;
     private static final double LITTER_COEF = 0.3;
 

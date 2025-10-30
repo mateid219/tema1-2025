@@ -2,13 +2,9 @@ package entities.Soil;
 
 import com.fasterxml.jackson.databind.node.ObjectNode;
 import entities.QualitativeEntity;
-import fileio.PairInput;
 import fileio.SoilInput;
 import lombok.Getter;
 import lombok.Setter;
-
-import java.util.ArrayList;
-import java.util.List;
 
 /**
  * Base class for soil entities.
@@ -25,12 +21,7 @@ public abstract class Soil extends QualitativeEntity {
 
     public Soil() { }
     public Soil(final SoilInput soilInput) {
-        name = soilInput.getName();
-        type = soilInput.getType();
-        mass = soilInput.getMass();
-        List<PairInput> sectionsList = soilInput.getSections();
-        sections = new ArrayList<>(sectionsList);
-
+        super(soilInput);
         nitrogen = soilInput.getNitrogen();
         waterRetention = soilInput.getWaterRetention();
         soilpH = soilInput.getSoilpH();

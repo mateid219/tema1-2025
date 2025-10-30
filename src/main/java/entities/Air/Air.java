@@ -18,11 +18,7 @@ public abstract class Air extends QualitativeEntity {
 
     public Air() { }
     public Air(final AirInput airInput) {
-        name = airInput.getName();
-        type = airInput.getType();
-        mass = airInput.getMass();
-        List<PairInput> sectionsList = airInput.getSections();
-        sections = new ArrayList<>(sectionsList);
+        super(airInput);
         humidity = airInput.getHumidity();
         temperature = airInput.getTemperature();
         oxygenLevel = airInput.getOxygenLevel();

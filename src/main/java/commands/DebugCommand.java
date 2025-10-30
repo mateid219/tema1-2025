@@ -1,5 +1,6 @@
 package commands;
 
+import com.fasterxml.jackson.databind.node.ArrayNode;
 import com.fasterxml.jackson.databind.node.ObjectNode;
 import fileio.CommandInput;
 import my.Simulation;
@@ -22,13 +23,19 @@ public final class DebugCommand extends Command {
     }
     public void execute(final Simulation simulation) {
         if (!simulation.isStarted()) {
-            super.setMessage("ERROR: Simulation not started. Cannot perform action");
+            message = "ERROR: Simulation not started. Cannot perform action";
+            return;
         }
+
         final String printEnvConditions = DBG_COMMANDS[0];
-        final String commandName = super.getCommandName();
         if (printEnvConditions.equals(commandName)) {
             ObjectNode objectNode = simulation.printEnvConditions();
-            super.setCommandOutput(objectNode);
+            commandObjectOutput = objectNode;
+        }
+        final String printMap = DBG_COMMANDS[1];
+        if (printMap.equals(commandName)) {
+            ArrayNode objectNode = simulation.printMap();
+            commandArrayOutput = objectNode;
         }
     }
 }

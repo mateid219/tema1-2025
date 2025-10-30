@@ -1,5 +1,7 @@
 package my;
 
+import com.fasterxml.jackson.databind.node.ArrayNode;
+import com.fasterxml.jackson.databind.node.ObjectNode;
 import entities.Air.Air;
 import entities.Air.AirArrayList;
 import entities.Animals.Animal;
@@ -8,11 +10,17 @@ import entities.Plants.Plant;
 import entities.Plants.PlantArrayList;
 import entities.Soil.Soil;
 import entities.Soil.SoilArrayList;
+import entities.Water.Water;
+import entities.Water.WaterArrayList;
 import fileio.PairInput;
 import lombok.Getter;
 import lombok.Setter;
 
 import java.util.ArrayList;
+import java.util.function.BiConsumer;
+import java.util.function.Function;
+
+import static my.Cell.MAPPER;
 
 public final class Map {
     @Getter @Setter private int height;
@@ -33,43 +41,45 @@ public final class Map {
     }
     public Map(final TerritorySectionParams territorySectionParams,
                final int height, final int width) {
-        this(height, width);
-        SoilArrayList soilArrayList = territorySectionParams.getSoil();
-        for (Soil soil : soilArrayList.getSoilArrayList()) {
-            ArrayList<PairInput> sections = soil.getSections();
-            for (PairInput section : sections) {
-                int x = section.getX();
-                int y = section.getY();
-                map[x][y].setSoil(soil);
-            }
-        }
-        AirArrayList airArrayList = territorySectionParams.getAir();
-        for (Air air : airArrayList.getAirArrayList()) {
-            ArrayList<PairInput> sections = air.getSections();
-            for (PairInput section : sections) {
-                int x = section.getX();
-                int y = section.getY();
-                map[x][y].setAir(air);
-            }
-        }
 
-        AnimalArrayList animalArrayList = territorySectionParams.getAnimals();
-        for (Animal animal : animalArrayList.getAnimalArrayList()) {
-            ArrayList<PairInput> sections = animal.getSections();
+        this(height, width);
+        placeTypedEntities(territorySectionParams.getSoil(),
+                SoilArrayList::getSoilArrayList,
+                Soil::getSections, Cell::setSoil);
+        placeTypedEntities(territorySectionParams.getAir(),
+                AirArrayList::getAirArrayList,
+                Air::getSections, Cell::setAir);
+        placeTypedEntities(territorySectionParams.getAnimals(),
+                AnimalArrayList::getAnimalArrayList,
+                Animal::getSections, Cell::setAnimal);
+        placeTypedEntities(territorySectionParams.getPlants(),
+                PlantArrayList::getPlantArrayList,
+                Plant::getSections, Cell::setPlant);
+        placeTypedEntities(territorySectionParams.getWater(),
+                WaterArrayList::getWaterArrayList,
+                Water::getSections, Cell::setWater);
+    }
+    private <L, T> void placeTypedEntities(L arrayList , Function<L, ArrayList<T>> listExtractor,
+                                      Function<T, ArrayList<PairInput>> sectionGetter,
+                                           BiConsumer<Cell, T> setter) {
+        ArrayList<T> typedArrayList = listExtractor.apply(arrayList);
+        for (T typedEntity : typedArrayList) {
+            ArrayList<PairInput> sections = sectionGetter.apply(typedEntity);
             for (PairInput section : sections) {
                 int x = section.getX();
                 int y = section.getY();
-                map[x][y].setAnimal(animal);
+                setter.accept(map[x][y], typedEntity);
+            }
+
+        }
+    }
+    public ArrayNode buildMapOutput() {
+        ArrayNode arrayNode = MAPPER.createArrayNode();
+        for (int j = 0; j < width; ++j) {
+            for (int i = 0; i < height; ++i) {
+                arrayNode.add(map[i][j].buildCellOutput());
             }
         }
-        PlantArrayList plantArrayList = territorySectionParams.getPlants();
-        for (Plant plant : plantArrayList.getPlantArrayList()) {
-            ArrayList<PairInput> sections = plant.getSections();
-            for (PairInput section : sections) {
-                int x = section.getX();
-                int y = section.getY();
-                map[x][y].setPlant(plant);
-            }
-        }
+        return arrayNode;
     }
 }

@@ -4,7 +4,7 @@ import lombok.Getter;
 
 import java.util.List;
 
-public class SoilInput {
+public class SoilInput implements InputEntity {
     @Getter private String type;
     @Getter private String name;
     @Getter private double mass;

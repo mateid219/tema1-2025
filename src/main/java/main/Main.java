@@ -60,14 +60,13 @@ public final class Main {
         CommandArrayList commandArrayList = new CommandArrayList(inputLoader.getCommands());
         ArrayList<Command> commands = commandArrayList.getCommands();
         Simulation simulation = simulationArrayList.getSimulations().getFirst();
-
         ObjectNode debugNode = MAPPER.createObjectNode();
         int simulationIndex = 0;
         for (Command command : commands) {
-            simulation = simulationArrayList.getSimulations().get(simulationIndex);
             command.execute(simulation);
             if (simulation.isEnded()) {
                 ++simulationIndex;
+                simulation = simulationArrayList.getSimulations().get(simulationIndex);
             }
             ObjectNode objectNode = command.buildCommandOutput();
             output.add(objectNode);
