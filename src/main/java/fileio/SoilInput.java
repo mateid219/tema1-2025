@@ -1,22 +1,25 @@
 package fileio;
 
-import lombok.Getter;
+import lombok.Data;
+import lombok.NoArgsConstructor;
 
 import java.util.List;
 
-public class SoilInput implements InputEntity {
-    @Getter private String type;
-    @Getter private String name;
-    @Getter private double mass;
-    @Getter private double nitrogen;
-    @Getter private double waterRetention;
-    @Getter private double soilpH;
-    @Getter private double organicMatter;
-    @Getter private double leafLitter;
-    @Getter private double waterLogging;
-    @Getter private double permafrostDepth;
-    @Getter private double rootDensity;
-    @Getter private double salinity;
-    @Getter private List<PairInput> sections;
+@Data
+@NoArgsConstructor
+public final class SoilInput {
+    private String type;
+    private String name;
+    private double mass;
+    private double nitrogen;
+    private double waterRetention;
+    private double soilpH;
+    private double organicMatter;
+    private double leafLitter;
+    private double waterLogging;
+    private double permafrostDepth;
+    private double rootDensity;
+    private double salinity;
+    private List<PairInput> sections;
 }
 

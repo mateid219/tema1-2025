@@ -1,29 +1,6 @@
 [ {
   "command" : "printEnvConditions",
   "message" : "ERROR: Simulation not started. Cannot perform action",
-  "output" : {
-    "soil" : {
-      "type" : "ForestSoil",
-      "name" : "DarkHumus",
-      "mass" : 1200.0,
-      "nitrogen" : 3.0,
-      "waterRetention" : 0.6,
-      "soilpH" : 6.2,
-      "organicMatter" : 0.35,
-      "soilQuality" : 5.59,
-      "leafLitter" : 0.3
-    },
-    "air" : {
-      "type" : "MountainAir",
-      "name" : "Highland Breeze",
-      "mass" : 880000.0,
-      "humidity" : 45.0,
-      "temperature" : 10.0,
-      "oxygenLevel" : 22.0,
-      "airQuality" : 68.4,
-      "altitude" : 2600.0
-    }
-  },
   "timestamp" : 1
 }, {
   "command" : "startSimulation",
@@ -40,7 +17,7 @@
       "waterRetention" : 0.6,
       "soilpH" : 6.2,
       "organicMatter" : 0.35,
-      "soilQuality" : 5.59,
+      "soilQuality" : 5.29,
       "leafLitter" : 0.3
     },
     "air" : {
@@ -52,34 +29,43 @@
       "oxygenLevel" : 22.0,
       "airQuality" : 68.4,
       "altitude" : 2600.0
+    },
+    "plants" : {
+      "type" : "GymnospermsPlants",
+      "name" : "Pine",
+      "mass" : 3.5
     }
   },
   "timestamp" : 3
 }, {
   "command" : "moveRobot",
+  "message" : "The robot has successfully moved to position (1, 0).",
   "timestamp" : 4
 }, {
   "command" : "moveRobot",
+  "message" : "The robot has successfully moved to position (1, 1).",
   "timestamp" : 5
 }, {
   "command" : "moveRobot",
+  "message" : "The robot has successfully moved to position (2, 1).",
   "timestamp" : 6
 }, {
   "command" : "moveRobot",
+  "message" : "The robot has successfully moved to position (3, 1).",
   "timestamp" : 7
 }, {
   "command" : "printEnvConditions",
   "output" : {
     "soil" : {
-      "type" : "ForestSoil",
-      "name" : "DarkHumus",
-      "mass" : 1200.0,
-      "nitrogen" : 3.0,
-      "waterRetention" : 0.6,
-      "soilpH" : 6.2,
-      "organicMatter" : 0.35,
-      "soilQuality" : 5.59,
-      "leafLitter" : 0.3
+      "type" : "SwampSoil",
+      "name" : "MarshPeat",
+      "mass" : 1000.0,
+      "nitrogen" : 2.2,
+      "waterRetention" : 0.75,
+      "soilpH" : 6.0,
+      "organicMatter" : 0.55,
+      "soilQuality" : 2.13,
+      "waterLogging" : 0.3
     },
     "air" : {
       "type" : "MountainAir",
@@ -90,6 +76,16 @@
       "oxygenLevel" : 22.0,
       "airQuality" : 68.4,
       "altitude" : 2600.0
+    },
+    "plants" : {
+      "type" : "GymnospermsPlants",
+      "name" : "Pine",
+      "mass" : 3.5
+    },
+    "water" : {
+      "type" : "river",
+      "name" : "ClearRiver",
+      "mass" : 300.0
     }
   },
   "timestamp" : 8

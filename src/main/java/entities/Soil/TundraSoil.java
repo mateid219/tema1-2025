@@ -8,13 +8,17 @@ import lombok.Setter;
 public final class TundraSoil extends Soil {
     @Getter @Setter private double permafrostDepth;
 
-    private static final double NITROGEN_COEF = 0.7;
-    private static final double MATTER_COEF = 0.5;
-    private static final double PERMAFROST_COEF = 1.5;
+    private static final double NITROGEN_SCORE_COEF = 0.7;
+    private static final double MATTER_SCORE_COEF = 0.5;
+    private static final double PERMAFROST_SCORE_COEF = 1.5;
+
+
+    private static final double PERMAFROST_STUCK_COMPLEMENT = 50.0;
+    private static final double STUCK_PERCENTAGE = 50.0;
 
     public TundraSoil() { }
-    public TundraSoil(final SoilInput soilInput) {
-        super(soilInput);
+    public TundraSoil(final SoilInput soilInput, int x, int y) {
+        super(soilInput, x, y);
         permafrostDepth = soilInput.getPermafrostDepth();
     }
 
@@ -23,10 +27,14 @@ public final class TundraSoil extends Soil {
      * @return score
      */
     public double calculateScore() {
-        double nitrogenScore = nitrogen * NITROGEN_COEF;
-        double organicMatterScore = organicMatter * MATTER_COEF;
-        double permafrostDepthScore = permafrostDepth * PERMAFROST_COEF;
+        double nitrogenScore = nitrogen * NITROGEN_SCORE_COEF;
+        double organicMatterScore = organicMatter * MATTER_SCORE_COEF;
+        double permafrostDepthScore = permafrostDepth * PERMAFROST_SCORE_COEF;
         return nitrogenScore + organicMatterScore - permafrostDepthScore;
+    }
+    public double possibilityToGetStuckInSoil() {
+        return (PERMAFROST_STUCK_COMPLEMENT - permafrostDepth)
+                / STUCK_PERCENTAGE * MAX_PERCENTAGE;
     }
     @Override public ObjectNode buildEntityOutput() {
         ObjectNode objectNode = super.buildEntityOutput();

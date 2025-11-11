@@ -1,13 +1,16 @@
 package fileio;
 
-import lombok.Getter;
+import lombok.Data;
+import lombok.NoArgsConstructor;
 
 import java.util.List;
 
-public final class AnimalInput implements InputEntity {
-    @Getter private String type;
-    @Getter private String name;
-    @Getter private double mass;
-    @Getter private List<PairInput> sections;
+@Data
+@NoArgsConstructor
+public final class AnimalInput {
+    private String type;
+    private String name;
+    private double mass;
+    private List<PairInput> sections;
 }
 

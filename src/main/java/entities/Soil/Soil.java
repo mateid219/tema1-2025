@@ -2,9 +2,13 @@ package entities.Soil;
 
 import com.fasterxml.jackson.databind.node.ObjectNode;
 import entities.QualitativeEntity;
+import fileio.PairInput;
 import fileio.SoilInput;
 import lombok.Getter;
 import lombok.Setter;
+
+import java.util.ArrayList;
+import java.util.List;
 
 /**
  * Base class for soil entities.
@@ -18,14 +22,32 @@ public abstract class Soil extends QualitativeEntity {
     @Getter @Setter protected double soilpH;
     @Getter @Setter protected double organicMatter;
 
-
+    public static Soil createSoil(final SoilInput soilInput, int x, int y) {
+        return switch (soilInput.getType()) {
+            case "ForestSoil" -> new ForestSoil(soilInput, x, y);
+            case "DesertSoil" -> new DesertSoil(soilInput, x, y);
+            case "SwampSoil" -> new SwampSoil(soilInput, x, y);
+            case "TundraSoil" -> new TundraSoil(soilInput, x, y);
+            case "GrasslandSoil" -> new GrasslandSoil(soilInput, x, y);
+            default -> null;
+        };
+    }
     public Soil() { }
-    public Soil(final SoilInput soilInput) {
-        super(soilInput);
+    public Soil(final SoilInput soilInput, int x, int y) {
+        name = soilInput.getName();
+        type = soilInput.getType();
+        mass = soilInput.getMass();
+        this.x = x;
+        this.y = y;
         nitrogen = soilInput.getNitrogen();
         waterRetention = soilInput.getWaterRetention();
         soilpH = soilInput.getSoilpH();
         organicMatter = soilInput.getOrganicMatter();
+    }
+    public abstract double possibilityToGetStuckInSoil();
+    public void increaseWaterRetention(double waterRetention) {
+        this.waterRetention += waterRetention;
+        this.waterRetention = Math.round(this.waterRetention * MAX_PERCENTAGE) / MAX_PERCENTAGE;
     }
     /**
      * Builds the entity output representation.
@@ -47,5 +69,8 @@ public abstract class Soil extends QualitativeEntity {
         objectNode.put("organicMatter", organicMatter);
         objectNode.put("soilQuality", calculateFinalScore());
         return objectNode;
+    }
+    public void fertilize(double organicMatterAdded) {
+        organicMatter += organicMatterAdded;
     }
 }

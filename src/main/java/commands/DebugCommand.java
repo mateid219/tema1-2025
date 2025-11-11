@@ -3,7 +3,8 @@ package commands;
 import com.fasterxml.jackson.databind.node.ArrayNode;
 import com.fasterxml.jackson.databind.node.ObjectNode;
 import fileio.CommandInput;
-import my.Simulation;
+import Simulation.Simulation;
+import Simulation.TerraBot;
 
 import java.util.Arrays;
 
@@ -13,7 +14,7 @@ public final class DebugCommand extends Command {
             "printEnvConditions", "printMap",
             "printKnowledgeBase", "getEnergyStatus"
     };
-    public static boolean isSimulationCommand(final String commandName) {
+    public static boolean isDebugCommand(final String commandName) {
         return Arrays.asList(DBG_COMMANDS).contains(commandName);
     }
 
@@ -26,6 +27,11 @@ public final class DebugCommand extends Command {
             message = "ERROR: Simulation not started. Cannot perform action";
             return;
         }
+        TerraBot terraBot = simulation.getTerraBot();
+        if (terraBot.isCharging()) {
+            message = "ERROR: Robot still charging. Cannot perform action";
+            return;
+        }
 
         final String printEnvConditions = DBG_COMMANDS[0];
         if (printEnvConditions.equals(commandName)) {
@@ -36,6 +42,10 @@ public final class DebugCommand extends Command {
         if (printMap.equals(commandName)) {
             ArrayNode objectNode = simulation.printMap();
             commandArrayOutput = objectNode;
+        }
+        final String getEnergyStatus = DBG_COMMANDS[3];
+        if (getEnergyStatus.equals(commandName)) {
+            message = "TerraBot has " + terraBot.getEnergyPoints() + " energy points left.";
         }
     }
 }

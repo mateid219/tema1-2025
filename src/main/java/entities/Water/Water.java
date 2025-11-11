@@ -1,8 +1,10 @@
 package entities.Water;
 
 import com.fasterxml.jackson.databind.node.ObjectNode;
+import entities.Plants.Plant;
 import entities.QualitativeEntity;
 import fileio.PairInput;
+import fileio.PlantInput;
 import fileio.WaterInput;
 import lombok.Getter;
 import lombok.Setter;
@@ -16,9 +18,11 @@ public final class Water extends QualitativeEntity {
     @Getter @Setter private double salinity;
     @Getter @Setter private double pH;
     @Getter @Setter private double purity;
-    @Getter @Setter private int turbidity;
+    @Getter @Setter private double turbidity;
     @Getter @Setter private double contaminantIndex;
     @Getter @Setter private boolean isFrozen;
+    @Getter @Setter private boolean scanned;
+    @Getter @Setter private int scanTime;
 
     private static final double PURITY_FACTOR = 100.0;
     private static final double PH_FACTOR = 7.5;
@@ -32,20 +36,28 @@ public final class Water extends QualitativeEntity {
     private static final double TURBIDITY_COEF = 0.1;
     private static final double CONTAMINANT_COEF = 0.15;
     private static final double FROZEN_COEF = 0.15;
-    public Water() { }
-    public Water(final WaterInput waterInput) {
+
+    public static Water createWater(WaterInput waterInput, int x, int y) {
+        return new Water(waterInput, x, y);
+    }
+    public Water() {
+        scanned = false;
+        scanTime = -1;
+    }
+    public Water(final WaterInput waterInput, int x, int y) {
+        this();
         name = waterInput.getName();
         type = waterInput.getType();
         mass = waterInput.getMass();
-        List<PairInput> sectionsList = waterInput.getSections();
-        sections = new ArrayList<>(sectionsList);
-
+        this.x = x;
+        this.y = y;
         salinity = waterInput.getSalinity();
-        pH = waterInput.getpH();
+        pH = waterInput.getPH();
         purity = waterInput.getPurity();
         turbidity = waterInput.getTurbidity();
         contaminantIndex = waterInput.getContaminantIndex();
-        isFrozen = waterInput.getIsFrozen();
+        isFrozen = waterInput.isFrozen();
+        scanned = false;
     }
     /**
      * Calculeaza scorul(fara normalizare) asociat calitatii apei
@@ -64,8 +76,14 @@ public final class Water extends QualitativeEntity {
     @Override public double calculateFinalScore() {
         return calculateScore();
     }
+    public void drain(double mass) {
+        this.mass -= mass;
+    }
     @Override public ObjectNode buildEntityOutput() {
         ObjectNode objectNode = super.buildEntityOutput();
+        return objectNode;
+        /// update gresit test1
+        /*
         objectNode.put("purity", purity);
         objectNode.put("salinity", salinity);
         objectNode.put("turbidity", (double) turbidity);
@@ -73,5 +91,6 @@ public final class Water extends QualitativeEntity {
         objectNode.put("pH" , pH);
         objectNode.put("isFrozen" , isFrozen);
         return objectNode;
+         */
     }
 }

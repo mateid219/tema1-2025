@@ -8,13 +8,15 @@ import lombok.Setter;
 public final class SwampSoil extends Soil {
     @Getter @Setter private double waterLogging;
 
-    private static final double NITROGEN_COEF = 1.1;
-    private static final double MATTER_COEF = 2.2;
-    private static final double WATER_COEF = 5.0;
+    private static final double NITROGEN_SCORE_COEF = 1.1;
+    private static final double MATTER_SCORE_COEF = 2.2;
+    private static final double WATER_SCORE_COEF = 5.0;
+
+    private static final double LOGGING_STUCK_COEF = 10.0;
 
     public SwampSoil() { }
-    public SwampSoil(final SoilInput soilInput) {
-        super(soilInput);
+    public SwampSoil(final SoilInput soilInput, int x, int y) {
+        super(soilInput, x, y);
         waterLogging = soilInput.getWaterLogging();
     }
 
@@ -23,10 +25,13 @@ public final class SwampSoil extends Soil {
      * @return score
      */
     public double calculateScore() {
-        double nitrogenScore = nitrogen * NITROGEN_COEF;
-        double organicMatterScore = organicMatter * MATTER_COEF;
-        double waterLoggingScore = waterLogging * WATER_COEF;
+        double nitrogenScore = nitrogen * NITROGEN_SCORE_COEF;
+        double organicMatterScore = organicMatter * MATTER_SCORE_COEF;
+        double waterLoggingScore = waterLogging * WATER_SCORE_COEF;
         return nitrogenScore + organicMatterScore - waterLoggingScore;
+    }
+    public double possibilityToGetStuckInSoil() {
+        return waterLogging * LOGGING_STUCK_COEF;
     }
     @Override public ObjectNode buildEntityOutput() {
         ObjectNode objectNode = super.buildEntityOutput();

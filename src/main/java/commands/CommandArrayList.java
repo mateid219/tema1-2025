@@ -9,11 +9,20 @@ import java.util.ArrayList;
 public class CommandArrayList {
     @Getter @Setter private ArrayList<Command> commands;
 
-    static final String commandType(final String command) {
+    private static String commandType(final String command) {
         if (SimulationCommand.isSimulationCommand(command)) {
             return "Simulation";
         }
-        return "Debug";
+        if (DebugCommand.isDebugCommand(command)) {
+            return "Debug";
+        }
+        if (RobotCommand.isRobotCommand(command)) {
+            return "Robot";
+        }
+        if (EnvironmentCommand.isEnvironmentCommand(command)) {
+            return "Environment";
+        }
+        return null;
     }
 
     public CommandArrayList() { }
@@ -28,6 +37,12 @@ public class CommandArrayList {
                     break;
                 case "Debug":
                     command = new DebugCommand(commandInput);
+                    break;
+                case "Robot":
+                    command = new RobotCommand(commandInput);
+                    break;
+                case "Environment":
+                    command = new EnvironmentCommand(commandInput);
                     break;
                 default:
                     break;

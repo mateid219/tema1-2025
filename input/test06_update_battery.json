@@ -197,7 +197,7 @@
       }
     }
   ],
-"commands": [
+  "commands": [
     {
       "command": "startSimulation",
       "timestamp": 1

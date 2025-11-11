@@ -1,21 +1,24 @@
 package fileio;
 
-import lombok.Getter;
+import lombok.Data;
+import lombok.NoArgsConstructor;
 
 import java.util.List;
 
-public class AirInput implements InputEntity {
-    @Getter private String type;
-    @Getter private String name;
-    @Getter private double mass;
-    @Getter private double humidity;
-    @Getter private double temperature;
-    @Getter private double oxygenLevel;
-    @Getter private double altitude;
-    @Getter private double pollenLevel;
-    @Getter private double co2Level;
-    @Getter private double iceCrystalConcentration;
-    @Getter private double dustParticles;
-    @Getter private List<PairInput> sections;
+@Data
+@NoArgsConstructor
+public final class AirInput {
+    private String type;
+    private String name;
+    private double mass;
+    private double humidity;
+    private double temperature;
+    private double oxygenLevel;
+    private double altitude;
+    private double pollenLevel;
+    private double co2Level;
+    private double iceCrystalConcentration;
+    private double dustParticles;
+    private List<PairInput> sections;
 }
 
