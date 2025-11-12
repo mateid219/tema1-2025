@@ -13,7 +13,7 @@ import java.util.ArrayList;
 import java.util.function.BiConsumer;
 import java.util.function.Function;
 
-import static Simulation.Cell.MAPPER;
+import static Simulation.Simulation.MAPPER;
 
 public final class Map {
     @Getter @Setter private int height;

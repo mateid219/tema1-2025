@@ -2,6 +2,7 @@ package Events;
 
 import Simulation.Simulation;
 import Simulation.Cell;
+import Simulation.TerraBot;
 import entities.air.Air;
 import entities.Animals.Animal;
 
@@ -16,10 +17,12 @@ public class AirEvent extends Event{
     public AirEvent(int timestamp, Cell cell) {
         super(timestamp);
         this.cell = cell;
-        priority = AIR_EVENT_PRIORITY;
+        priority = EVENT_PRIORITIES.AIR_EVENT.ordinal();
     }
 
     public void takeEffect(Simulation simulation) {
+        TerraBot terraBot = simulation.getTerraBot();
+        Queue<Event> eventQueue = simulation.getEventQueue();
         Air air = cell.getAir();
         Animal animal = cell.getAnimal();
         if (animal == null || ! animal.isScanned()) {
@@ -28,7 +31,6 @@ public class AirEvent extends Event{
         if (air.isToxic()) {
             animal.setState(SICK);
         }
-        Queue<Event> eventQueue = simulation.getEventQueue();
         eventQueue.add(new AirEvent(timestamp + 1, cell));
     }
 }

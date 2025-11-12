@@ -28,6 +28,7 @@ public final class Tropical extends Air {
     }
     @Override public ObjectNode buildEntityOutput() {
         ObjectNode objectNode = super.buildEntityOutput();
+        co2Level = Math.round(co2Level * MAX_PERCENTAGE) / MAX_PERCENTAGE;
         objectNode.put("co2Level", co2Level);
         return objectNode;
     }

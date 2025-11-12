@@ -11,7 +11,8 @@ public class SimulationCommand extends Command {
     private static final String START_SIMULATION = "startSimulation";
     private static final String END_SIMULATION = "endSimulation";
 
-    private static final String ERROR_ALREADY_STARTED = "ERROR: Simulation already started. Cannot perform action";
+    private static final String ERROR_ALREADY_STARTED = "ERROR: Simulation already started."
+                                                        + " Cannot perform action";
     private static final String SUCCESS_STARTED = "Simulation has started.";
     private static final String SUCCESS_ENDED = "Simulation has ended.";
 

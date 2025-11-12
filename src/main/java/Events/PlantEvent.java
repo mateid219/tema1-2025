@@ -2,6 +2,7 @@ package Events;
 
 import Simulation.Cell;
 import Simulation.Simulation;
+import Simulation.TerraBot;
 import entities.air.Air;
 import entities.Plants.Plant;
 
@@ -14,19 +15,21 @@ public class PlantEvent extends Event {
     public PlantEvent(int timestamp, Cell cell) {
         super(timestamp);
         this.cell = cell;
-        priority = PLANT_EVENT_PRIORITY;
+        priority = EVENT_PRIORITIES.PLANT_EVENT.ordinal();
     }
 
     @Override
     public void takeEffect(Simulation simulation) {
+        TerraBot terraBot = simulation.getTerraBot();
+        Queue<Event> eventQueue = simulation.getEventQueue();
+
         Plant plant = cell.getPlant();
         if (plant == null) {
             return;
         }
         Air air = cell.getAir();
         double oxygenGenerated = plant.oxygenGenerated();
-        air.addOxygen(oxygenGenerated);
-        Queue<Event> eventQueue = simulation.getEventQueue();
+        air.increaseOxygen(oxygenGenerated);
         eventQueue.add(new PlantEvent(timestamp + 1, cell));
     }
 }

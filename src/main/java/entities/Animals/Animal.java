@@ -16,6 +16,7 @@ import java.util.List;
 public final class Animal extends Entity {
     @Getter @Setter private String state;
     @Getter @Setter private boolean scanned;
+    @Getter @Setter private boolean full;
 
     private static final double INTAKE_RATE = 0.08;
 
@@ -62,14 +63,17 @@ public final class Animal extends Entity {
     }
     public void eat(Animal otherAnimal) {
         mass += otherAnimal.getMass();
+        System.out.print("!!!" + name + " ate animal " + otherAnimal.getName());
     }
     public void eat(Plant plant) {
         mass += plant.getMass();
-        System.out.println("!!!" + name + "ate plant " + plant.getName());
+        System.out.print("!!!" + name + " ate plant " + plant.getName());
     }
     public void drink(Water water) {
-        double waterToDrink = Math.min(mass * INTAKE_RATE, water.getMass());
+        double waterMass = Math.round(water.getMass() * MAX_PERCENTAGE) / MAX_PERCENTAGE;
+        double waterToDrink = Math.min(mass * INTAKE_RATE, waterMass);
         water.drain(waterToDrink);
         mass += waterToDrink;
+        System.out.print("!!!" + name + " drank  " + Math.round(waterToDrink * MAX_PERCENTAGE) / MAX_PERCENTAGE + " units of water");
     }
 }

@@ -51,18 +51,18 @@ public abstract class Air extends QualitativeEntity {
         double toxicityAQ = MAX_PERCENTAGE * (1.0 - calculateFinalScore() / maxScore);
         return toxicityAQ > (MAX_SCORE_COFF * maxScore);
     }
-    public void addOxygen(double oxygenLevel) {
+    public void increaseOxygen(double oxygenLevel) {
         this.oxygenLevel += oxygenLevel;
-        this.oxygenLevel = Math.round(this.oxygenLevel * MAX_PERCENTAGE) / MAX_PERCENTAGE;
     }
     public void increaseHumidity(double humidity) {
         this.humidity += humidity;
-        this.humidity = Math.round(this.humidity * MAX_PERCENTAGE) / MAX_PERCENTAGE;
     }
     @Override public ObjectNode buildEntityOutput() {
         ObjectNode objectNode = super.buildEntityOutput();
+        humidity = Math.round(humidity * MAX_PERCENTAGE) / MAX_PERCENTAGE;
         objectNode.put("humidity", humidity);
         objectNode.put("temperature", temperature);
+        oxygenLevel = Math.round(oxygenLevel * MAX_PERCENTAGE) / MAX_PERCENTAGE;
         objectNode.put("oxygenLevel", oxygenLevel);
         objectNode.put("airQuality", calculateFinalScore());
         return objectNode;

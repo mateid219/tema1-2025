@@ -1,21 +1,21 @@
 package commands;
 
-import com.fasterxml.jackson.databind.node.ArrayNode;
-import com.fasterxml.jackson.databind.node.ObjectNode;
 import fileio.CommandInput;
 import Simulation.Simulation;
 import Simulation.TerraBot;
 
-import java.util.Arrays;
+import java.util.List;
 
 public final class DebugCommand extends Command {
 
-    static final String[] DBG_COMMANDS = {
-            "printEnvConditions", "printMap",
-            "printKnowledgeBase", "getEnergyStatus"
-    };
+    private static final String PRINT_ENV_CONDITIONS = "printEnvConditions";
+    private static final String PRINT_MAP = "printMap";
+    private static final String PRINT_KNOWLEDGE_BASE = "printKnowledgeBase";
+    private static final String GET_ENERGY_STATUS = "getEnergyStatus";
+
     public static boolean isDebugCommand(final String commandName) {
-        return Arrays.asList(DBG_COMMANDS).contains(commandName);
+        return List.of(PRINT_ENV_CONDITIONS, PRINT_MAP,
+                PRINT_KNOWLEDGE_BASE, GET_ENERGY_STATUS).contains(commandName);
     }
 
     public DebugCommand() { }
@@ -32,20 +32,20 @@ public final class DebugCommand extends Command {
             message = "ERROR: Robot still charging. Cannot perform action";
             return;
         }
-
-        final String printEnvConditions = DBG_COMMANDS[0];
-        if (printEnvConditions.equals(commandName)) {
-            ObjectNode objectNode = simulation.printEnvConditions();
-            commandObjectOutput = objectNode;
+        if (PRINT_ENV_CONDITIONS.equals(commandName)) {
+            commandObjectOutput = simulation.printEnvConditions();
+            return;
         }
-        final String printMap = DBG_COMMANDS[1];
-        if (printMap.equals(commandName)) {
-            ArrayNode objectNode = simulation.printMap();
-            commandArrayOutput = objectNode;
+        if (PRINT_MAP.equals(commandName)) {
+            commandArrayOutput = simulation.printMap();
+            return;
         }
-        final String getEnergyStatus = DBG_COMMANDS[3];
-        if (getEnergyStatus.equals(commandName)) {
+        if (GET_ENERGY_STATUS.equals(commandName)) {
             message = "TerraBot has " + terraBot.getEnergyPoints() + " energy points left.";
+            return;
+        }
+        if (PRINT_KNOWLEDGE_BASE.equals(commandName)) {
+            commandArrayOutput = simulation.getTerraBot().printKnowledgeBase();
         }
     }
 }

@@ -1,10 +1,12 @@
 package Events;
 
 import Simulation.Simulation;
+import Simulation.TerraBot;
 import commands.EnvironmentCommand;
 import entities.air.*;
 
 import java.util.ArrayList;
+import java.util.Queue;
 
 import static entities.air.Air.*;
 
@@ -19,6 +21,7 @@ public class WeatherEvent extends Event {
     public WeatherEvent() { }
     public WeatherEvent(int timestamp) {
         super(timestamp);
+        priority = EVENT_PRIORITIES.AIR_EVENT.ordinal();
     }
     public WeatherEvent(int timestamp, EnvironmentCommand.EnvironmentParams environmentParams,
                         boolean endFlag) {
@@ -26,10 +29,12 @@ public class WeatherEvent extends Event {
         type = environmentParams.getType();
         numberOfHikers = endFlag ? 0 : environmentParams.getNumberOfHikers();
         newSeason = endFlag ? "default" : environmentParams.getNewSeason();
-        windSpeed = endFlag ? 0.0 : environmentParams.getWindspeed();
+        windSpeed = endFlag ? 0.0 : environmentParams.getWindSpeed();
         rainfall = endFlag ? 0.0 : environmentParams.getRainfall();
     }
     public void takeEffect(Simulation simulation) {
+        TerraBot terraBot = simulation.getTerraBot();
+        Queue<Event> eventQueue = simulation.getEventQueue();
         ArrayList<Air> airArrayList = simulation.getTerritorySectionParams().getAir();
         for (Air air : airArrayList) {
             if (MOUNTAIN_AIR.equals(air.getType()) && MOUNTAIN_AIR.equals(type)) {

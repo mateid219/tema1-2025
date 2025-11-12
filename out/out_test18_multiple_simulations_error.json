@@ -108,7 +108,7 @@
       "temperature" : 29.0,
       "oxygenLevel" : 21.0,
       "airQuality" : 86.0,
-      "co2Level" : 0.048
+      "co2Level" : 0.05
     },
     "plants" : {
       "type" : "Ferns",
@@ -293,7 +293,7 @@
       "temperature" : 31.0,
       "oxygenLevel" : 21.0,
       "airQuality" : 87.0,
-      "co2Level" : 0.042
+      "co2Level" : 0.04
     },
     "animals" : {
       "type" : "Omnivores",

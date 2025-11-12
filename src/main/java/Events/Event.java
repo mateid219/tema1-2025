@@ -2,29 +2,34 @@ package Events;
 
 import Simulation.Simulation;
 import lombok.Getter;
+import lombok.Setter;
 
 public abstract class Event implements Comparable<Event> {
 
-    @Getter protected int timestamp;
+    @Getter @Setter protected int timestamp;
     @Getter protected int priority;
 
-    protected static final int AIR_EVENT_PRIORITY = 6;
-    protected static final int SOIL_EVENT_PRIORITY = 5;
-    protected static final int WATER_EVENT_PRIORITY = 4;
-    protected static final int PLANT_EVENT_PRIORITY = 3;
-    protected static final int ANIMAL_FEED_PRIORITY = 2;
-    protected static final int ANIMAL_MOVE_PRIORITY = 1;
-
-    private static final int NO_PRIORITY = 0;
+    public enum EVENT_PRIORITIES {
+        AIR_EVENT,
+        SOIL_EVENT,
+        WATER_EVENT_INCREASE_STATS,
+        WATER_EVENT_GROW_PLANT,
+        PLANT_EVENT,
+        ANIMAL_FERTILIZE,
+        ANIMAL_FEED,
+        ANIMAL_MOVE,
+        ROBOT_EVENT,
+        NONE
+    }
 
     public Event() { }
     public Event(int timestamp) {
         this.timestamp = timestamp;
-        priority = NO_PRIORITY;
+        priority = EVENT_PRIORITIES.NONE.ordinal();
     }
     public int compareTo(Event o) {
         if (timestamp == o.timestamp) {
-            return o.priority - priority;
+            return priority - o.priority;
         }
         return timestamp - o.timestamp;
     }

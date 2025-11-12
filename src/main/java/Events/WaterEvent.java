@@ -1,6 +1,7 @@
 package Events;
 
 import Simulation.Simulation;
+import Simulation.TerraBot;
 import Simulation.Cell;
 import entities.Plants.Plant;
 import entities.Soil.Soil;
@@ -27,14 +28,18 @@ public class WaterEvent extends Event {
         super(timestamp);
         this.cell = cell;
         this.type = type;
-        priority = WATER_EVENT_PRIORITY;
+        if (type == INCREASE_STATS)
+            priority = EVENT_PRIORITIES.WATER_EVENT_INCREASE_STATS.ordinal();
+        else
+            priority = EVENT_PRIORITIES.WATER_EVENT_GROW_PLANT.ordinal();
     }
     public void takeEffect(Simulation simulation) {
+        TerraBot terraBot = simulation.getTerraBot();
+        Queue<Event> eventQueue = simulation.getEventQueue();
         Water water = cell.getWater();
         if (water == null || ! water.isScanned()) {
             return;
         }
-        Queue<Event> eventQueue = simulation.getEventQueue();
         switch (type) {
             case INCREASE_STATS:
                 Air air = cell.getAir();

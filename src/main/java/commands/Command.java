@@ -8,9 +8,26 @@ import fileio.CommandInput;
 import lombok.Getter;
 import lombok.Setter;
 import Simulation.Simulation;
+import Simulation.TerraBot;
 
 import java.util.Queue;
 
+/**
+ * Abstract base class representing a command used during the simulation.
+ *
+ * <p>This class provides the common structure and behavior for all command types,
+ * defining the essential contract that concrete command implementations must follow.
+ *
+ * <p>Subclasses should implement specific command functionality while adhering to
+ * the command pattern established by this base class.
+ *
+ * <p>Known direct subclasses:
+ * <ul>
+ *   <li>{@link SimulationCommand} - Commands related to simulation operations</li>
+ *   <li>{@link EnvironmentCommand} - Commands for environment configuration</li>
+ * </ul>
+ *
+ */
 public abstract class Command {
     @Getter @Setter protected String commandName;
     @Getter @Setter protected String message;
@@ -19,7 +36,7 @@ public abstract class Command {
     @Getter @Setter protected ArrayNode commandArrayOutput;
 
     protected static final String ERROR_NOT_STARTED = "ERROR: Simulation not started. Cannot perform action";
-    private static ObjectMapper MAPPER = new ObjectMapper();
+    private static final ObjectMapper MAPPER = new ObjectMapper();
 
     private static final String TYPE_SIMULATION = "Simulation";
     private static final String TYPE_DEBUG = "Debug";

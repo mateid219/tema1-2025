@@ -4,9 +4,11 @@
   "timestamp" : 1
 }, {
   "command" : "scanObject",
+  "message" : "The scanned object is a plant.",
   "timestamp" : 2
 }, {
   "command" : "learnFact",
+  "message" : "The fact has been successfully saved in the database.",
   "timestamp" : 3
 }, {
   "command" : "moveRobot",
@@ -32,8 +34,8 @@
       "mass" : 82000.0,
       "humidity" : 83.0,
       "temperature" : 26.0,
-      "oxygenLevel" : 21.0,
-      "airQuality" : 83.5,
+      "oxygenLevel" : 39.6,
+      "airQuality" : 100.0,
       "co2Level" : 0.05
     },
     "plants" : {
@@ -45,16 +47,19 @@
   "timestamp" : 5
 }, {
   "command" : "improveEnvironment",
+  "message" : "ERROR: Subject not yet saved. Cannot perform action",
   "timestamp" : 6
 }, {
   "command" : "getEnergyStatus",
-  "message" : "TerraBot has 20 energy points left.",
+  "message" : "TerraBot has 11 energy points left.",
   "timestamp" : 7
 }, {
   "command" : "learnFact",
+  "message" : "The fact has been successfully saved in the database.",
   "timestamp" : 8
 }, {
   "command" : "improveEnvironment",
+  "message" : "ERROR: Not enough battery left. Cannot perform action",
   "timestamp" : 9
 }, {
   "command" : "rechargeBattery",
@@ -62,7 +67,7 @@
   "timestamp" : 10
 }, {
   "command" : "getEnergyStatus",
-  "message" : "TerraBot has 70 energy points left.",
+  "message" : "TerraBot has 59 energy points left.",
   "timestamp" : 61
 }, {
   "command" : "printEnvConditions",
@@ -84,14 +89,9 @@
       "mass" : 82000.0,
       "humidity" : 83.0,
       "temperature" : 26.0,
-      "oxygenLevel" : 21.0,
-      "airQuality" : 83.5,
+      "oxygenLevel" : 111.3,
+      "airQuality" : 100.0,
       "co2Level" : 0.05
-    },
-    "plants" : {
-      "type" : "FloweringPlants",
-      "name" : "CrimsonRose",
-      "mass" : 0.5
     }
   },
   "timestamp" : 62
@@ -105,11 +105,11 @@
   "timestamp" : 64
 }, {
   "command" : "moveRobot",
-  "message" : "The robot has successfully moved to position (1, 0).",
+  "message" : "ERROR: Not enough battery left. Cannot perform action",
   "timestamp" : 65
 }, {
   "command" : "moveRobot",
-  "message" : "The robot has successfully moved to position (0, 0).",
+  "message" : "ERROR: Not enough battery left. Cannot perform action",
   "timestamp" : 66
 }, {
   "command" : "endSimulation",

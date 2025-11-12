@@ -47,7 +47,10 @@ public abstract class Soil extends QualitativeEntity {
     public abstract double possibilityToGetStuckInSoil();
     public void increaseWaterRetention(double waterRetention) {
         this.waterRetention += waterRetention;
-        this.waterRetention = Math.round(this.waterRetention * MAX_PERCENTAGE) / MAX_PERCENTAGE;
+    }
+    public void fertilize(double organicMatterAdded) {
+        organicMatter += organicMatterAdded;
+        System.out.print("Soil at " + "(" + x + "," + y + ") was fertilized with " + organicMatterAdded + " organicMatter");
     }
     /**
      * Builds the entity output representation.
@@ -64,13 +67,12 @@ public abstract class Soil extends QualitativeEntity {
     @Override public ObjectNode buildEntityOutput() {
         ObjectNode objectNode = super.buildEntityOutput();
         objectNode.put("nitrogen", nitrogen);
+        waterRetention = Math.round(waterRetention * MAX_PERCENTAGE) / MAX_PERCENTAGE;
         objectNode.put("waterRetention", waterRetention);
         objectNode.put("soilpH", soilpH);
+        organicMatter = Math.round(organicMatter * MAX_PERCENTAGE) / MAX_PERCENTAGE;
         objectNode.put("organicMatter", organicMatter);
         objectNode.put("soilQuality", calculateFinalScore());
         return objectNode;
-    }
-    public void fertilize(double organicMatterAdded) {
-        organicMatter += organicMatterAdded;
     }
 }

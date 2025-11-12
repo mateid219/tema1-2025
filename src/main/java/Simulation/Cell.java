@@ -2,7 +2,6 @@ package Simulation;
 
 import com.fasterxml.jackson.databind.node.ArrayNode;
 import com.fasterxml.jackson.databind.node.ObjectNode;
-import com.fasterxml.jackson.databind.ObjectMapper;
 import entities.air.Air;
 import entities.Animals.Animal;
 import entities.Plants.Plant;
@@ -10,6 +9,9 @@ import entities.Soil.Soil;
 import entities.Water.Water;
 import lombok.Getter;
 import lombok.Setter;
+
+import static Simulation.Simulation.MAPPER;
+import Simulation.Simulation.Solution;
 
 public final class Cell {
     @Getter @Setter private int x;
@@ -19,9 +21,7 @@ public final class Cell {
     @Getter @Setter private Animal animal;
     @Getter @Setter private Plant plant;
     @Getter @Setter private Water water;
-
-    protected static ObjectMapper MAPPER = new ObjectMapper();
-
+    Solution solution;
     public Cell() {
         soil = null;
         air = null;
@@ -134,7 +134,12 @@ public final class Cell {
         }
         return score + ")\n";
     }
-
+    public String showSolution() {
+        if (solution.hasWater) {
+            return "the cell has water";
+        }
+        return "of cell order";
+    }
     public ObjectNode buildEnvConditions() {
         ObjectNode entityObjectNode = MAPPER.createObjectNode();
         if (soil != null) {

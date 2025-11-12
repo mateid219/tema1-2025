@@ -1,6 +1,7 @@
 package Simulation;
 
 import Events.Event;
+import com.fasterxml.jackson.databind.ObjectMapper;
 import com.fasterxml.jackson.databind.node.ArrayNode;
 import com.fasterxml.jackson.databind.node.ObjectNode;
 import fileio.SimulationInput;
@@ -20,14 +21,19 @@ public final class Simulation {
     @Getter @Setter private boolean ended;
     @Getter @Setter private Queue<Event> eventQueue;
 
-    static int NUM_DIR = 4;
-    static int[] vx = {0, 1, 0, -1};
-    static int[] vy = {1, 0, -1, 0};
+    private static final int NUM_DIR = 4;
+    private static final int[] vx = {0, 1, 0, -1};
+    private static final int[] vy = {1, 0, -1, 0};
+    public static ObjectMapper MAPPER = new ObjectMapper();
+
+    private static final String PARASITE = "Parasites";
+    private static final String CARNIVORE = "Carnivores";
 
     public Simulation() {
         started = false;
         ended = false;
         eventQueue = new PriorityQueue<Event>();
+        terraBot = new TerraBot();
     }
     public Simulation(final SimulationInput simulationInput) {
         this();
@@ -54,9 +60,9 @@ public final class Simulation {
             }
             Cell newCell = map.getMap()[newX][newY];
             int nextCellQuality = newCell.calculateCellQuality();
-            System.out.printf("Cell (%d,%d) has QT = %d ", newX, newY, nextCellQuality);
-            System.out.print(newCell.dbgQuality2());
-            System.out.println(newCell.buildEnvConditions());
+            //System.out.printf("Cell (%d,%d) has QT = %d ", newX, newY, nextCellQuality);
+            //System.out.print(newCell.dbgQuality2());
+            //System.out.println(newCell.buildEnvConditions());
             if (bestQuality == -1 || nextCellQuality < bestQuality) {
                 bestQuality = nextCellQuality;
                 nextCell = newCell;
@@ -64,7 +70,7 @@ public final class Simulation {
         }
         return nextCell;
     }
-    private class Solution implements Comparable<Solution> {
+    protected static class Solution implements Comparable<Solution> {
         Cell cell;
         double waterQuality;
         boolean hasPlant;
@@ -122,7 +128,7 @@ public final class Simulation {
             return 0;
         }
     }
-    public Cell animalNextCell(Cell animalCell) {
+    public Cell animalNextCell(Cell animalCell, final String type) {
         Solution nextCell = new Solution();
         for (int dir = 0; dir < NUM_DIR; ++dir) {
             int newX = animalCell.getX() + vx[dir];
@@ -131,13 +137,18 @@ public final class Simulation {
                 continue;
             }
             Solution newCell = new Solution(map.getMap()[newX][newY]);
+            if (newCell.cell.getAnimal() != null && !(PARASITE.equals(type) || CARNIVORE.equals(type))) {
+                continue;
+            }
             if (nextCell.compareTo(newCell) < 0) {
                 nextCell = newCell;
             }
         }
         if (nextCell.cell == null) {
             System.out.println("HERE");
+            return null;
         }
+        nextCell.cell.solution = nextCell;
         return nextCell.cell;
     }
     public ObjectNode printEnvConditions() {

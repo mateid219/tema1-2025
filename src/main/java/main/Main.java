@@ -35,24 +35,6 @@ public final class Main {
 
         InputLoader inputLoader = new InputLoader(inputPath);
         ArrayNode output = MAPPER.createArrayNode();
-
-        /*
-         * TODO Implement your function here
-         *
-         * How to add output to the output array?
-         * There are multiple ways to do this, here is one example:
-         *
-         *
-         * ObjectNode objectNode = MAPPER.createObjectNode();
-         * objectNode.put("field_name", "field_value");
-         *
-         * ArrayNode arrayNode = MAPPER.createArrayNode();
-         * arrayNode.add(objectNode);
-         *
-         * output.add(arrayNode);
-         * output.add(objectNode);
-         *
-         */
         ArrayList<SimulationInput> simulationInputArrayList = inputLoader.getSimulations();
         ArrayList<Simulation> simulationArrayList = new ArrayList<>();
         for (SimulationInput simulationInput : simulationInputArrayList) {

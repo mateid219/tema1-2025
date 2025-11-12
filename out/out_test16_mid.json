@@ -133,21 +133,33 @@
   "timestamp" : 2
 }, {
   "command" : "scanObject",
+  "message" : "The scanned object is an animal.",
   "timestamp" : 3
 }, {
   "command" : "scanObject",
+  "message" : "The scanned object is water.",
   "timestamp" : 4
 }, {
   "command" : "learnFact",
+  "message" : "The fact has been successfully saved in the database.",
   "timestamp" : 5
 }, {
   "command" : "learnFact",
+  "message" : "The fact has been successfully saved in the database.",
   "timestamp" : 6
 }, {
   "command" : "printKnowledgeBase",
+  "output" : [ {
+    "topic" : "Cat",
+    "facts" : [ "Method to fertilize soil with Cat" ]
+  }, {
+    "topic" : "WillowPond",
+    "facts" : [ "Method to increaseMoisture" ]
+  } ],
   "timestamp" : 7
 }, {
   "command" : "improveEnvironment",
+  "message" : "The moisture was successfully increased using WillowPond",
   "timestamp" : 8
 }, {
   "command" : "moveRobot",
@@ -159,6 +171,7 @@
   "timestamp" : 10
 }, {
   "command" : "scanObject",
+  "message" : "The scanned object is a plant.",
   "timestamp" : 11
 }, {
   "command" : "moveRobot",
@@ -166,6 +179,7 @@
   "timestamp" : 12
 }, {
   "command" : "improveEnvironment",
+  "message" : "ERROR: Not enough battery left. Cannot perform action",
   "timestamp" : 13
 }, {
   "command" : "moveRobot",
@@ -173,20 +187,21 @@
   "timestamp" : 14
 }, {
   "command" : "improveEnvironment",
+  "message" : "ERROR: Not enough battery left. Cannot perform action",
   "timestamp" : 15
 }, {
   "command" : "getEnergyStatus",
-  "message" : "TerraBot has 46 energy points left.",
+  "message" : "TerraBot has 4 energy points left.",
   "timestamp" : 16
 }, {
   "command" : "moveRobot",
-  "message" : "The robot has successfully moved to position (0, 3).",
+  "message" : "ERROR: Not enough battery left. Cannot perform action",
   "timestamp" : 17
 }, {
   "command" : "printMap",
   "output" : [ {
     "section" : [ 0, 0 ],
-    "totalNrOfObjects" : 3,
+    "totalNrOfObjects" : 2,
     "airQuality" : "good",
     "soilQuality" : "poor"
   }, {
@@ -211,7 +226,7 @@
     "soilQuality" : "poor"
   }, {
     "section" : [ 0, 1 ],
-    "totalNrOfObjects" : 2,
+    "totalNrOfObjects" : 1,
     "airQuality" : "good",
     "soilQuality" : "poor"
   }, {
@@ -236,7 +251,7 @@
     "soilQuality" : "poor"
   }, {
     "section" : [ 0, 2 ],
-    "totalNrOfObjects" : 1,
+    "totalNrOfObjects" : 0,
     "airQuality" : "good",
     "soilQuality" : "poor"
   }, {
@@ -261,7 +276,7 @@
     "soilQuality" : "poor"
   }, {
     "section" : [ 0, 3 ],
-    "totalNrOfObjects" : 1,
+    "totalNrOfObjects" : 2,
     "airQuality" : "good",
     "soilQuality" : "poor"
   }, {

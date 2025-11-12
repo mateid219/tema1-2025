@@ -20,6 +20,7 @@
   "timestamp" : 5
 }, {
   "command" : "learnFact",
+  "message" : "ERROR: Not enough battery left. Cannot perform action",
   "timestamp" : 6
 }, {
   "command" : "rechargeBattery",
@@ -35,6 +36,7 @@
   "timestamp" : 10
 }, {
   "command" : "changeWeatherConditions",
+  "message" : "ERROR: The weather change does not affect the environment. Cannot perform action",
   "timestamp" : 18
 }, {
   "command" : "moveRobot",
@@ -82,11 +84,8 @@
   "timestamp" : 21
 }, {
   "command" : "scanObject",
+  "message" : "ERROR: Not enough energy to perform action",
   "timestamp" : 22
-}, {
-  "command" : "getEnergyStatus",
-  "message" : "TerraBot has 3 energy points left.",
-  "timestamp" : 5
 }, {
   "command" : "moveRobot",
   "message" : "The robot has successfully moved to position (0, 1).",
@@ -326,6 +325,7 @@
   "timestamp" : 30
 }, {
   "command" : "scanObject",
+  "message" : "The scanned object is a plant.",
   "timestamp" : 31
 }, {
   "command" : "rechargeBattery",
@@ -333,6 +333,7 @@
   "timestamp" : 32
 }, {
   "command" : "learnFact",
+  "message" : "ERROR: Subject not yet saved. Cannot perform action",
   "timestamp" : 33
 }, {
   "command" : "rechargeBattery",
@@ -340,16 +341,19 @@
   "timestamp" : 34
 }, {
   "command" : "getEnergyStatus",
-  "message" : "TerraBot has 54 energy points left.",
+  "message" : "TerraBot has 47 energy points left.",
   "timestamp" : 55
 }, {
   "command" : "scanObject",
+  "message" : "ERROR: Object not found. Cannot perform action",
   "timestamp" : 56
 }, {
   "command" : "improveEnvironment",
+  "message" : "ERROR: Fact not yet saved. Cannot perform action",
   "timestamp" : 57
 }, {
   "command" : "printKnowledgeBase",
+  "output" : [ ],
   "timestamp" : 58
 }, {
   "command" : "rechargeBattery",
