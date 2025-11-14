@@ -23,7 +23,8 @@ public final class Polar extends Air {
         double oxygenScore = oxygenLevel * OXYGEN_COEF;
         double temperatureScore = MAX_SCORE - Math.abs(temperature);
         double crystalScore = iceCrystalConcentration * CRYSTAL_COEF;
-        return oxygenScore + temperatureScore - crystalScore - windspeed * WINDSPEED_COEF;
+        double score = finalScore(oxygenScore + temperatureScore - crystalScore);
+        return score - windspeed * WINDSPEED_COEF;
     }
     @Override public ObjectNode buildEntityOutput() {
         ObjectNode objectNode = super.buildEntityOutput();

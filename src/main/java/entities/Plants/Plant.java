@@ -1,17 +1,21 @@
 package entities.Plants;
 
 import entities.Entity;
+import entities.Scannable;
 import fileio.PlantInput;
 import lombok.Getter;
 import lombok.Setter;
+import simulation.Cell;
+import simulation.terrabot.scanner.ScanParamsVisitor;
+import simulation.terrabot.scanner.ScanResult;
 
-public class Plant extends Entity {
+public class Plant extends Entity implements Scannable {
     @Getter private String maturity;
     @Getter private double growthLevel;
     @Getter @Setter private boolean scanned;
     @Getter @Setter private int scanTime;
 
-
+    private static final String SUCCESS_SCANNED = "The scanned object is a plant.";
     enum categories {
         ANGIOSPERMS("FloweringPlants", 90.0, 6.0),
         GYMNOSPERMS("GymnospermsPlants", 60.0, 0.0),
@@ -58,6 +62,9 @@ public class Plant extends Entity {
         this.x = x;
         this.y = y;
         maturity = YOUNG;
+    }
+    public ScanResult accept(ScanParamsVisitor visitor, int timestamp, Cell cell) {
+        return visitor.visitPlant(this, timestamp, cell);
     }
     public double possibilityToGetStuckInPlants() {
         for(categories plantType : categories.values()) {

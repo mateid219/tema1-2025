@@ -1,19 +1,17 @@
 package entities.Animals;
 
-import Events.WaterEvent;
 import entities.Entity;
 import entities.Plants.Plant;
+import entities.Scannable;
 import entities.Water.Water;
 import fileio.AnimalInput;
-import fileio.PairInput;
-import fileio.PlantInput;
 import lombok.Getter;
 import lombok.Setter;
+import simulation.Cell;
+import simulation.terrabot.scanner.ScanParamsVisitor;
+import simulation.terrabot.scanner.ScanResult;
 
-import java.util.ArrayList;
-import java.util.List;
-
-public final class Animal extends Entity {
+public final class Animal extends Entity implements Scannable {
     @Getter @Setter private String state;
     @Getter @Setter private boolean scanned;
     @Getter @Setter private boolean full;
@@ -43,15 +41,14 @@ public final class Animal extends Entity {
         return new Animal(animalInput, x, y);
     }
     public Animal() {
-        scanned = false;
+
     }
     public Animal(final AnimalInput animalInput, int x, int y) {
-        this();
         name = animalInput.getName();
         type = animalInput.getType();
         mass = animalInput.getMass();
         this.x = x;
-        this.y = y;
+        this.y = y;scanned = false;
     }
     public double possibilityToBeAttackedByAnimal() {
         for (attackProbability animalType : attackProbability.values()) {
@@ -61,9 +58,12 @@ public final class Animal extends Entity {
         }
         return 0.0;
     }
-    public void eat(Animal otherAnimal) {
-        mass += otherAnimal.getMass();
-        System.out.print("!!!" + name + " ate animal " + otherAnimal.getName());
+    public ScanResult accept(ScanParamsVisitor visitor, int timestamp, Cell cell) {
+        return visitor.visitAnimal(this, timestamp, cell);
+    }
+    public void eat(Animal prey) {
+        mass += prey.getMass();
+        System.out.print("!!!" + name + " ate animal " + prey.getName());
     }
     public void eat(Plant plant) {
         mass += plant.getMass();

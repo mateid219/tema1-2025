@@ -34,7 +34,3 @@ build/
 
 ### Mac OS ###
 .DS_Store
-
-### Checker ###
-src/**
-/src/test/

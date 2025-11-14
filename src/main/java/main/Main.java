@@ -5,10 +5,11 @@ import com.fasterxml.jackson.databind.ObjectWriter;
 import com.fasterxml.jackson.databind.node.ArrayNode;
 import com.fasterxml.jackson.databind.node.ObjectNode;
 import commands.Command;
+import commands.CommandFactory;
 import fileio.CommandInput;
 import fileio.InputLoader;
 import fileio.SimulationInput;
-import Simulation.Simulation;
+import simulation.Simulation;
 
 import java.io.File;
 import java.io.IOException;
@@ -44,7 +45,7 @@ public final class Main {
         ArrayList<CommandInput> commandInputArrayList = inputLoader.getCommands();
         ArrayList<Command> commandArrayList = new ArrayList<>();
         for (CommandInput commandInput : commandInputArrayList) {
-            commandArrayList.add(Command.createCommand(commandInput));
+            commandArrayList.add(CommandFactory.createCommand(commandInput));
         }
         Simulation simulation = simulationArrayList.getFirst();
         ObjectNode debugNode = MAPPER.createObjectNode();

@@ -24,9 +24,10 @@ public final class Temperate extends Air {
         double oxygenScore = oxygenLevel * OXYGEN_COEF;
         double humidityScore = humidity * HUMIDITY_COEF;
         double pollenScore = pollenLevel * POLLEN_COEF;
-        return oxygenScore + humidityScore - pollenScore -
-                (SPRING.equalsIgnoreCase(newSeason) ? 15.0 : 0.0);
+        double score = finalScore(oxygenScore + humidityScore - pollenScore);
+        return score - (SPRING.equalsIgnoreCase(newSeason) ? 15.0 : 0.0);
     }
+
     @Override public ObjectNode buildEntityOutput() {
         ObjectNode objectNode = super.buildEntityOutput();
         objectNode.put("pollenLevel", pollenLevel);

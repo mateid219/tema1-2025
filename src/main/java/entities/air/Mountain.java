@@ -27,7 +27,8 @@ public final class Mountain extends Air {
         double oxygenFactor = oxygenLevel - altitude * ALTITUDE_COEF;
         double oxygenScore = oxygenFactor * OXYGEN_COEF;
         double humidityScore = humidity * HUMIDITY_COEF;
-        return oxygenScore + humidityScore - numberOfHikers * HIKERS_COEF;
+        double score = finalScore(oxygenScore + humidityScore);
+        return score - numberOfHikers * HIKERS_COEF;
     }
     @Override public ObjectNode buildEntityOutput() {
         ObjectNode objectNode = super.buildEntityOutput();

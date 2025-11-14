@@ -1,20 +1,18 @@
 package entities.Water;
 
 import com.fasterxml.jackson.databind.node.ObjectNode;
-import entities.Plants.Plant;
 import entities.QualitativeEntity;
-import fileio.PairInput;
-import fileio.PlantInput;
+import entities.Scannable;
 import fileio.WaterInput;
 import lombok.Getter;
 import lombok.Setter;
-
-import java.util.ArrayList;
-import java.util.List;
+import simulation.Cell;
+import simulation.terrabot.scanner.ScanParamsVisitor;
+import simulation.terrabot.scanner.ScanResult;
 
 import static java.lang.Math.abs;
 
-public final class Water extends QualitativeEntity {
+public final class Water extends QualitativeEntity implements Scannable {
     @Getter @Setter private double salinity;
     @Getter @Setter private double pH;
     @Getter @Setter private double purity;
@@ -30,13 +28,14 @@ public final class Water extends QualitativeEntity {
     private static final double TURBIDITY_FACTOR = 100.0;
     private static final double CONTAMINANT_FACTOR = 100.0;
 
-    private static final double PURITY_COEFF = 0.3;
-    private static final double PH_COEF = 0.2;
-    private static final double SALINITY_COEF = 0.15;
-    private static final double TURBIDITY_COEF = 0.1;
-    private static final double CONTAMINANT_COEF = 0.15;
-    private static final double FROZEN_COEF = 0.15;
+    private static final double PURITY_COFF = 0.3;
+    private static final double PH_COFF = 0.2;
+    private static final double SALINITY_COFF = 0.15;
+    private static final double TURBIDITY_COFF = 0.1;
+    private static final double CONTAMINANT_COFF = 0.15;
+    private static final double FROZEN_COFF = 0.15;
 
+    private static final String SUCCESS_SCANNED = "The scanned object is water.";
     public static Water createWater(WaterInput waterInput, int x, int y) {
         return new Water(waterInput, x, y);
     }
@@ -59,17 +58,20 @@ public final class Water extends QualitativeEntity {
         isFrozen = waterInput.isFrozen();
         scanned = false;
     }
+    public ScanResult accept(ScanParamsVisitor visitor, int timestamp, Cell cell) {
+        return visitor.visitWater(this, timestamp, cell);
+    }
     /**
      * Calculeaza scorul(fara normalizare) asociat calitatii apei
      * @return score
      */
     public double calculateScore() {
-        double purityScore = (purity / PURITY_FACTOR) * PURITY_COEFF;
-        double pHScore = (1.0 - abs(pH - PH_FACTOR) / PH_FACTOR) * PH_COEF;
-        double salinityScore = (1.0 - salinity / SALINITY_FACTOR) * SALINITY_COEF;
-        double turbidityScore = (1.0 - (double) turbidity / TURBIDITY_FACTOR) * TURBIDITY_COEF;
-        double contaminantScore = (1.0 - contaminantIndex / CONTAMINANT_FACTOR) * CONTAMINANT_COEF;
-        double frozenScore = (isFrozen ? 0.0 : 1.0) * FROZEN_COEF;
+        double purityScore = (purity / PURITY_FACTOR) * PURITY_COFF;
+        double pHScore = (1.0 - abs(pH - PH_FACTOR) / PH_FACTOR) * PH_COFF;
+        double salinityScore = (1.0 - salinity / SALINITY_FACTOR) * SALINITY_COFF;
+        double turbidityScore = (1.0 - (double) turbidity / TURBIDITY_FACTOR) * TURBIDITY_COFF;
+        double contaminantScore = (1.0 - contaminantIndex / CONTAMINANT_FACTOR) * CONTAMINANT_COFF;
+        double frozenScore = (isFrozen ? 0.0 : 1.0) * FROZEN_COFF;
         return (purityScore + pHScore + salinityScore + turbidityScore
                 + contaminantScore + frozenScore) * MAX_PERCENTAGE;
     }

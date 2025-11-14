@@ -24,7 +24,8 @@ public final class Tropical extends Air {
         double oxygenScore = oxygenLevel * OXYGEN_COEF;
         double humidityScore = humidity * HUMIDITY_COEF;
         double co2LevelScore = co2Level * CO2LEVEL_COEF;
-        return oxygenScore + humidityScore - co2LevelScore - rainfall * RAINFALL_COEF;
+        double score = finalScore(oxygenScore + humidityScore - co2LevelScore);
+        return score + rainfall * RAINFALL_COEF;
     }
     @Override public ObjectNode buildEntityOutput() {
         ObjectNode objectNode = super.buildEntityOutput();

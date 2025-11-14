@@ -111,7 +111,7 @@
       "humidity" : 62.0,
       "temperature" : 19.0,
       "oxygenLevel" : 45.8,
-      "airQuality" : 100.0,
+      "airQuality" : 85.0,
       "pollenLevel" : 8.5
     },
     "plants" : {
@@ -533,8 +533,8 @@
       "humidity" : 15.0,
       "temperature" : 38.0,
       "oxygenLevel" : 19.0,
-      "airQuality" : 22.2,
-      "desertStorm" : false
+      "airQuality" : 0.0,
+      "desertStorm" : true
     },
     "animals" : {
       "type" : "Carnivores",
@@ -693,8 +693,8 @@
       "nitrogen" : 2.8,
       "waterRetention" : 1.72,
       "soilpH" : 6.5,
-      "organicMatter" : 7.95,
-      "soilQuality" : 21.92,
+      "organicMatter" : 8.45,
+      "soilQuality" : 22.92,
       "leafLitter" : 0.28
     },
     "air" : {

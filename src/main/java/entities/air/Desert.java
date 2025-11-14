@@ -26,7 +26,8 @@ public final class Desert extends Air {
         double oxygenScore = oxygenLevel * OXYGEN_COEF;
         double temperatureScore = temperature * TEMPERATURE_COEF;
         double dustScore = dustParticles * DUST_COEF;
-        return oxygenScore - temperatureScore - dustScore - (desertStorm ? STORM_SCORE : 0);
+        double score = finalScore(oxygenScore - temperatureScore - dustScore);
+        return score - (desertStorm ? STORM_SCORE : 0);
     }
     @Override public ObjectNode buildEntityOutput() {
         ObjectNode objectNode = super.buildEntityOutput();
