@@ -1,6 +1,6 @@
 package commands;
 
-public interface CommandConstants {
+public class CommandConstants2 {
     static final String ERROR_CHARGING = "ERROR: Robot still charging. Cannot perform action";
     /**
      * Debug commands
