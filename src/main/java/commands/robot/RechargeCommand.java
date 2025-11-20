@@ -1,31 +1,27 @@
 package commands.robot;
 
-import simulation.events.Event;
-import simulation.events.chargingEvent.BeginCharging;
-import simulation.events.chargingEvent.FinishCharging;
 import fileio.CommandInput;
 import lombok.NoArgsConstructor;
 import simulation.Simulation;
-
-import java.util.Queue;
+import simulation.events.chargingEvent.BeginCharging;
+import simulation.events.chargingEvent.FinishCharging;
 
 @NoArgsConstructor
-public class RechargeCommand extends RobotCommand {
+public final class RechargeCommand extends RobotCommand {
 
     private static final String SUCCESS_CHARGING = "Robot battery is charging.";
 
-    int timeToCharge;
+    private int timeToCharge;
 
-    public RechargeCommand(CommandInput commandInput) {
+    public RechargeCommand(final CommandInput commandInput) {
         super(commandInput);
         timeToCharge = commandInput.getTimeToCharge();
     }
 
     @Override
-    public void doExecute(Simulation simulation) {
-        Queue<Event> eventQueue = simulation.getEventQueue();
+    public void doExecute(final Simulation simulation) {
         new BeginCharging(timestamp).takeEffect(simulation);
-        eventQueue.add(new FinishCharging(timestamp + timeToCharge, timeToCharge));
+        simulation.addEvent(new FinishCharging(timestamp + timeToCharge, timeToCharge));
         message = SUCCESS_CHARGING;
     }
 }

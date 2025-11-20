@@ -5,22 +5,29 @@ import entities.QualitativeEntity;
 import entities.Scannable;
 import fileio.WaterInput;
 import lombok.Getter;
-import lombok.Setter;
-import simulation.Cell;
+import simulation.environmentMap.Cell;
 import simulation.terrabot.scanner.ScanParamsVisitor;
 import simulation.terrabot.scanner.ScanResult;
 
 import static java.lang.Math.abs;
 
 public final class Water extends QualitativeEntity implements Scannable {
-    @Getter @Setter private double salinity;
-    @Getter @Setter private double pH;
-    @Getter @Setter private double purity;
-    @Getter @Setter private double turbidity;
-    @Getter @Setter private double contaminantIndex;
-    @Getter @Setter private boolean isFrozen;
-    @Getter @Setter private boolean scanned;
-    @Getter @Setter private int scanTime;
+    @Getter
+    private double salinity;
+    @Getter
+    private double pH;
+    @Getter
+    private double purity;
+    @Getter
+    private double turbidity;
+    @Getter
+    private double contaminantIndex;
+    @Getter
+    private boolean isFrozen;
+    @Getter
+    private boolean scanned;
+    @Getter
+    private int scanTime;
 
     private static final double PURITY_FACTOR = 100.0;
     private static final double PH_FACTOR = 7.5;
@@ -35,21 +42,18 @@ public final class Water extends QualitativeEntity implements Scannable {
     private static final double CONTAMINANT_COFF = 0.15;
     private static final double FROZEN_COFF = 0.15;
 
-    private static final String SUCCESS_SCANNED = "The scanned object is water.";
-    public static Water createWater(WaterInput waterInput, int x, int y) {
-        return new Water(waterInput, x, y);
+    private static final String OUTPUT_CATEGORY = "water";
+
+    @Override
+    public String getPropertyName() {
+        return OUTPUT_CATEGORY;
     }
+
     public Water() {
-        scanned = false;
-        scanTime = -1;
     }
-    public Water(final WaterInput waterInput, int x, int y) {
-        this();
-        name = waterInput.getName();
-        type = waterInput.getType();
-        mass = waterInput.getMass();
-        this.x = x;
-        this.y = y;
+
+    public Water(final WaterInput waterInput) {
+        super(waterInput);
         salinity = waterInput.getSalinity();
         pH = waterInput.getPH();
         purity = waterInput.getPurity();
@@ -57,42 +61,44 @@ public final class Water extends QualitativeEntity implements Scannable {
         contaminantIndex = waterInput.getContaminantIndex();
         isFrozen = waterInput.isFrozen();
         scanned = false;
+        scanTime = -1;
     }
-    public ScanResult accept(ScanParamsVisitor visitor, int timestamp, Cell cell) {
+
+    @Override
+    public ScanResult accept(final ScanParamsVisitor visitor,
+                             final int timestamp, final Cell cell) {
+        scanned = true;
+        scanTime = timestamp;
         return visitor.visitWater(this, timestamp, cell);
     }
-    /**
-     * Calculeaza scorul(fara normalizare) asociat calitatii apei
-     * @return score
-     */
+
+    @Override
     public double calculateScore() {
         double purityScore = (purity / PURITY_FACTOR) * PURITY_COFF;
         double pHScore = (1.0 - abs(pH - PH_FACTOR) / PH_FACTOR) * PH_COFF;
         double salinityScore = (1.0 - salinity / SALINITY_FACTOR) * SALINITY_COFF;
-        double turbidityScore = (1.0 - (double) turbidity / TURBIDITY_FACTOR) * TURBIDITY_COFF;
+        double turbidityScore = (1.0 - turbidity / TURBIDITY_FACTOR) * TURBIDITY_COFF;
         double contaminantScore = (1.0 - contaminantIndex / CONTAMINANT_FACTOR) * CONTAMINANT_COFF;
         double frozenScore = (isFrozen ? 0.0 : 1.0) * FROZEN_COFF;
         return (purityScore + pHScore + salinityScore + turbidityScore
                 + contaminantScore + frozenScore) * MAX_PERCENTAGE;
     }
-    @Override public double calculateFinalScore() {
-        return calculateScore();
+
+    /**
+     * Drains the water by specified amount.
+     *
+     * @param mass the water to be drained
+     */
+    public double beDrankBy(final double entityMass, final double INTAKE_RATE) {
+        double waterMass = Math.round(mass * MAX_PERCENTAGE) / MAX_PERCENTAGE;
+        double waterDrank = Math.min(entityMass * INTAKE_RATE, waterMass);
+        mass -= waterDrank;
+        return waterDrank;
     }
-    public void drain(double mass) {
-        this.mass -= mass;
-    }
-    @Override public ObjectNode buildEntityOutput() {
-        ObjectNode objectNode = super.buildEntityOutput();
-        return objectNode;
-        /// update gresit test1
-        /*
-        objectNode.put("purity", purity);
-        objectNode.put("salinity", salinity);
-        objectNode.put("turbidity", (double) turbidity);
-        objectNode.put("contaminantIndex" , contaminantIndex);
-        objectNode.put("pH" , pH);
-        objectNode.put("isFrozen" , isFrozen);
-        return objectNode;
-         */
+
+
+    @Override
+    public ObjectNode buildEntityOutput() {
+        return super.buildEntityOutput();
     }
 }

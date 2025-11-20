@@ -7,13 +7,17 @@ public final class SoilFactory {
         throw new AssertionError(
                 "Utility classes should not be instantiated.");
     }
-    public Soil createSoil(SoilInput soilInput) {
+    /**
+     * Creates a soil entity.
+     * @return the newly created soil
+     */
+    public static Soil createSoil(final SoilInput soilInput) {
         return switch (soilInput.getType()) {
-            case "ForestSoil" -> new ForestSoil(soilInput, x, y);
-            case "DesertSoil" -> new DesertSoil(soilInput, x, y);
-            case "SwampSoil" -> new SwampSoil(soilInput, x, y);
-            case "TundraSoil" -> new TundraSoil(soilInput, x, y);
-            case "GrasslandSoil" -> new GrasslandSoil(soilInput, x, y);
+            case "ForestSoil" -> new ForestSoil(soilInput);
+            case "DesertSoil" -> new DesertSoil(soilInput);
+            case "SwampSoil" -> new SwampSoil(soilInput);
+            case "TundraSoil" -> new TundraSoil(soilInput);
+            case "GrasslandSoil" -> new GrasslandSoil(soilInput);
             default -> null;
         };
     }

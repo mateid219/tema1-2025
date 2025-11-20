@@ -14,7 +14,8 @@ public class ScanResult {
     @Getter private List<Event> newEvents;
     @Getter private Scannable entity;
 
-    public ScanResult(String message, String name, List<Event> newEvents, Scannable entity) {
+    public ScanResult(final String message, final String name, final List<Event> newEvents,
+                      final Scannable entity) {
         this.message = message;
         this.name = name;
         this.newEvents = newEvents;

@@ -7,7 +7,7 @@ import java.util.List;
 
 @Data
 @NoArgsConstructor
-public final class SoilInput {
+public final class SoilInput implements EntityInput {
     private String type;
     private String name;
     private double mass;

@@ -1,110 +1,83 @@
 package entities.Plants;
 
+import entities.CellQualityAgent;
 import entities.Entity;
 import entities.Scannable;
+import entities.air.Air;
 import fileio.PlantInput;
 import lombok.Getter;
-import lombok.Setter;
-import simulation.Cell;
+import simulation.environmentMap.Cell;
 import simulation.terrabot.scanner.ScanParamsVisitor;
 import simulation.terrabot.scanner.ScanResult;
 
-public class Plant extends Entity implements Scannable {
-    @Getter private String maturity;
+public abstract class Plant extends Entity implements Scannable, CellQualityAgent {
+    @Getter private PlantConstants.LifeStages maturity;
     @Getter private double growthLevel;
-    @Getter @Setter private boolean scanned;
-    @Getter @Setter private int scanTime;
+    @Getter private boolean scanned;
+    @Getter private int scanTime;
 
-    private static final String SUCCESS_SCANNED = "The scanned object is a plant.";
-    enum categories {
-        ANGIOSPERMS("FloweringPlants", 90.0, 6.0),
-        GYMNOSPERMS("GymnospermsPlants", 60.0, 0.0),
-        FERNS("Ferns", 30.0, 0.0),
-        MOSSES("Mosses", 40.0, 0.8),
-        ALGAE("Algae", 20.0, 0.5);
 
-        private final String category;
-        private final double stuckProbability;
-        private final double baseOxygenLevel;
-        categories(String category, double stuckProbability, double baseOxygenLevel) {
-            this.category = category;
-            this.stuckProbability = stuckProbability;
-            this.baseOxygenLevel = baseOxygenLevel;
-        }
-        public double calculateProbability() {
-            return stuckProbability / MAX_PERCENTAGE;
-        }
+    @Override
+    public String getPropertyName() {
+        return PlantConstants.OUTPUT_CATEGORY;
     }
 
-    private static final String YOUNG = "young";
-    private static final String MATURE = "mature";
-    private static final String OLD = "old";
-    private static final String DEAD = "dead";
+    abstract double getStuckProbability();
+    abstract double getBaseOxygenLevel();
 
-    private static final double YOUNG_OXYGEN_RATE = 0.2;
-    private static final double MATURE_OXYGEN_RATE = 0.7;
-    private static final double OLD_OXYGEN_RATE = 0.4;
-
-    public static Plant createPlant(PlantInput plantInput, int x, int y) {
-        return new Plant(plantInput, x, y);
-    }
-    public Plant() {
-        growthLevel = 0.0;
-        maturity = YOUNG;
-        scanned = false;
-        scanTime = -1;
-    }
-    public Plant(final PlantInput plantInput, int x, int y) {
-        this();
+    public Plant(final PlantInput plantInput) {
         name = plantInput.getName();
         type = plantInput.getType();
         mass = plantInput.getMass();
-        this.x = x;
-        this.y = y;
-        maturity = YOUNG;
+        maturity = PlantConstants.LifeStages.YOUNG;
     }
-    public ScanResult accept(ScanParamsVisitor visitor, int timestamp, Cell cell) {
+    public final ScanResult accept(final ScanParamsVisitor visitor,
+                             final int timestamp, final Cell cell) {
+        scanned = true;
+        scanTime = timestamp;
         return visitor.visitPlant(this, timestamp, cell);
     }
-    public double possibilityToGetStuckInPlants() {
-        for(categories plantType : categories.values()) {
-            if (type.equals(plantType.category)) {
-                return plantType.calculateProbability();
-            }
-        }
-        return 0.0;
+    public boolean hasDied() {
+        return maturity.equals(PlantConstants.LifeStages.DEAD);
     }
-    public void grow(double growthFactor) {
+    public final void grow(final double growthFactor) {
         growthLevel += growthFactor;
-        if (growthLevel < 1.0) {
+        if (growthLevel < PlantConstants.MAX_GROWTH) {
             return;
         }
-        growthLevel -= 1.0;
-        if (YOUNG.equals(maturity)) {
-            maturity = MATURE;
-        } else if (MATURE.equals(maturity)) {
-            maturity = OLD;
-        } else {
-            maturity = DEAD;
-        }
+        growthLevel -= PlantConstants.MAX_GROWTH;
+        maturity = switch (maturity) {
+            case PlantConstants.LifeStages.YOUNG -> PlantConstants.LifeStages.MATURE;
+            case PlantConstants.LifeStages.MATURE -> PlantConstants.LifeStages.OLD;
+            default -> PlantConstants.LifeStages.DEAD;
+        };
     }
     private double maturityOxygenRate() {
-        if (YOUNG.equals(maturity)) {
-            return YOUNG_OXYGEN_RATE;
-        }
-        if (MATURE.equals(maturity)) {
-            return MATURE_OXYGEN_RATE;
-        }
-        return OLD_OXYGEN_RATE;
+        return switch (maturity) {
+            case PlantConstants.LifeStages.YOUNG ->
+                    PlantConstants.LifeStages.YOUNG.getOxygenRate();
+            case PlantConstants.LifeStages.MATURE ->
+                    PlantConstants.LifeStages.MATURE.getOxygenRate();
+            case PlantConstants.LifeStages.OLD ->
+                    PlantConstants.LifeStages.OLD.getOxygenRate();
+            default -> PlantConstants.LifeStages.DEAD.getOxygenRate();
+        };
     }
-    public double oxygenGenerated() {
-        double oxygen = 0.0;
-        for (categories plantType : categories.values()) {
-            if (type.equals(plantType.category)) {
-                oxygen = plantType.baseOxygenLevel;
-                break;
-            }
-        }
-        return oxygen + maturityOxygenRate();
+    public final double oxygenGenerated() {
+        return getBaseOxygenLevel() + maturityOxygenRate();
+    }
+    public final double calculateProbability() {
+        return getStuckProbability() / MAX_PERCENTAGE;
+    }
+    public final double possibilityToGetStuckInPlants() {
+        return calculateProbability();
+    }
+    @Override
+    public final double cellQualityTerm() {
+        return possibilityToGetStuckInPlants();
+    }
+    public void interact(Cell cell) {
+        Air air = cell.getAir();
+        air.increaseOxygen(oxygenGenerated());
     }
 }

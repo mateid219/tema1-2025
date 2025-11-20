@@ -7,19 +7,18 @@ import simulation.terrabot.Fact;
 import simulation.Simulation;
 import simulation.terrabot.TerraBot;
 
-public class LearnCommand extends RobotCommand {
+public final class LearnCommand extends RobotCommand {
     static final String SUCCESS_SAVED = "The fact has been successfully saved in the database.";
-    
     private Fact fact;
 
     public LearnCommand() { }
-    public LearnCommand(CommandInput commandInput) {
+    public LearnCommand(final CommandInput commandInput) {
         super(commandInput);
         fact = new Fact(commandInput.getSubject(), commandInput.getComponents());
     }
 
     @Override
-    public void doExecute(Simulation simulation) {
+    public void doExecute(final Simulation simulation) {
         TerraBot terraBot = simulation.getTerraBot();
         try {
             terraBot.learnFact(fact);

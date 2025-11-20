@@ -1,14 +1,11 @@
 package entities.Soil;
 
 import com.fasterxml.jackson.databind.node.ObjectNode;
+import entities.CellQualityAgent;
 import entities.QualitativeEntity;
-import fileio.PairInput;
 import fileio.SoilInput;
 import lombok.Getter;
 import lombok.Setter;
-
-import java.util.ArrayList;
-import java.util.List;
 
 /**
  * Base class for soil entities.
@@ -16,41 +13,49 @@ import java.util.List;
  * <p>This class is designed for extension. Subclasses should ensure they
  * properly handle the entity output building process when overriding methods.
  */
-public abstract class Soil extends QualitativeEntity {
+public abstract class Soil extends QualitativeEntity implements CellQualityAgent {
     @Getter @Setter protected double nitrogen;
     @Getter @Setter protected double waterRetention;
     @Getter @Setter protected double soilpH;
     @Getter @Setter protected double organicMatter;
 
-    public static Soil createSoil(final SoilInput soilInput, int x, int y) {
-        return switch (soilInput.getType()) {
-            case "ForestSoil" -> new ForestSoil(soilInput, x, y);
-            case "DesertSoil" -> new DesertSoil(soilInput, x, y);
-            case "SwampSoil" -> new SwampSoil(soilInput, x, y);
-            case "TundraSoil" -> new TundraSoil(soilInput, x, y);
-            case "GrasslandSoil" -> new GrasslandSoil(soilInput, x, y);
-            default -> null;
-        };
+    private static final String OUTPUT_CATEGORY = "soil";
+
+    @Override
+    public String getPropertyName() {
+        return OUTPUT_CATEGORY;
     }
+
     public Soil() { }
-    public Soil(final SoilInput soilInput, int x, int y) {
-        name = soilInput.getName();
-        type = soilInput.getType();
-        mass = soilInput.getMass();
-        this.x = x;
-        this.y = y;
+    public Soil(final SoilInput soilInput) {
+        super(soilInput);
         nitrogen = soilInput.getNitrogen();
         waterRetention = soilInput.getWaterRetention();
         soilpH = soilInput.getSoilpH();
         organicMatter = soilInput.getOrganicMatter();
     }
-    public abstract double possibilityToGetStuckInSoil();
-    public void increaseWaterRetention(double waterRetention) {
-        this.waterRetention += waterRetention;
+
+    @Override
+    public double cellQualityTerm() {
+        return possibilityToGetStuckInSoil();
     }
-    public void fertilize(double organicMatterAdded) {
+
+    /**
+     * Subclasses should implement with specific formulas.
+     */
+    public abstract double possibilityToGetStuckInSoil();
+
+    /**
+     * Increases water retention by specified amount
+     */
+    public final void increaseWaterRetention(final double waterRetentionIncrease) {
+        waterRetention += waterRetentionIncrease;
+    }
+    /**
+     * Increases organic matter by specified amount
+     */
+    public final void fertilize(final double organicMatterAdded) {
         organicMatter += organicMatterAdded;
-        System.out.print("Soil at " + "(" + x + "," + y + ") was fertilized with " + organicMatterAdded + " organicMatter");
     }
     /**
      * Builds the entity output representation.
@@ -62,7 +67,7 @@ public abstract class Soil extends QualitativeEntity {
      *   <li>Ensure the output format remains consistent</li>
      * </ul>
      *
-     * @return the formatted entity output string
+     * @return the formatted entity objectNode
      */
     @Override public ObjectNode buildEntityOutput() {
         ObjectNode objectNode = super.buildEntityOutput();

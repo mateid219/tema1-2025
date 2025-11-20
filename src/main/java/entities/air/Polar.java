@@ -9,22 +9,23 @@ public final class Polar extends Air {
     @Setter private double windspeed;
 
     private static final double MAX_SCORE = 142.0;
-    private static final double OXYGEN_COEF = 2.0;
-    private static final double CRYSTAL_COEF = 0.05;
-    private static final double WINDSPEED_COEF = 0.2;
+    private static final double OXYGEN_COFF = 2.0;
+    private static final double CRYSTAL_COFF = 0.05;
+    private static final double WINDSPEED_COFF = 0.2;
 
     public Polar() { }
-    public Polar(final AirInput airInput, int x, int y) {
-        super(airInput, x , y);
+    public Polar(final AirInput airInput) {
+        super(airInput);
         maxScore = MAX_SCORE;
         iceCrystalConcentration = airInput.getIceCrystalConcentration();
     }
+    @Override
     public double calculateScore() {
-        double oxygenScore = oxygenLevel * OXYGEN_COEF;
+        double oxygenScore = oxygenLevel * OXYGEN_COFF;
         double temperatureScore = MAX_SCORE - Math.abs(temperature);
-        double crystalScore = iceCrystalConcentration * CRYSTAL_COEF;
+        double crystalScore = iceCrystalConcentration * CRYSTAL_COFF;
         double score = finalScore(oxygenScore + temperatureScore - crystalScore);
-        return score - windspeed * WINDSPEED_COEF;
+        return score - windspeed * WINDSPEED_COFF;
     }
     @Override public ObjectNode buildEntityOutput() {
         ObjectNode objectNode = super.buildEntityOutput();

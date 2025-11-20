@@ -12,19 +12,37 @@ public final class Inventory {
     public Inventory() {
         inventory = new HashMap<>();
     }
-    public void add(String name, Scannable entity) {
+
+    /**
+     * Adds a scannable entity in the inventory.
+     * @param name the name of the entity
+     * @param entity a scannable entity
+     */
+    public void add(final String name, final Scannable entity) {
         if (!inventory.containsKey(name)) {
             inventory.put(name, new ArrayList<>());
         }
         inventory.get(name).add(entity);
     }
-    public void remove(String name) {
+
+    /**
+     * Removes an entity from the inventory. The removed entity must already
+     * be present in the inventory at least once.
+     * @param name the name of the entity
+     */
+    public void remove(final String name) {
         inventory.get(name).removeLast();
         if (inventory.get(name).isEmpty()) {
             inventory.remove(name);
         }
     }
-    public void validateRequest(String name)
+
+    /**
+     * Checks if an entity is in the inventory.
+     * @param name the name of the entity
+     * @throws SubjectNotSavedException if the queried entity is not in the inventory.
+     */
+    public void validateRequest(final String name)
             throws SubjectNotSavedException {
         if (!inventory.containsKey(name)) {
             throw new SubjectNotSavedException();

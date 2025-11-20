@@ -1,19 +1,21 @@
 package simulation.terrabot.scanner;
 
-import entities.Animals.Animal;
 import entities.Plants.Plant;
 import entities.Water.Water;
+import entities.animals.Animal;
 import exceptions.ObjectNotFoundException;
-import simulation.Cell;
-import simulation.events.*;
+import simulation.environmentMap.Cell;
+import simulation.events.AirEvent;
+import simulation.events.Event;
+import simulation.events.PlantEvent;
+import simulation.events.SoilEvent;
+import simulation.events.animal.FeedEvent;
+import simulation.events.animal.MoveEvent;
+import simulation.events.water.GrowPlantEvent;
+import simulation.events.water.IncreaseStatsEvent;
 
 import java.util.Arrays;
 import java.util.List;
-
-import static simulation.events.AnimalEvent.FEED;
-import static simulation.events.AnimalEvent.MOVE;
-import static simulation.events.WaterEvent.GROW_PLANT;
-import static simulation.events.WaterEvent.INCREASE_STATS;
 
 public final class Scanner implements ScanParamsVisitor {
 
@@ -21,31 +23,31 @@ public final class Scanner implements ScanParamsVisitor {
     private static final String SUCCESS_SCANNED_ANIMAL = "The scanned object is an animal.";
     private static final String SUCCESS_SCANNED_WATER = "The scanned object is water.";
 
-    public ScanResult scan(ScanParams params, Cell cell, int timestamp)
+    /**
+     * Starts the visiting process.
+     */
+    public ScanResult scan(final ScanParams params, final Cell cell)
             throws ObjectNotFoundException {
-        return params.accept(this, cell, timestamp);
+        return params.accept(this, cell);
     }
     @Override
-    public ScanResult visitPlant(Plant plant, int timestamp, Cell cell) {
-        plant.setScanned(true);
-        plant.setScanTime(timestamp);
+    public ScanResult visitPlant(final Plant plant, final int timestamp, final Cell cell) {
         List<Event> newEvents = Arrays.asList(new SoilEvent(timestamp + 1, cell),
                 new PlantEvent(timestamp + 1, cell),
-                new WaterEvent(timestamp + 1, cell, GROW_PLANT));
+                new GrowPlantEvent(timestamp + 1, cell));
         return new ScanResult(SUCCESS_SCANNED_PLANT, plant.getName(), newEvents, plant);
     }
-    public ScanResult visitAnimal(Animal animal, int timestamp, Cell cell) {
-        animal.setScanned(true);
+    @Override
+    public ScanResult visitAnimal(final Animal animal, final int timestamp, final Cell cell) {
         List<Event> newEvents = Arrays.asList(new AirEvent(timestamp + 1, cell),
-                new AnimalEvent(timestamp + 1, cell, FEED),
-                new AnimalEvent(timestamp + 2, cell, MOVE));
+                new FeedEvent(timestamp + 1, cell),
+                new MoveEvent(timestamp + 2, cell));
         return new ScanResult(SUCCESS_SCANNED_ANIMAL, animal.getName(), newEvents, animal);
     }
-    public ScanResult visitWater(Water water, int timestamp, Cell cell) {
-        water.setScanned(true);
-        water.setScanTime(timestamp);
-        List<Event> newEvents = Arrays.asList(new WaterEvent(timestamp + 1, cell, GROW_PLANT),
-                new WaterEvent(timestamp + 2, cell, INCREASE_STATS));
+    @Override
+    public ScanResult visitWater(final Water water, final int timestamp, final Cell cell) {
+        List<Event> newEvents = Arrays.asList(new GrowPlantEvent(timestamp + 1, cell),
+                new IncreaseStatsEvent(timestamp + 2, cell));
         return new ScanResult(SUCCESS_SCANNED_WATER, water.getName(), newEvents, water);
     }
 

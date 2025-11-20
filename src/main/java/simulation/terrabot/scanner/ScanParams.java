@@ -2,9 +2,9 @@ package simulation.terrabot.scanner;
 
 import exceptions.ObjectNotFoundException;
 import lombok.Getter;
-import simulation.Cell;
+import simulation.environmentMap.Cell;
 
-public class ScanParams {
+public final class ScanParams {
 
     private static final String NONE = "none";
 
@@ -13,7 +13,8 @@ public class ScanParams {
     @Getter private String smell;
     @Getter private String sound;
     public ScanParams() { }
-    public ScanParams(int timestamp, String color, String smell, String sound) {
+    public ScanParams(final int timestamp, final String color,
+                      final String smell, final String sound) {
         this.timestamp = timestamp;
         this.color = color;
         this.smell = smell;
@@ -30,7 +31,14 @@ public class ScanParams {
         return !NONE.equals(color) && !NONE.equals(smell) && !NONE.equals(sound);
     }
 
-    public ScanResult accept(ScanParamsVisitor visitor, Cell cell, int timestamp)
+    /**
+     * Redirects the scan operation to the corresponding entity.
+     * @param visitor the scanner
+     * @param cell the cell on which the scan is performed
+     * @return the scan results
+     * @throws ObjectNotFoundException if no scannable object was found on the cell
+     */
+    public ScanResult accept(final ScanParamsVisitor visitor, final Cell cell)
             throws ObjectNotFoundException {
         if (scannedIsAnimal() && cell.getAnimal() != null) {
             return cell.getAnimal().accept(visitor, timestamp, cell);

@@ -6,12 +6,12 @@ import simulation.Simulation;
 
 @NoArgsConstructor
 public final class PrintMap extends DebugCommand {
-    public PrintMap(CommandInput commandInput) {
+    public PrintMap(final CommandInput commandInput) {
         super(commandInput);
     }
 
     @Override
-    public void doExecute(Simulation simulation) {
-        commandArrayOutput = simulation.printMap();
+    public void doExecute(final Simulation simulation) {
+        commandArrayOutput = simulation.getEnvironmentMap().buildMapOutput();
     }
 }

@@ -1,7 +1,7 @@
 package exceptions;
 
 public class AlreadyStartedException extends RuntimeException {
-    public AlreadyStartedException(String message) {
+    public AlreadyStartedException(final String message) {
         super(message);
     }
 }

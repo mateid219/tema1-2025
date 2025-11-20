@@ -19,21 +19,19 @@ public final class GrasslandSoil extends Soil {
 
 
     public GrasslandSoil() { }
-    public GrasslandSoil(final SoilInput soilInput, int x, int y) {
-        super(soilInput, x, y);
+    public GrasslandSoil(final SoilInput soilInput) {
+        super(soilInput);
         rootDensity = soilInput.getRootDensity();
     }
 
-    /**
-     * Calculeaza scorul(fara normalizare) asociat calitatii solului de tip 'GrasslandSoil'
-     * @return score
-     */
+    @Override
     public double calculateScore() {
         double nitrogenScore = nitrogen * NITROGEN_SCORE_COEF;
         double organicMatterScore = organicMatter * MATTER_SCORE_COEF;
         double rootDensityScore = rootDensity * DENSITY_SCORE_COEF;
         return nitrogenScore + organicMatterScore + rootDensityScore;
     }
+    @Override
     public double possibilityToGetStuckInSoil() {
         return (DENSITY_COMPLEMENT - rootDensity + waterRetention * RETENTION_STUCK_COEF)
                 / STUCK_PERCENTAGE * MAX_PERCENTAGE;

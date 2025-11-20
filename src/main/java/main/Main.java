@@ -48,7 +48,6 @@ public final class Main {
             commandArrayList.add(CommandFactory.createCommand(commandInput));
         }
         Simulation simulation = simulationArrayList.getFirst();
-        ObjectNode debugNode = MAPPER.createObjectNode();
         int simulationIndex = 0;
         for (Command command : commandArrayList) {
             command.executeInSync(simulation);

@@ -33,5 +33,10 @@ public abstract class DebugCommand extends Command {
         }
         doExecute(simulation);
     }
-    public abstract void doExecute(final Simulation simulation);
+
+    /**
+     * Should be implemented by subclasses.
+     * Executes the given debug command.
+     */
+    public abstract void doExecute(Simulation simulation);
 }

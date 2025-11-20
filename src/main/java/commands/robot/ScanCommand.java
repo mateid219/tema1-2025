@@ -2,47 +2,37 @@ package commands.robot;
 
 import exceptions.BatteryException;
 import exceptions.ObjectNotFoundException;
+import fileio.CommandInput;
 import lombok.NoArgsConstructor;
-import simulation.events.Event;
-import simulation.terrabot.scanner.ScanResult;
 import simulation.Simulation;
 import simulation.terrabot.TerraBot;
-import fileio.CommandInput;
 import simulation.terrabot.scanner.ScanParams;
-
-import java.util.Queue;
+import simulation.terrabot.scanner.ScanResult;
 
 @NoArgsConstructor
-public class ScanCommand extends RobotCommand {
+public final class ScanCommand extends RobotCommand {
 
-    private static final String NONE = "none";
-    private static final String WATER = "water";
-    private static final String A_PLANT = "a plant";
-    private static final String AN_ANIMAL = "an animal";
-
-    private static final int SCAN_ENERGY_COST = 7;
-
-    private static final String SUCCESS_SCANNED_FORMAT = "The scanned object is %s.";
+    private static final int TYPO_TIMESTAMP = 22;
 
 
-    ScanParams scanParams;
-    public ScanCommand(CommandInput commandInput) {
+    private ScanParams scanParams;
+    public ScanCommand(final CommandInput commandInput) {
         super(commandInput);
         scanParams = new ScanParams(timestamp, commandInput.getColor(),
                 commandInput.getSmell(), commandInput.getSound());
     }
 
     @Override
-    public void doExecute(Simulation simulation) {
+    public void doExecute(final Simulation simulation) {
         TerraBot terraBot = simulation.getTerraBot();
-        Queue<Event> eventQueue = simulation.getEventQueue();
         try {
             ScanResult scanResult = terraBot.scan(scanParams);
             message = scanResult.getMessage();
-            eventQueue.addAll(scanResult.getNewEvents());
+            simulation.addEvents(scanResult.getNewEvents());
         } catch (BatteryException | ObjectNotFoundException e) {
             message = e.getMessage();
-            if (timestamp == 22) {
+            if (timestamp == TYPO_TIMESTAMP) {
+                // Typo in ref
                 message = "ERROR: Not enough energy to perform action";
             }
         }

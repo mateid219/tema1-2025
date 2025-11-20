@@ -4,21 +4,21 @@ package commands.environment;
 
 import commands.Command;
 import commands.CommandConstants;
-import entities.air.Air;
-import simulation.events.Event;
-import simulation.events.WeatherEvent;
+import entities.air.AirFactory;
 import fileio.CommandInput;
 import lombok.Getter;
 import simulation.Simulation;
+import simulation.environmentMap.Cell;
+import simulation.events.WeatherEvent;
 
 import java.util.ArrayList;
-import java.util.Queue;
 // import java.util.Queue;
 
 
 public final class EnvironmentCommand extends Command {
 
-    public final class EnvironmentParams {
+    private static final int WEATHER_EVENT_DURATION = 2;
+    public static final class EnvironmentParams {
         @Getter private String type;
         @Getter private double rainfall;
         @Getter private double windSpeed;
@@ -50,28 +50,17 @@ public final class EnvironmentCommand extends Command {
         if (!changeType.contains(environmentParams.type)) {
             return message;
         }
-        Queue<Event> eventQueue = simulation.getEventQueue();
-        ArrayList<Air> airList = simulation.getTerritorySectionParams().getAir();
-        if (airList.stream().noneMatch(air -> airType.equals(air.getType()))) {
+        ArrayList<Cell> cellList = simulation.getEnvironmentMap().getCells();
+        cellList.removeIf(cell -> cell.getAir() == null);
+
+        if (cellList.stream().noneMatch(cell -> airType.equals(cell.getAir().getType()))) {
             return CommandConstants.ERROR_DOES_NOT_AFFECT;
         }
         environmentParams.type = airType;
-        double[] airQualityBefore = new double[airList.size()];
-        for (int i = 0; i < airList.size(); ++i) {
-            airQualityBefore[i] = airList.get(i).calculateFinalScore();
-        }
         new WeatherEvent(timestamp, environmentParams, false).takeEffect(simulation);
-        /* boolean affected = false;
-        for (int i = 0 ; i < airList.size(); ++i) {
-            if (airList.get(i).calculateFinalScore() != airQualityBefore[i]) {
-                affected = true;
-            }
-        }
-       // if (! affected) {
-            //new WeatherEvent(timestamp, environmentParams, true).takeEffect(simulation);
-           // return ERROR_DOES_NOT_AFFECT;
-       // }*/
-        eventQueue.add(new WeatherEvent(timestamp + 2 , environmentParams, true));
+        simulation.addEvent(new WeatherEvent(timestamp + WEATHER_EVENT_DURATION,
+                                        environmentParams, true)
+        );
         return CommandConstants.SUCCESS_MESSAGE;
     }
 
@@ -88,10 +77,15 @@ public final class EnvironmentCommand extends Command {
             message = CommandConstants.ERROR_NOT_STARTED;
             return;
         }
-        message = typedWeatherEvent(simulation, CommandConstants.PEOPLE_HIKING, Air.MOUNTAIN_AIR);
-        message = typedWeatherEvent(simulation, CommandConstants.DESERT_STORM, Air.DESERT_AIR);
-        message = typedWeatherEvent(simulation, CommandConstants.NEW_SEASON, Air.TEMPERATE_AIR);
-        message = typedWeatherEvent(simulation, CommandConstants.POLAR_STORM, Air.POLAR_AIR);
-        message = typedWeatherEvent(simulation, CommandConstants.RAINFALL, Air.TROPICAL_AIR);
+        message = typedWeatherEvent(simulation, CommandConstants.PEOPLE_HIKING,
+                                    AirFactory.MOUNTAIN_AIR);
+        message = typedWeatherEvent(simulation, CommandConstants.DESERT_STORM,
+                                    AirFactory.DESERT_AIR);
+        message = typedWeatherEvent(simulation, CommandConstants.NEW_SEASON,
+                                    AirFactory.TEMPERATE_AIR);
+        message = typedWeatherEvent(simulation, CommandConstants.POLAR_STORM,
+                                    AirFactory.POLAR_AIR);
+        message = typedWeatherEvent(simulation, CommandConstants.RAINFALL,
+                                    AirFactory.TROPICAL_AIR);
     }
 }

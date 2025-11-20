@@ -15,21 +15,19 @@ public final class SwampSoil extends Soil {
     private static final double LOGGING_STUCK_COEF = 10.0;
 
     public SwampSoil() { }
-    public SwampSoil(final SoilInput soilInput, int x, int y) {
-        super(soilInput, x, y);
+    public SwampSoil(final SoilInput soilInput) {
+        super(soilInput);
         waterLogging = soilInput.getWaterLogging();
     }
 
-    /**
-     * Calculeaza scorul(fara normalizare) asociat calitatii solului de tip 'SwampSoil'
-     * @return score
-     */
+    @Override
     public double calculateScore() {
         double nitrogenScore = nitrogen * NITROGEN_SCORE_COEF;
         double organicMatterScore = organicMatter * MATTER_SCORE_COEF;
         double waterLoggingScore = waterLogging * WATER_SCORE_COEF;
         return nitrogenScore + organicMatterScore - waterLoggingScore;
     }
+    @Override
     public double possibilityToGetStuckInSoil() {
         return waterLogging * LOGGING_STUCK_COEF;
     }

@@ -1,62 +1,82 @@
 package entities.air;
 
 import com.fasterxml.jackson.databind.node.ObjectNode;
+import entities.CellQualityAgent;
 import entities.QualitativeEntity;
 import fileio.AirInput;
 import lombok.Getter;
 import lombok.Setter;
 
-public abstract class Air extends QualitativeEntity {
+public abstract class Air extends QualitativeEntity implements CellQualityAgent {
     @Getter @Setter protected double humidity;
     @Getter @Setter protected double temperature;
     @Getter @Setter protected double oxygenLevel;
     @Getter @Setter protected double maxScore;
 
-    public final static String MOUNTAIN_AIR = "MountainAir";
-    public final static String DESERT_AIR = "DesertAir";
-    public final static String TEMPERATE_AIR = "TemperateAir";
-    public final static String POLAR_AIR = "PolarAir";
-    public final static String TROPICAL_AIR = "TropicalAir";
 
+    private static final String OUTPUT_CATEGORY = "air";
     private static final double MAX_SCORE_COFF = 0.8;
 
-    public static Air createAir(AirInput airInput, int x, int y) {
-        return switch (airInput.getType()) {
-            case MOUNTAIN_AIR -> new Mountain(airInput, x, y);
-            case DESERT_AIR -> new Desert(airInput, x, y);
-            case TEMPERATE_AIR -> new Temperate(airInput, x, y);
-            case POLAR_AIR -> new Polar(airInput, x, y);
-            case TROPICAL_AIR -> new Tropical(airInput, x, y);
-            default -> null;
-        };
+    @Override
+    public String getPropertyName() {
+        return OUTPUT_CATEGORY;
     }
+
     public Air() { }
-    public Air(final AirInput airInput, int x, int y) {
-        name = airInput.getName();
-        type = airInput.getType();
-        mass = airInput.getMass();
-        this.x = x;
-        this.y = y;
+    public Air(final AirInput airInput) {
+        super(airInput);
         humidity = airInput.getHumidity();
         temperature = airInput.getTemperature();
         oxygenLevel = airInput.getOxygenLevel();
-
     }
+
+    /**
+     * Calculates air toxicity using subclass-specific {@link #calculateFinalScore()}
+     * @return unrounded, unnormalized toxicity score.
+     */
     public final double calculateToxicity() {
         double toxicityAQ = MAX_PERCENTAGE * (1.0 - calculateFinalScore() / maxScore);
         double normalizeScore = Math.max(0, Math.min(MAX_PERCENTAGE, toxicityAQ));
         return Math.round(normalizeScore * MAX_PERCENTAGE) / MAX_PERCENTAGE;
     }
+
+    /**
+     * Determines toxicity status.
+     */
     public final boolean isToxic() {
         double toxicityAQ = MAX_PERCENTAGE * (1.0 - calculateFinalScore() / maxScore);
         return toxicityAQ > (MAX_SCORE_COFF * maxScore);
     }
-    public void increaseOxygen(double oxygenLevel) {
-        this.oxygenLevel += oxygenLevel;
+
+    @Override
+    public double cellQualityTerm() {
+        return calculateToxicity();
     }
-    public void increaseHumidity(double humidity) {
-        this.humidity += humidity;
+
+    /**
+     * Increases oxygen level by specified amount.
+     */
+    public void increaseOxygen(final double oxygenLevelIncrease) {
+        oxygenLevel += oxygenLevelIncrease;
     }
+    /**
+     * Increases humidity level by specified amount.
+     */
+    public void increaseHumidity(final double humidityIncrease) {
+        humidity += humidityIncrease;
+    }
+    /**
+     * Builds the entity output representation.
+     *
+     * <p>When overriding this method, subclasses should:
+     * <ul>
+     *   <li>Call super.buildEntityOutput() to include base functionality</li>
+     *   <li>Handle any additional properties specific to the subclass</li>
+     *   <li>Ensure the output format remains consistent</li>
+     * </ul>
+     *
+     * @return the formatted entity objectNode
+     */
     @Override public ObjectNode buildEntityOutput() {
         ObjectNode objectNode = super.buildEntityOutput();
         humidity = Math.round(humidity * MAX_PERCENTAGE) / MAX_PERCENTAGE;

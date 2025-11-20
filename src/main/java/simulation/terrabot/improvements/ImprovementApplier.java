@@ -1,10 +1,14 @@
 package simulation.terrabot.improvements;
 
 import exceptions.UnknownImprovementException;
-import simulation.Cell;
+import simulation.environmentMap.Cell;
 
-public class ImprovementApplier {
+public final class ImprovementApplier {
 
+    private ImprovementApplier() {
+        throw new AssertionError(
+                "Utility classes should not be instantiated.");
+    }
     private static final String PLANT_VEGETATION_SUCCESS_FORMAT =
             "The %s was planted successfully.";
     private static final String INCREASE_HUMIDITY_SUCCESS_FORMAT =
@@ -13,10 +17,7 @@ public class ImprovementApplier {
             "The moisture was successfully increased using %s";
     private static final String FERTILIZE_SOIL_SUCCESS_FORMAT =
             "The soil was successfully fertilized using %s";
-    private ImprovementApplier() {
-        throw new AssertionError(
-                "Utility classes should not be instantiated.");
-    }
+
     private static final double OXYGEN_INCREASE = 0.3;
     private static final double ORGANIC_MATTER_INCREASE = 0.3;
     private static final double HUMIDITY_INCREASE = 0.2;
@@ -27,7 +28,14 @@ public class ImprovementApplier {
     private static final String INCREASE_HUMIDITY = "increaseHumidity";
     private static final String INCREASE_MOISTURE = "increaseMoisture";
 
-    public static String improveEnvironment(String type, Cell cell)
+    /**
+     *
+     * @param type the kind of improveEnvironment command.
+     * @param cell the cell on which the environment is improved.
+     * @return The improvement succes message
+     * @throws UnknownImprovementException supplies the type of the erroneous improvement
+     */
+    public static String improveEnvironment(final String type, final Cell cell)
             throws UnknownImprovementException {
         return switch (type) {
             case PLANT_VEGETATION -> {

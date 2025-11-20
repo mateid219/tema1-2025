@@ -7,7 +7,7 @@ import java.util.List;
 
 @Data
 @NoArgsConstructor
-public final class AirInput {
+public final class AirInput implements EntityInput {
     private String type;
     private String name;
     private double mass;

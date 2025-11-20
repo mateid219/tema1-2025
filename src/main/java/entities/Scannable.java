@@ -1,6 +1,6 @@
 package entities;
 
-import simulation.Cell;
+import simulation.environmentMap.Cell;
 import simulation.terrabot.scanner.ScanParamsVisitor;
 import simulation.terrabot.scanner.ScanResult;
 

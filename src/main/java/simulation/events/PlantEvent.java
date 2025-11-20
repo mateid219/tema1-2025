@@ -1,35 +1,25 @@
 package simulation.events;
 
-import simulation.Cell;
-import simulation.Simulation;
-import simulation.terrabot.TerraBot;
-import entities.air.Air;
 import entities.Plants.Plant;
+import simulation.Simulation;
+import simulation.environmentMap.Cell;
 
-import java.util.Queue;
+public final class PlantEvent extends Event {
+    private final Cell cell;
 
-public class PlantEvent extends Event {
-    Cell cell;
-
-    public PlantEvent() { }
-    public PlantEvent(int timestamp, Cell cell) {
+    public PlantEvent(final int timestamp, final Cell cell) {
         super(timestamp);
         this.cell = cell;
-        priority = EVENT_PRIORITIES.PLANT_EVENT.ordinal();
+        priority = EventPriorities.PLANT_EVENT.ordinal();
     }
 
     @Override
-    public void takeEffect(Simulation simulation) {
-        TerraBot terraBot = simulation.getTerraBot();
-        Queue<Event> eventQueue = simulation.getEventQueue();
-
+    public void takeEffect(final Simulation simulation) {
         Plant plant = cell.getPlant();
         if (plant == null) {
             return;
         }
-        Air air = cell.getAir();
-        double oxygenGenerated = plant.oxygenGenerated();
-        air.increaseOxygen(oxygenGenerated);
-        eventQueue.add(new PlantEvent(timestamp + 1, cell));
+        plant.interact(cell);
+        simulation.addEvent(new PlantEvent(timestamp + 1, cell));
     }
 }

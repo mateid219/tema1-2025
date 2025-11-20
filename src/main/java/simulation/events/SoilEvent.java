@@ -1,35 +1,32 @@
 package simulation.events;
 
-import simulation.Simulation;
-import simulation.Cell;
 import entities.Plants.Plant;
+import simulation.Simulation;
+import simulation.environmentMap.Cell;
 
-import java.util.Queue;
+public final class SoilEvent extends Event {
 
-public class SoilEvent extends Event {
+    private Cell cell;
 
-    Cell cell;
-
-    private static final String DEAD = "dead";
     private static final double PLANT_GROWTH = 0.2;
 
     public SoilEvent() { }
-    public SoilEvent(int timestamp, Cell cell) {
+    public SoilEvent(final int timestamp, final Cell cell) {
         super(timestamp);
         this.cell = cell;
-        priority = EVENT_PRIORITIES.SOIL_EVENT.ordinal();
+        priority = EventPriorities.SOIL_EVENT.ordinal();
     }
-    public void takeEffect(Simulation simulation) {
-        Queue<Event> eventQueue = simulation.getEventQueue();
+    @Override
+    public void takeEffect(final Simulation simulation) {
         Plant plant = cell.getPlant();
         if (plant == null) {
             return;
         }
         plant.grow(PLANT_GROWTH);
-        if (DEAD.equals(plant.getMaturity())) {
+        if (plant.hasDied()) {
             cell.setPlant(null);
         } else {
-            eventQueue.add(new SoilEvent(timestamp + 1, cell));
+            simulation.addEvent(new SoilEvent(timestamp + 1, cell));
         }
     }
 }

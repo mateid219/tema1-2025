@@ -17,21 +17,19 @@ public final class TundraSoil extends Soil {
     private static final double STUCK_PERCENTAGE = 50.0;
 
     public TundraSoil() { }
-    public TundraSoil(final SoilInput soilInput, int x, int y) {
-        super(soilInput, x, y);
+    public TundraSoil(final SoilInput soilInput) {
+        super(soilInput);
         permafrostDepth = soilInput.getPermafrostDepth();
     }
 
-    /**
-     * Calculeaza scorul(fara normalizare) asociat calitatii solului de tip 'TundraSoil'
-     * @return score
-     */
+    @Override
     public double calculateScore() {
         double nitrogenScore = nitrogen * NITROGEN_SCORE_COEF;
         double organicMatterScore = organicMatter * MATTER_SCORE_COEF;
         double permafrostDepthScore = permafrostDepth * PERMAFROST_SCORE_COEF;
         return nitrogenScore + organicMatterScore - permafrostDepthScore;
     }
+    @Override
     public double possibilityToGetStuckInSoil() {
         return (PERMAFROST_STUCK_COMPLEMENT - permafrostDepth)
                 / STUCK_PERCENTAGE * MAX_PERCENTAGE;

@@ -3,7 +3,7 @@ package commands.robot;
 import lombok.NoArgsConstructor;
 import simulation.Simulation;
 import simulation.terrabot.TerraBot;
-import simulation.EnvironmentMap;
+import simulation.environmentMap.EnvironmentMap;
 import exceptions.BatteryException;
 import fileio.CommandInput;
 

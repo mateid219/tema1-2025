@@ -8,7 +8,7 @@ import java.util.List;
 
 @Data
 @NoArgsConstructor
-public class WaterInput {
+public class WaterInput implements EntityInput {
     private String type;
     private String name;
     private double mass;

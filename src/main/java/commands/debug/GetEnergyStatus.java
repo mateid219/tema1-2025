@@ -7,11 +7,11 @@ import simulation.Simulation;
 @NoArgsConstructor
 public final class GetEnergyStatus extends DebugCommand {
     private static final String ENERGY_STATUS_FORMAT = "TerraBot has %d energy points left.";
-    public GetEnergyStatus(CommandInput commandInput) {
+    public GetEnergyStatus(final CommandInput commandInput) {
         super(commandInput);
     }
     @Override
-    public void doExecute(Simulation simulation) {
+    public void doExecute(final Simulation simulation) {
         message = String.format(ENERGY_STATUS_FORMAT, simulation.getTerraBot().getEnergyPoints());
     }
 }
