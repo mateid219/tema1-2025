@@ -27,15 +27,30 @@ public final class Cell {
         this.x = x;
         this.y = y;
     }
-    public void removePlant() {
-        plant = null;
+
+    /**
+     * Checks if the plant has died or the water has drained and removes them from the cell.
+     */
+    public void update() {
+        if (plant != null && plant.hasDied()) {
+            plant = null;
+        }
+        if (water != null && water.getMass() == 0.0) {
+            water = null;
+        }
     }
-    public void removeWater() {
-        water = null;
+
+    /**
+     * Moves a new animal to this cell.
+     * @param newAnimal the animal that moved here
+     */
+    public void addAnimal(final Animal newAnimal) {
+        animal = newAnimal;
     }
-    public void addAnimal(Animal animal) {
-        this.animal = animal;
-    }
+
+    /**
+     * Removes any animal in this cell.
+     */
     public void removeAnimal() {
         animal = null;
     }
@@ -67,10 +82,10 @@ public final class Cell {
      */
     public ObjectNode buildCellOutput() {
         ObjectNode cellObjectNode = MAPPER.createObjectNode();
-        ArrayNode sectionObjectNode = MAPPER.createArrayNode();
-        sectionObjectNode.add(x);
-        sectionObjectNode.add(y);
-        cellObjectNode.set("section", sectionObjectNode);
+        ArrayNode sectionArrayNode = MAPPER.createArrayNode();
+        sectionArrayNode.add(x);
+        sectionArrayNode.add(y);
+        cellObjectNode.set("section", sectionArrayNode);
         cellObjectNode.put("totalNrOfObjects", entityCount());
         cellObjectNode.put("airQuality", air.interpretQuality());
         cellObjectNode.put("soilQuality", soil.interpretQuality());

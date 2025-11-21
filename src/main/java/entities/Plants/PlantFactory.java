@@ -7,17 +7,22 @@ public final class PlantFactory {
         throw new AssertionError(
                 "Utility classes should not be instantiated.");
     }
+    private static final String ANGIOSPERMS = "FloweringPlants";
+    private static final String GYMNOSPERMS = "GymnospermsPlants";
+    private static final String FERNS = "Ferns";
+    private static final String MOSSES = "Mosses";
+    private static final String ALGAE = "Algae";
     /**
      * Creates a plant entity.
      * @return the newly created plant
      */
     public static Plant createPlant(final PlantInput plantInput) {
         return switch (plantInput.getType()) {
-            case PlantConstants.ANGIOSPERMS -> new FloweringPlant(plantInput);
-            case PlantConstants.GYMNOSPERMS -> new GymnospermsPlant(plantInput);
-            case PlantConstants.FERNS -> new Fern(plantInput);
-            case PlantConstants.MOSSES -> new Moss(plantInput);
-            case PlantConstants.ALGAE -> new Algae(plantInput);
+            case ANGIOSPERMS -> new FloweringPlant(plantInput);
+            case GYMNOSPERMS -> new GymnospermsPlant(plantInput);
+            case FERNS -> new Fern(plantInput);
+            case MOSSES -> new Moss(plantInput);
+            case ALGAE -> new Algae(plantInput);
             default -> null;
         };
     }

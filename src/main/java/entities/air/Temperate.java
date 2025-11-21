@@ -3,9 +3,10 @@ package entities.air;
 import com.fasterxml.jackson.databind.node.ObjectNode;
 import fileio.AirInput;
 import lombok.Setter;
+import simulation.events.weather.WeatherChangeVisitor;
 
 public final class Temperate extends Air {
-    private double pollenLevel;
+    private final double pollenLevel;
     @Setter private String newSeason;
 
     private static final String SPRING = "Spring";
@@ -15,12 +16,17 @@ public final class Temperate extends Air {
     private static final double POLLEN_COFF = 0.1;
     private static final double NEW_SEASON_MODIFIER = 15.0;
 
-    public Temperate() { }
     public Temperate(final AirInput airInput) {
         super(airInput);
         maxScore = MAX_SCORE;
         pollenLevel = airInput.getPollenLevel();
     }
+
+    @Override
+    public boolean accept(final WeatherChangeVisitor weatherChangeVisitor) {
+        return weatherChangeVisitor.visitTemperateAir(this);
+    }
+
     @Override
     public double calculateScore() {
         double oxygenScore = oxygenLevel * OXYGEN_COFF;

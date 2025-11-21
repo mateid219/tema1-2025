@@ -1,5 +1,6 @@
 package entities.Soil;
 
+import exceptions.UnknownSoilException;
 import fileio.SoilInput;
 
 public final class SoilFactory {
@@ -7,18 +8,23 @@ public final class SoilFactory {
         throw new AssertionError(
                 "Utility classes should not be instantiated.");
     }
+    private static final String FOREST = "ForestSoil";
+    private static final String DESERT = "DesertSoil";
+    private static final String SWAMP = "SwampSoil";
+    private static final String TUNDRA = "TundraSoil";
+    private static final String GRASSLAND = "GrasslandSoil";
     /**
      * Creates a soil entity.
      * @return the newly created soil
      */
     public static Soil createSoil(final SoilInput soilInput) {
         return switch (soilInput.getType()) {
-            case "ForestSoil" -> new ForestSoil(soilInput);
-            case "DesertSoil" -> new DesertSoil(soilInput);
-            case "SwampSoil" -> new SwampSoil(soilInput);
-            case "TundraSoil" -> new TundraSoil(soilInput);
-            case "GrasslandSoil" -> new GrasslandSoil(soilInput);
-            default -> null;
+            case FOREST -> new ForestSoil(soilInput);
+            case DESERT -> new DesertSoil(soilInput);
+            case SWAMP -> new SwampSoil(soilInput);
+            case TUNDRA -> new TundraSoil(soilInput);
+            case GRASSLAND -> new GrasslandSoil(soilInput);
+            default -> throw new UnknownSoilException(soilInput.getType());
         };
     }
 

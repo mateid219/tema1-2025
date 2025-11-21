@@ -1,0 +1,26 @@
+unnamed package
+commands
+commands.debug
+commands.environment
+commands.robot
+commands.simulation
+entities
+entities.air
+entities.animals
+entities.animals.strategies
+entities.Plants
+entities.Soil
+entities.Water
+exceptions
+fileio
+main
+simulation
+simulation.environmentMap
+simulation.events
+simulation.events.animal
+simulation.events.robot
+simulation.events.water
+simulation.events.weather
+simulation.terrabot
+simulation.terrabot.improvements
+simulation.terrabot.scanner

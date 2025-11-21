@@ -18,7 +18,7 @@ public final class IncreaseStatsEvent extends WaterEvent {
     }
 
     @Override
-    public void waterAction(Simulation simulation, Water water) {
+    public void waterAction(final Simulation simulation, final Water water) {
         Air air = cell.getAir();
         Soil soil = cell.getSoil();
         soil.increaseWaterRetention(SOIL_WATER_RETENTION_INCREASE);

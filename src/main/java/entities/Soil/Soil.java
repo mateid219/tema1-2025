@@ -4,7 +4,6 @@ import com.fasterxml.jackson.databind.node.ObjectNode;
 import entities.CellQualityAgent;
 import entities.QualitativeEntity;
 import fileio.SoilInput;
-import lombok.Getter;
 import lombok.Setter;
 
 /**
@@ -14,19 +13,21 @@ import lombok.Setter;
  * properly handle the entity output building process when overriding methods.
  */
 public abstract class Soil extends QualitativeEntity implements CellQualityAgent {
-    @Getter @Setter protected double nitrogen;
-    @Getter @Setter protected double waterRetention;
-    @Getter @Setter protected double soilpH;
-    @Getter @Setter protected double organicMatter;
+    protected double nitrogen;
+    protected double waterRetention;
+    protected double soilpH;
+    /*
+        ERROR REF
+     */
+    @Setter
+    protected double organicMatter;
 
     private static final String OUTPUT_CATEGORY = "soil";
 
     @Override
-    public String getPropertyName() {
+    public final String getPropertyName() {
         return OUTPUT_CATEGORY;
     }
-
-    public Soil() { }
     public Soil(final SoilInput soilInput) {
         super(soilInput);
         nitrogen = soilInput.getNitrogen();
@@ -36,7 +37,7 @@ public abstract class Soil extends QualitativeEntity implements CellQualityAgent
     }
 
     @Override
-    public double cellQualityTerm() {
+    public final double cellQualityTerm() {
         return possibilityToGetStuckInSoil();
     }
 

@@ -15,7 +15,7 @@ public final class GrowPlantEvent extends WaterEvent {
     }
 
     @Override
-    public void waterAction(Simulation simulation, Water water) {
+    public void waterAction(final Simulation simulation, final Water water) {
         Plant plant = cell.getPlant();
         if (plant == null || !plant.isScanned()) {
             return;

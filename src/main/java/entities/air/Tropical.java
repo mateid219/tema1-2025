@@ -3,6 +3,7 @@ package entities.air;
 import com.fasterxml.jackson.databind.node.ObjectNode;
 import fileio.AirInput;
 import lombok.Setter;
+import simulation.events.weather.WeatherChangeVisitor;
 
 public final class Tropical extends Air {
     private double co2Level;
@@ -14,12 +15,17 @@ public final class Tropical extends Air {
     private static final double CO2LEVEL_COFF = 0.01;
     private static final double RAINFALL_COFF = 0.3;
 
-    public Tropical() { }
     public Tropical(final AirInput airInput) {
         super(airInput);
         maxScore = MAX_SCORE;
         co2Level = airInput.getCo2Level();
     }
+
+    @Override
+    public boolean accept(final WeatherChangeVisitor weatherChangeVisitor) {
+        return weatherChangeVisitor.visitTropicalAir(this);
+    }
+
     @Override
     public double calculateScore() {
         double oxygenScore = oxygenLevel * OXYGEN_COFF;

@@ -22,10 +22,9 @@ public abstract class Event implements Comparable<Event> {
         }
         return timestamp - o.timestamp;
     }
-
     /**
      * Executes an event that takes place at multiple moments in time.
-     * Uses {@link Simulation#addEvent(Event)} )} to add future events.
+     * Uses {@link Simulation#addEvent(Event)} to add future events.
      * Event chronology is dictated by {@link #compareTo(Event)}.
      */
     public abstract void takeEffect(Simulation simulation);

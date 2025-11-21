@@ -1,21 +1,18 @@
 package entities.animals;
 
+import entities.animals.strategies.IFeedingStrategy;
+import entities.animals.strategies.IMovementStrategy;
 import fileio.AnimalInput;
-import lombok.NoArgsConstructor;
 
-@NoArgsConstructor
 public final class Detritivores extends Animal {
     private static final double ATTACK_PROBABILITY = 90.0;
-    public Detritivores(final AnimalInput animalInput) {
-        super(animalInput);
+    public Detritivores(final AnimalInput animalInput, final IFeedingStrategy feedingStrategy,
+                      final IMovementStrategy movementStrategy) {
+        super(animalInput, feedingStrategy, movementStrategy);
     }
     @Override
     public double getAttackProbability() {
         return ATTACK_PROBABILITY;
-    }
-    @Override
-    public boolean isPredator() {
-        return false;
     }
 
 }

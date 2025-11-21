@@ -32,7 +32,7 @@ public final class ImprovementApplier {
      *
      * @param type the kind of improveEnvironment command.
      * @param cell the cell on which the environment is improved.
-     * @return The improvement succes message
+     * @return The improvement success message
      * @throws UnknownImprovementException supplies the type of the erroneous improvement
      */
     public static String improveEnvironment(final String type, final Cell cell)

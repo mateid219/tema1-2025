@@ -11,9 +11,7 @@ import simulation.terrabot.scanner.ScanResult;
 
 @NoArgsConstructor
 public final class ScanCommand extends RobotCommand {
-
     private static final int TYPO_TIMESTAMP = 22;
-
 
     private ScanParams scanParams;
     public ScanCommand(final CommandInput commandInput) {

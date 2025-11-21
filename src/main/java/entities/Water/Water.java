@@ -1,8 +1,7 @@
 package entities.Water;
 
-import com.fasterxml.jackson.databind.node.ObjectNode;
+import entities.Food;
 import entities.QualitativeEntity;
-import entities.Scannable;
 import fileio.WaterInput;
 import lombok.Getter;
 import simulation.environmentMap.Cell;
@@ -11,18 +10,12 @@ import simulation.terrabot.scanner.ScanResult;
 
 import static java.lang.Math.abs;
 
-public final class Water extends QualitativeEntity implements Scannable {
-    @Getter
+public final class Water extends QualitativeEntity implements Food {
     private double salinity;
-    @Getter
     private double pH;
-    @Getter
     private double purity;
-    @Getter
     private double turbidity;
-    @Getter
     private double contaminantIndex;
-    @Getter
     private boolean isFrozen;
     @Getter
     private boolean scanned;
@@ -49,9 +42,6 @@ public final class Water extends QualitativeEntity implements Scannable {
         return OUTPUT_CATEGORY;
     }
 
-    public Water() {
-    }
-
     public Water(final WaterInput waterInput) {
         super(waterInput);
         salinity = waterInput.getSalinity();
@@ -60,8 +50,6 @@ public final class Water extends QualitativeEntity implements Scannable {
         turbidity = waterInput.getTurbidity();
         contaminantIndex = waterInput.getContaminantIndex();
         isFrozen = waterInput.isFrozen();
-        scanned = false;
-        scanTime = -1;
     }
 
     @Override
@@ -83,22 +71,14 @@ public final class Water extends QualitativeEntity implements Scannable {
         return (purityScore + pHScore + salinityScore + turbidityScore
                 + contaminantScore + frozenScore) * MAX_PERCENTAGE;
     }
-
     /**
      * Drains the water by specified amount.
      *
-     * @param mass the water to be drained
+     * @param massToBeDrank the water to be drained
      */
-    public double beDrankBy(final double entityMass, final double INTAKE_RATE) {
-        double waterMass = Math.round(mass * MAX_PERCENTAGE) / MAX_PERCENTAGE;
-        double waterDrank = Math.min(entityMass * INTAKE_RATE, waterMass);
+    public double beDrank(final double massToBeDrank) {
+        double waterDrank = Math.min(massToBeDrank, mass);
         mass -= waterDrank;
         return waterDrank;
-    }
-
-
-    @Override
-    public ObjectNode buildEntityOutput() {
-        return super.buildEntityOutput();
     }
 }

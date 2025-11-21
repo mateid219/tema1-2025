@@ -7,7 +7,7 @@ import simulation.environmentMap.Cell;
 
 public interface ScanParamsVisitor {
     /**
-     * Scans an animal
+     * Classes that implement animal scanning logic should override this.
      * @param animal the animal to be scanned
      * @param timestamp the time of the scan
      * @param cell the cell on which the animal resides
@@ -15,7 +15,7 @@ public interface ScanParamsVisitor {
      */
     ScanResult visitAnimal(Animal animal, int timestamp, Cell cell);
     /**
-     * Scans water
+     * Classes that implement water scanning logic should override this.
      * @param water the water to be scanned
      * @param timestamp the time of the scan
      * @param cell the cell on which the water is on
@@ -23,7 +23,7 @@ public interface ScanParamsVisitor {
      */
     ScanResult visitWater(Water water, int timestamp, Cell cell);
     /**
-     * Scans a plant
+     * Classes that implement plant scanning logic should override this.
      * @param plant the plant to be scanned
      * @param timestamp the time of the scan
      * @param cell the cell on which the plant is on

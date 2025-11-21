@@ -22,6 +22,10 @@ public abstract class Entity {
         mass = entityInput.getMass();
     }
 
+    /**
+     * Subclasses that register as cell properties should override this.
+     * @return the property name associated to the class
+     */
     public abstract String getPropertyName();
     /**
      * Builds the entity output representation.

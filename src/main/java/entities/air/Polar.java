@@ -3,6 +3,7 @@ package entities.air;
 import com.fasterxml.jackson.databind.node.ObjectNode;
 import fileio.AirInput;
 import lombok.Setter;
+import simulation.events.weather.WeatherChangeVisitor;
 
 public final class Polar extends Air {
     private double iceCrystalConcentration;
@@ -13,12 +14,17 @@ public final class Polar extends Air {
     private static final double CRYSTAL_COFF = 0.05;
     private static final double WINDSPEED_COFF = 0.2;
 
-    public Polar() { }
     public Polar(final AirInput airInput) {
         super(airInput);
         maxScore = MAX_SCORE;
         iceCrystalConcentration = airInput.getIceCrystalConcentration();
     }
+
+    @Override
+    public boolean accept(final WeatherChangeVisitor weatherChangeVisitor) {
+        return weatherChangeVisitor.visitPolarAir(this);
+    }
+
     @Override
     public double calculateScore() {
         double oxygenScore = oxygenLevel * OXYGEN_COFF;

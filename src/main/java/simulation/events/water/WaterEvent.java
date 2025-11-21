@@ -14,12 +14,12 @@ public abstract class WaterEvent extends Event {
         this.cell = cell;
     }
     @Override
-    public void takeEffect(final Simulation simulation) {
+    public final void takeEffect(final Simulation simulation) {
         Water water = cell.getWater();
         if (water == null || !water.isScanned()) {
             return;
         }
         waterAction(simulation, water);
     }
-    public abstract void waterAction(final Simulation simulation, final Water water);
+    abstract void waterAction(Simulation simulation, Water water);
 }

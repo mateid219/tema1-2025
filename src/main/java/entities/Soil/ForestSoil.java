@@ -17,8 +17,6 @@ public final class ForestSoil extends Soil {
     private static final double LITTER_STUCK_COFF = 0.4;
     private static final double STUCK_PERCENTAGE = 80.0;
 
-
-    public ForestSoil() { }
     public ForestSoil(final SoilInput soilInput) {
         super(soilInput);
         leafLitter = soilInput.getLeafLitter();

@@ -8,15 +8,14 @@ import lombok.Setter;
 public final class TundraSoil extends Soil {
     @Getter @Setter private double permafrostDepth;
 
-    private static final double NITROGEN_SCORE_COEF = 0.7;
-    private static final double MATTER_SCORE_COEF = 0.5;
-    private static final double PERMAFROST_SCORE_COEF = 1.5;
+    private static final double NITROGEN_SCORE_COFF = 0.7;
+    private static final double MATTER_SCORE_COFF = 0.5;
+    private static final double PERMAFROST_SCORE_COFF = 1.5;
 
 
     private static final double PERMAFROST_STUCK_COMPLEMENT = 50.0;
     private static final double STUCK_PERCENTAGE = 50.0;
 
-    public TundraSoil() { }
     public TundraSoil(final SoilInput soilInput) {
         super(soilInput);
         permafrostDepth = soilInput.getPermafrostDepth();
@@ -24,9 +23,9 @@ public final class TundraSoil extends Soil {
 
     @Override
     public double calculateScore() {
-        double nitrogenScore = nitrogen * NITROGEN_SCORE_COEF;
-        double organicMatterScore = organicMatter * MATTER_SCORE_COEF;
-        double permafrostDepthScore = permafrostDepth * PERMAFROST_SCORE_COEF;
+        double nitrogenScore = nitrogen * NITROGEN_SCORE_COFF;
+        double organicMatterScore = organicMatter * MATTER_SCORE_COFF;
+        double permafrostDepthScore = permafrostDepth * PERMAFROST_SCORE_COFF;
         return nitrogenScore + organicMatterScore - permafrostDepthScore;
     }
     @Override

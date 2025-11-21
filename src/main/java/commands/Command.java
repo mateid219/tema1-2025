@@ -23,6 +23,13 @@ public abstract class Command {
     @Getter protected ObjectNode commandObjectOutput;
     @Getter protected ArrayNode commandArrayOutput;
 
+
+    protected static final String ERROR_ALREADY_STARTED = "ERROR: Simulation already started."
+            + " Cannot perform action";
+    protected static final String ERROR_NOT_STARTED = "ERROR: Simulation not started."
+            + " Cannot perform action";
+    protected static final String ERROR_CHARGING = "ERROR: Robot still charging."
+            + " Cannot perform action";
     private static final ObjectMapper MAPPER = new ObjectMapper();
 
 
@@ -38,9 +45,9 @@ public abstract class Command {
      * <ul>
      *     <li>{@link #message} for commands that show success/error messages</li>
      *     <li>{@link #commandObjectOutput} for commands that output an
-     *     {@link com.fasterxml.jackson.databind.node.ObjectNode;#ObjectNode}</li>
+     *     {@link com.fasterxml.jackson.databind.node.ObjectNode#ObjectNode}</li>
      *     <li>{@link #commandArrayOutput} for commands that output an
-     *     {@link com.fasterxml.jackson.databind.node.ArrayNode;#ArrayNode}</li>
+     *     {@link com.fasterxml.jackson.databind.node.ArrayNode#ArrayNode}</li>
      * </ul>
      */
     public abstract void execute(Simulation simulation);
@@ -68,8 +75,7 @@ public abstract class Command {
         }
         if (commandObjectOutput != null) {
             objectNode.set("output", commandObjectOutput);
-        }
-        if (commandArrayOutput != null) {
+        } else if (commandArrayOutput != null) {
             objectNode.set("output", commandArrayOutput);
         }
         objectNode.put("timestamp", timestamp);

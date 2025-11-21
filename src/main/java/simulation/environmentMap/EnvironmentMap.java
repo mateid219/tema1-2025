@@ -21,7 +21,7 @@ public final class EnvironmentMap {
     static final int[] VY = {1, 0, -1, 0};
     private static final ObjectMapper MAPPER = new ObjectMapper();
 
-    public EnvironmentMap(String territoryDim) {
+    public EnvironmentMap(final String territoryDim) {
         String[] territoryDims = territoryDim.split("x");
         height = Integer.parseInt(territoryDims[0]);
         width = Integer.parseInt(territoryDims[1]);
@@ -32,6 +32,11 @@ public final class EnvironmentMap {
             }
         }
     }
+
+    /**
+     * Creates an {@link ArrayList} with all the cells in the map.
+     * @return the {@link ArrayList<Cell>}
+     */
     public ArrayList<Cell> getCells() {
         ArrayList<Cell> cells = new ArrayList<>();
         for (Cell[] line : map) {
@@ -49,13 +54,7 @@ public final class EnvironmentMap {
         EntityPlacer.placeAnimals(territorySectionParams.getAnimals(), map);
         EntityPlacer.placeWater(territorySectionParams.getWater(), map);
     }
-    /**
-     *
-     * @param x X coordinate
-     * @param y Y coordinate
-     * @return Cell at (x,y)
-     */
-    public Cell cellAt(final int x, final int y) {
+    private Cell cellAt(final int x, final int y) {
         return map[x][y];
     }
     private boolean outsideMap(final int x, final int y) {
@@ -74,7 +73,14 @@ public final class EnvironmentMap {
         }
         return neighbours;
     }
-    public Cell nextCell(final Cell cell, Comparator<Cell> preference) {
+
+    /**
+     * Finds the best neighbouring cell according to some preference.
+     * @param cell the starting cell
+     * @param preference a valid {@link Comparator<Cell>}
+     * @return the preferred neighbouring cell
+     */
+    public Cell nextCell(final Cell cell, final Comparator<Cell> preference) {
         ArrayList<Cell> neighbours = findNeighbours(cell);
         return Collections.max(neighbours, preference);
     }

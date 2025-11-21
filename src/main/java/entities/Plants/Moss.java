@@ -2,17 +2,18 @@ package entities.Plants;
 
 import fileio.PlantInput;
 
-public final class Moss extends Plant{
-
+public final class Moss extends Plant {
+    private static final double STUCK_PROBABILITY = 40.0;
+    private static final double BASE_OXYGEN_LEVEL = 0.8;
     public Moss(final PlantInput plantInput) {
         super(plantInput);
     }
     @Override
     public double getBaseOxygenLevel() {
-        return PlantConstants.MOSSES_BASE_OXYGEN_LEVEL;
+        return BASE_OXYGEN_LEVEL;
     }
     @Override
     public double getStuckProbability() {
-        return PlantConstants.MOSSES_STUCK_PROBABILITY;
+        return STUCK_PROBABILITY;
     }
 }

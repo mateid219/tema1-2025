@@ -4,6 +4,7 @@ import com.fasterxml.jackson.databind.node.ObjectNode;
 import fileio.AirInput;
 import lombok.Getter;
 import lombok.Setter;
+import simulation.events.weather.WeatherChangeVisitor;
 
 public final class Mountain extends Air {
     private double altitude;
@@ -16,13 +17,18 @@ public final class Mountain extends Air {
     private static final double HUMIDITY_COFF = 0.6;
     private static final double HIKERS_COFF = 0.6;
 
-    public Mountain() { }
     public Mountain(final AirInput airInput) {
         super(airInput);
         numberOfHikers = 0;
         maxScore = MAX_SCORE;
         altitude = airInput.getAltitude();
     }
+
+    @Override
+    public boolean accept(final WeatherChangeVisitor weatherChangeVisitor) {
+        return weatherChangeVisitor.visitMountainAir(this);
+    }
+
     @Override
     public double calculateScore() {
         double oxygenFactor = oxygenLevel - altitude * ALTITUDE_COFF;

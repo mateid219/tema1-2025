@@ -8,21 +8,19 @@ import lombok.Setter;
 public final class DesertSoil extends Soil {
     @Getter @Setter private double salinity;
 
-    private static final double NITROGEN_SCORE_COEF = 0.5;
-    private static final double RETENTION_SCORE_COEF = 0.3;
-    private static final double SALINITY_SCORE_COEF = 2.0;
+    private static final double NITROGEN_SCORE_COFF = 0.5;
+    private static final double RETENTION_SCORE_COFF = 0.3;
+    private static final double SALINITY_SCORE_COFF = 2.0;
 
-
-    public DesertSoil() { }
     public DesertSoil(final SoilInput soilInput) {
         super(soilInput);
         salinity = soilInput.getSalinity();
     }
     @Override
     public double calculateScore() {
-        double nitrogenScore = nitrogen * NITROGEN_SCORE_COEF;
-        double waterRetentionScore = waterRetention * RETENTION_SCORE_COEF;
-        double salinityScore = salinity * SALINITY_SCORE_COEF;
+        double nitrogenScore = nitrogen * NITROGEN_SCORE_COFF;
+        double waterRetentionScore = waterRetention * RETENTION_SCORE_COFF;
+        double salinityScore = salinity * SALINITY_SCORE_COFF;
         return nitrogenScore + waterRetentionScore - salinityScore;
     }
     @Override

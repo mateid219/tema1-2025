@@ -9,7 +9,6 @@ import lombok.Setter;
 import simulation.environmentMap.EnvironmentMap;
 import simulation.events.Event;
 import simulation.terrabot.TerraBot;
-import simulation.terrabot.scanner.EventScheduler;
 
 import java.util.List;
 import java.util.PriorityQueue;
@@ -17,7 +16,6 @@ import java.util.Queue;
 @NoArgsConstructor
 public final class Simulation {
 
-    @Getter private EventScheduler eventScheduler;
     @Getter private EnvironmentMap environmentMap;
     @Getter @Setter private boolean started = false;
     @Getter @Setter private boolean ended = false;
@@ -29,8 +27,7 @@ public final class Simulation {
         environmentMap = new EnvironmentMap(simulationInput.getTerritoryDim());
         environmentMap.placeEntities(territorySectionParamsInput);
         int energyPoints = simulationInput.getEnergyPoints();
-        terraBot = new TerraBot(energyPoints, environmentMap.cellAt(0, 0));
-        eventScheduler = new EventScheduler(this);
+        terraBot = new TerraBot(energyPoints, environmentMap.getMap()[0][0]);
     }
 
     /**
@@ -43,20 +40,30 @@ public final class Simulation {
             event.takeEffect(this);
         }
     }
-    public void addEvent(Event event) {
+
+    /**
+     * Adds a new event to the {@link #eventQueue}.
+     * @param event the new event
+     */
+    public void addEvent(final Event event) {
         eventQueue.add(event);
     }
-    public void addEvents(List<Event> events) {
+    /**
+     * Similar to {@link #addEvent(Event)}.
+     * Adds a {@link List} of new events to the {@link #eventQueue}.
+     * @param events the list of new events
+     */
+    public void addEvents(final List<Event> events) {
         eventQueue.addAll(events);
     }
     /**
-     * Passes execution of command to {@link #terraBot}
+     * Delegates execution of command to {@link #terraBot}
      */
     public ObjectNode printEnvConditions() {
         return terraBot.printEnvConditions();
     }
     /**
-     * Passes execution of command to {@link #environmentMap}
+     * Delegates execution of command to {@link #environmentMap}
      */
     public ArrayNode printMap() {
         return environmentMap.buildMapOutput();

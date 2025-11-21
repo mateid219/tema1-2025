@@ -3,8 +3,8 @@ package commands.robot;
 import fileio.CommandInput;
 import lombok.NoArgsConstructor;
 import simulation.Simulation;
-import simulation.events.chargingEvent.BeginCharging;
-import simulation.events.chargingEvent.FinishCharging;
+import simulation.events.robot.BeginCharging;
+import simulation.events.robot.FinishCharging;
 
 @NoArgsConstructor
 public final class RechargeCommand extends RobotCommand {

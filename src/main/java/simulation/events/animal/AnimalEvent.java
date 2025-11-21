@@ -6,22 +6,16 @@ import simulation.environmentMap.Cell;
 import simulation.events.Event;
 
 public abstract class AnimalEvent extends Event {
-     protected Cell cell;
+    private static final int FEED_DELAY = 1;
 
-
-
-
-     public AnimalEvent() { }
-     public AnimalEvent(final int timestamp, final Cell cell) {
-         super(timestamp);
-         this.cell = cell;
-     }
-    protected void pushFertilizeEvent(final Simulation simulation,
-                                    final double organicMatterAdded) {
-        simulation.addEvent(new FertilizeEvent(timestamp + 1, cell, organicMatterAdded));
+    protected Cell cell;
+    public AnimalEvent() { }
+    public AnimalEvent(final int timestamp, final Cell cell) {
+        super(timestamp);
+        this.cell = cell;
     }
-    protected void pushFeedEvent(final Simulation simulation, final Cell nextCell) {
-        simulation.addEvent(new FeedEvent(timestamp + 1, nextCell));
+    protected final void pushFeedEvent(final Simulation simulation, final Cell nextCell) {
+        simulation.addEvent(new FeedEvent(timestamp + FEED_DELAY, nextCell));
     }
     @Override
     public final void takeEffect(final Simulation simulation) {
@@ -31,6 +25,5 @@ public abstract class AnimalEvent extends Event {
          }
          animalAction(simulation, animal);
      }
-     public abstract void animalAction(Simulation simulation, Animal animal);
-
+     abstract void animalAction(Simulation simulation, Animal animal);
 }

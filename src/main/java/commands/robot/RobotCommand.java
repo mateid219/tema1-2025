@@ -1,7 +1,6 @@
 package commands.robot;
 
 import commands.Command;
-import commands.CommandConstants;
 import fileio.CommandInput;
 import lombok.NoArgsConstructor;
 import simulation.Simulation;
@@ -29,12 +28,12 @@ public abstract class RobotCommand extends Command {
      */
     public final void execute(final Simulation simulation) {
         if (!simulation.isStarted()) {
-            message = CommandConstants.ERROR_NOT_STARTED;
+            message = ERROR_NOT_STARTED;
             return;
         }
         TerraBot terraBot = simulation.getTerraBot();
         if (terraBot.isCharging()) {
-            message = CommandConstants.ERROR_CHARGING;
+            message = ERROR_CHARGING;
             return;
         }
         doExecute(simulation);

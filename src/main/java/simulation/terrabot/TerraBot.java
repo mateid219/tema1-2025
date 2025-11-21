@@ -2,7 +2,11 @@ package simulation.terrabot;
 
 import com.fasterxml.jackson.databind.node.ArrayNode;
 import com.fasterxml.jackson.databind.node.ObjectNode;
-import exceptions.*;
+import exceptions.BatteryException;
+import exceptions.FactNotSavedException;
+import exceptions.ObjectNotFoundException;
+import exceptions.SubjectNotSavedException;
+import exceptions.UnknownImprovementException;
 import lombok.Getter;
 import simulation.environmentMap.Cell;
 import simulation.environmentMap.EnvironmentMap;
@@ -17,17 +21,16 @@ public final class TerraBot {
     @Getter
     private Cell cell;
     private final Battery battery;
-    private final Scanner scanner;
     private final Inventory inventory;
     private final Database database;
-    private final RobotCellPreference cellPreference;
+
+    private static final Scanner SCANNER = Scanner.INSTANCE;
+    private static final RobotCellComparator CELL_PREFERENCE = RobotCellComparator.INSTANCE;
 
     public TerraBot(final int energyPoints, final Cell cell) {
-        scanner = new Scanner();
         inventory = new Inventory();
         database = new Database();
         battery = new Battery(energyPoints);
-        cellPreference = new RobotCellPreference();
         this.cell = cell;
     }
 
@@ -62,8 +65,8 @@ public final class TerraBot {
      */
     public void move(final EnvironmentMap map)
             throws BatteryException {
-        Cell nextCell = map.nextCell(cell, cellPreference);
-        int nextCellQuality = cellPreference.getCellQuality(nextCell);
+        Cell nextCell = map.nextCell(cell, CELL_PREFERENCE);
+        int nextCellQuality = CELL_PREFERENCE.getCellQuality(nextCell);
         battery.processUseRequest(nextCellQuality);
         cell = nextCell;
         battery.drain(nextCellQuality);
@@ -78,7 +81,7 @@ public final class TerraBot {
     public ScanResult scan(final ScanParams scanParams)
             throws BatteryException, ObjectNotFoundException {
         battery.processUseRequest(EnergyCosts.SCAN);
-        ScanResult scanResult = scanner.scan(scanParams, cell);
+        ScanResult scanResult = SCANNER.scan(scanParams, cell);
         battery.drain(EnergyCosts.SCAN);
         inventory.add(scanResult.getName(), scanResult.getEntity());
         return scanResult;
@@ -94,8 +97,8 @@ public final class TerraBot {
         battery.processUseRequest(EnergyCosts.LEARN);
         String components = fact.getComponents();
         inventory.validateRequest(components);
-        battery.drain(EnergyCosts.LEARN);
         database.add(fact);
+        battery.drain(EnergyCosts.LEARN);
     }
 
     /**
@@ -122,14 +125,14 @@ public final class TerraBot {
     }
 
     /**
-     * Passes execution to {@link #cell}
+     * Delegates execution of command to {@link #cell}
      */
     public ObjectNode printEnvConditions() {
         return cell.buildEnvConditions();
     }
 
     /**
-     * Passes execution to {@link #database}
+     * Delegates execution of command to {@link #database}
      */
     public ArrayNode printKnowledgeBase() {
         return database.print();

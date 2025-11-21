@@ -4,6 +4,7 @@ import com.fasterxml.jackson.databind.node.ObjectNode;
 import fileio.AirInput;
 import lombok.Getter;
 import lombok.Setter;
+import simulation.events.weather.WeatherChangeVisitor;
 
 public final class Desert extends Air {
     private double dustParticles;
@@ -22,6 +23,12 @@ public final class Desert extends Air {
         maxScore = MAX_SCORE;
         dustParticles = airInput.getDustParticles();
     }
+
+    @Override
+    public boolean accept(final WeatherChangeVisitor weatherChangeVisitor) {
+        return weatherChangeVisitor.visitDesertAir(this);
+    }
+
     @Override
     public double calculateScore() {
         double oxygenScore = oxygenLevel * OXYGEN_COFF;

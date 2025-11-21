@@ -3,16 +3,17 @@ package entities.Plants;
 import fileio.PlantInput;
 
 public final class FloweringPlant extends Plant {
-
+    private static final double STUCK_PROBABILITY = 90.0;
+    private static final double BASE_OXYGEN_LEVEL = 6.0;
     public FloweringPlant(final PlantInput plantInput) {
         super(plantInput);
     }
     @Override
     public double getBaseOxygenLevel() {
-        return PlantConstants.ANGIOSPERMS_BASE_OXYGEN_LEVEL;
+        return BASE_OXYGEN_LEVEL;
     }
     @Override
     public double getStuckProbability() {
-        return PlantConstants.ANGIOSPERMS_STUCK_PROBABILITY;
+        return STUCK_PROBABILITY;
     }
 }
