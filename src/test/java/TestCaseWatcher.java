@@ -43,7 +43,6 @@ public class TestCaseWatcher implements TestWatcher {
         String[] data = Arrays.stream(testCaseSplit)
                 .map(String::strip)
                 .toArray(String[]::new);
-
         return new TestCaseData(data[0], data[1], data[2], data[3], Integer.parseInt(data[4]));
     }
 }
