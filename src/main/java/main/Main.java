@@ -36,15 +36,15 @@ public final class Main {
 
         InputLoader inputLoader = new InputLoader(inputPath);
         ArrayNode output = MAPPER.createArrayNode();
-        ArrayList<SimulationInput> simulationInputArrayList = inputLoader.getSimulations();
+
         ArrayList<Simulation> simulationArrayList = new ArrayList<>();
-        for (SimulationInput simulationInput : simulationInputArrayList) {
+        for (SimulationInput simulationInput : inputLoader.getSimulations()) {
             simulationArrayList.add(new Simulation(simulationInput));
         }
         simulationArrayList.add(new Simulation());
-        ArrayList<CommandInput> commandInputArrayList = inputLoader.getCommands();
+
         ArrayList<Command> commandArrayList = new ArrayList<>();
-        for (CommandInput commandInput : commandInputArrayList) {
+        for (CommandInput commandInput : inputLoader.getCommands()) {
             commandArrayList.add(CommandFactory.createCommand(commandInput));
         }
         Simulation simulation = simulationArrayList.getFirst();

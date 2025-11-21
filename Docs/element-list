@@ -8,9 +8,9 @@ entities
 entities.air
 entities.animals
 entities.animals.strategies
-entities.Plants
-entities.Soil
-entities.Water
+entities.plants
+entities.soil
+entities.water
 exceptions
 fileio
 main
@@ -21,6 +21,6 @@ simulation.events.animal
 simulation.events.robot
 simulation.events.water
 simulation.events.weather
-simulation.terrabot
-simulation.terrabot.improvements
-simulation.terrabot.scanner
+simulation.terraBot
+simulation.terraBot.improvements
+simulation.terraBot.scanner

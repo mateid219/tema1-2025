@@ -6,7 +6,7 @@
 <meta name="viewport" content="width=device-width, initial-scale=1">
 <meta http-equiv="Content-Type" content="text/html; charset=utf-8">
 <meta name="dc.created" content="2025-11-21">
-<meta name="description" content="declaration: package: entities.Plants, class: Plant">
+<meta name="description" content="declaration: package: entities.plants, class: Plant">
 <meta name="generator" content="javadoc/ClassWriter">
 <link rel="stylesheet" type="text/css" href="../../resource-files/jquery-ui.min.css">
 <link rel="stylesheet" type="text/css" href="../../resource-files/stylesheet.css">
@@ -40,7 +40,7 @@ loadScripts(document, 'script');</script>
 <div class="sub-nav">
 <div class="nav-content">
 <ol class="sub-nav-list">
-<li><a href="package-summary.html">entities.Plants</a></li>
+<li><a href="package-summary.html">entities.plants</a></li>
 <li><a href="Plant.html" class="current-selection">Plant</a></li>
 </ol>
 <div class="nav-list-search"><input type="text" id="search-input" disabled placeholder="Search documentation (type /)" aria-label="Search in documentation" autocomplete="off" spellcheck="false"><input type="reset" id="reset-search" disabled value="Reset"></div>
@@ -83,7 +83,7 @@ loadScripts(document, 'script');</script>
 </div>
 <div class="inheritance" title="Inheritance Tree"><a href="https://docs.oracle.com/en/java/javase/25/docs/api/java.base/java/lang/Object.html" title="class or interface in java.lang" class="external-link">java.lang.Object</a>
 <div class="inheritance"><a href="../Entity.html" title="class in entities">entities.Entity</a>
-<div class="inheritance">entities.Plants.Plant</div>
+<div class="inheritance">entities.plants.Plant</div>
 </div>
 </div>
 <section class="class-description" id="class-description">
@@ -93,7 +93,7 @@ loadScripts(document, 'script');</script>
 </dl>
 <dl class="notes">
 <dt>Direct Known Subclasses:</dt>
-<dd><code><a href="Algae.html" title="class in entities.Plants">Algae</a>, <a href="Fern.html" title="class in entities.Plants">Fern</a>, <a href="FloweringPlant.html" title="class in entities.Plants">FloweringPlant</a>, <a href="GymnospermsPlant.html" title="class in entities.Plants">GymnospermsPlant</a>, <a href="Moss.html" title="class in entities.Plants">Moss</a></code></dd>
+<dd><code><a href="Algae.html" title="class in entities.plants">Algae</a>, <a href="Fern.html" title="class in entities.plants">Fern</a>, <a href="FloweringPlant.html" title="class in entities.plants">FloweringPlant</a>, <a href="GymnospermsPlant.html" title="class in entities.plants">GymnospermsPlant</a>, <a href="Moss.html" title="class in entities.plants">Moss</a></code></dd>
 </dl>
 <hr>
 <div class="horizontal-scroll">
@@ -137,8 +137,8 @@ implements <a href="../Food.html" title="interface in entities">Food</a>, <a hre
 <div class="table-header col-first">Modifier and Type</div>
 <div class="table-header col-second">Method</div>
 <div class="table-header col-last">Description</div>
-<div class="col-first even-row-color method-summary-table method-summary-table-tab2 method-summary-table-tab4"><code>final <a href="../../simulation/terrabot/scanner/ScanResult.html" title="class in simulation.terrabot.scanner">ScanResult</a></code></div>
-<div class="col-second even-row-color method-summary-table method-summary-table-tab2 method-summary-table-tab4"><code><a href="#accept(simulation.terrabot.scanner.ScanParamsVisitor,int,simulation.environmentMap.Cell)" class="member-name-link">accept</a><wbr>(<a href="../../simulation/terrabot/scanner/ScanParamsVisitor.html" title="interface in simulation.terrabot.scanner">ScanParamsVisitor</a>&nbsp;visitor,
+<div class="col-first even-row-color method-summary-table method-summary-table-tab2 method-summary-table-tab4"><code>final <a href="../../simulation/terrabot/scanner/ScanResult.html" title="class in simulation.terraBot.scanner">ScanResult</a></code></div>
+<div class="col-second even-row-color method-summary-table method-summary-table-tab2 method-summary-table-tab4"><code><a href="#accept(simulation.terrabot.scanner.ScanParamsVisitor,int,simulation.environmentMap.Cell)" class="member-name-link">accept</a><wbr>(<a href="../../simulation/terrabot/scanner/ScanParamsVisitor.html" title="interface in simulation.terraBot.scanner">ScanParamsVisitor</a>&nbsp;visitor,
  int&nbsp;timestamp,
  <a href="../../simulation/environmentMap/Cell.html" title="class in simulation.environmentMap">Cell</a>&nbsp;cell)</code></div>
 <div class="col-last even-row-color method-summary-table method-summary-table-tab2 method-summary-table-tab4">
@@ -243,7 +243,7 @@ to cell quality.</div>
 <section class="detail" id="accept(simulation.terrabot.scanner.ScanParamsVisitor,int,simulation.environmentMap.Cell)">
 <h3>accept</h3>
 <div class="horizontal-scroll">
-<div class="member-signature"><span class="modifiers">public final</span>&nbsp;<span class="return-type"><a href="../../simulation/terrabot/scanner/ScanResult.html" title="class in simulation.terrabot.scanner">ScanResult</a></span>&nbsp;<span class="element-name">accept</span><wbr><span class="parameters">(<a href="../../simulation/terrabot/scanner/ScanParamsVisitor.html" title="interface in simulation.terrabot.scanner">ScanParamsVisitor</a>&nbsp;visitor,
+<div class="member-signature"><span class="modifiers">public final</span>&nbsp;<span class="return-type"><a href="../../simulation/terrabot/scanner/ScanResult.html" title="class in simulation.terraBot.scanner">ScanResult</a></span>&nbsp;<span class="element-name">accept</span><wbr><span class="parameters">(<a href="../../simulation/terrabot/scanner/ScanParamsVisitor.html" title="interface in simulation.terraBot.scanner">ScanParamsVisitor</a>&nbsp;visitor,
  int&nbsp;timestamp,
  <a href="../../simulation/environmentMap/Cell.html" title="class in simulation.environmentMap">Cell</a>&nbsp;cell)</span></div>
 <div class="block"><span class="description-from-type-label">Description copied from interface:&nbsp;<code><a href="../Scannable.html#accept(simulation.terrabot.scanner.ScanParamsVisitor,int,simulation.environmentMap.Cell)">Scannable</a></code></span></div>
@@ -256,7 +256,7 @@ to cell quality.</div>
 <dd><code>timestamp</code> - the time of the scan</dd>
 <dd><code>cell</code> - the cell on which the <a href="../Scannable.html" title="interface in entities"><code>Scannable</code></a> is.</dd>
 <dt>Returns:</dt>
-<dd>the <a href="../../simulation/terrabot/scanner/ScanResult.html" title="class in simulation.terrabot.scanner"><code>ScanResult</code></a></dd>
+<dd>the <a href="../../simulation/terrabot/scanner/ScanResult.html" title="class in simulation.terraBot.scanner"><code>ScanResult</code></a></dd>
 </dl>
 </div>
 </section>
@@ -293,7 +293,7 @@ to cell quality.</div>
 <div class="horizontal-scroll">
 <div class="member-signature"><span class="modifiers">public final</span>&nbsp;<span class="return-type">void</span>&nbsp;<span class="element-name">grow</span><wbr><span class="parameters">(double&nbsp;growthFactor)</span></div>
 <div class="block">Performs this plant's growth process.
-Sets <code>maturity</code> to next <a href="LifeStages.html" title="enum class in entities.Plants"><code>LifeStages</code></a> element when
+Sets <code>maturity</code> to next <a href="LifeStages.html" title="enum class in entities.plants"><code>LifeStages</code></a> element when
 <code>growthLevel</code> reaches <code>MAX_GROWTH</code>.</div>
 <dl class="notes">
 <dt>Parameters:</dt>
